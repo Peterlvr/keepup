@@ -1,7 +1,7 @@
-Keep Up
+﻿Keep Up
 =======
 
-Projeto de conclusão do curso de Informática para Internet, 1º semestre de 2014, da Etec Aristóteles Ferreira por Felipe Simões, Gabriel Chiconi, José Luiz ??? e Peterson Oliveira.
+Projeto de conclusão do curso de Informática para Internet, 1º semestre de 2014, da Etec Aristóteles Ferreira por Felipe Simões, Gabriel Chiconi, José Luiz Reis e Peterson de Oliveira.
 
 No momento, o projeto ainda não está concluído.
 
