@@ -37,6 +37,10 @@ create table aluno (
   dt_nascimento date not null,
   tx_bio text,
   nm_url_avatar text,
+  nm_fb varchar(50),
+  tx_url_linkedin text,
+  tx_url_externo text,
+  nm_profissao varchar(50),
   cd_cidade int,
   constraint fk_alunocidade
     foreign key (cd_cidade)
@@ -55,6 +59,10 @@ create table escola (
   nm_escola varchar(300) not null,
   nm_cnpj char(14) not null unique,
   tx_url_avatar text,
+  tx_info text,
+  tx_endereco varchar(150),
+  tx_contato text,
+  tx_url_externo text,
   cd_cidade int,
   constraint fk_escolacidade
     foreign key (cd_cidade)
@@ -75,19 +83,17 @@ create table matricula (
     foreign key (cd_escola)
       references escola (cd_escola)
 );
-create table info_escola (
-  cd_info int not null auto_increment,
-  cd_escola int not null,
-  constraint pk_info_escola
+create table corpo_docente (
+  cd_corpo_docente int not null auto_increment,
+  constraint pk_corpo_docente
     primary key (
-      cd_info,
-      cd_escola
+      cd_corpo_docente
     ),
-  constraint fk_info_escola
+  cd_escola int not null,
+  constraint fk_corpodocente_escola
     foreign key (cd_escola)
       references escola (cd_escola),
-  nm_titulo varchar(200) not null,
-  tx_info text not null
+  nm_corpo_docente varchar(150)
 );
 create table area (
   cd_area int not null auto_increment,
@@ -266,3 +272,20 @@ insert into curso values
   (null, "Enfermagem", 1, 3),
   (null, "Veterinária", 2, 3),
   (null, "Medicina", 2, 3);
+
+# Usuários para teste
+  # escola : escola22
+  # aluno : aluno22
+
+insert into usuario values
+  (1, 'escola', '$2a$10$PpJkjRq5Q0JPD1jlD/TRauaHv5uU/U4a5FY5o4wAyGri1zBGwSOeq', 'escola@exemplo.com', 'E', '2014-05-16', '2014-05-16 18:59:48'),
+  (2, 'aluno', '$2a$10$gAc9Ps06v3Mo.yIFUDUkOerQisyqKybysOs93gy7af0vawqS90vA2', 'aluno@exemplo.com', 'A', '2014-05-16', '2014-05-16 19:01:31');
+
+insert into aluno values
+  (1, 2, 'Aluno (teste)', '1990-01-01', '', '', '', '', '', '', 2);
+
+insert into escola values
+  (1, 1, 'Escola (teste)', '12345678901234', '', '', '', '', '', 1);
+
+insert into cursando values
+  (1, 1, 1)
