@@ -3,20 +3,15 @@
 
 Projeto de conclusão do curso de Informática para Internet, 1º semestre de 2014, da Etec Aristóteles Ferreira por Felipe Simões, Gabriel Chiconi, José Luiz Reis e Peterson de Oliveira.
 
-No momento, o projeto ainda não está concluído.
+***Keep Up*** é uma rede de compartilhamento de trabalhos acadêmicos on-line que permite que os usuários publiquem trabalhos de sua autoria ou publicados para sua instituição, recebam comentários e avaliações e permitam o fácil acesso de seus próprios artigos acadêmicos on-line. Pessoas podem usar o sistema para pesquisa, estudo ou para fins de divulgação do próprio trabalho.
 
-***Keep Up*** é uma rede de compartilhamento de trabalhos acadêmicos on-line que permite que os usuários publiquem trabalhos de sua autoria ou sob o mérito da sua instituição, recebam comentários e avaliações e permitam o fácil acesso de seus próprios artigos acadêmicos por meio da internet. Pessoas podem usar o sistema para pesquisa, estudo ou para fins de divulgação do próprio trabalho.
+## Características
 
-Nota
-====
+O Keep Up possibilita que os usuários:
 
-Arquivos que não são necessários no servidor (scripts SQL, shell scripts, arquivos em lote, outro software de rotina, documentação) estarão na pasta `misc/`.
-
-to-do
-=====
-
-* Polir script de publicação do trabalho;
-* Criar visualização do trabalho em `ver.php`;
-* Criar script de busca por nome em `php/busca.php`;
-* Criar modo de busca avançada em `explore.php`;
-    * Processar buscas avançadas em `php/explore.php`;
+* Criem um perfil para pesquisa (Aluno) ou para uma instituição (Escola);
+* Publiquem trabalhos acadêmicos gratuitamente;
+* Encontrem outros trabalhos acadêmicos por meio de busca avançada;
+* Tenham uma lista de Favoritos onde se pode manter todos os trabalhos relevantes de outras pessoas;
+* Mantenham um perfil minimalista que resuma seus objetivos acadêmicos e profissionais, além dos trabalhos publicados no Keep Up;
+* Encontrem informações sobre escolas que também participam do Keep Up.
