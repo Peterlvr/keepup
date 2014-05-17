@@ -1,0 +1,29 @@
+Index
+|
+|---Guias
+|
+|---Explore
+|   |
+|   |---Perfil (aluno ou escola)
+|   |   |                     |
+|   |   |---Denunciar perfil  |
+|   |                         |
+|   |---Trabalhos ------------'
+|   |   |
+|   |   |---Mídias
+|   |   |
+|   |   |---[Editar trabalho]
+|
+|---Sobre o projeto (desenvolvedores)
+|
+|---Cadastro / Sair
+|   |
+|   |---Termos e condições de uso
+|   |
+|   |---Política de privacidade
+|
+|---Recuperação de senha
+|
+|---[Publicar trabalho]
+|
+|---[Favoritos]
