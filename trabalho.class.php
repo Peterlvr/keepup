@@ -18,7 +18,7 @@ class Trabalho {
 	}
 	private $cdTrabalho;
 	private function salvar($arquivo) {
-		$filename = __DIR__ . $this->foldername . "/main.pdf";
+		$filename = $this->foldername . "/main.pdf";
 		if(move_uploaded_file($arquivo["tmp_name"], $filename)) {
 			return true;
 		}
@@ -40,8 +40,8 @@ class Trabalho {
 			{$this->aaPublicacao})";
 		
 		$this->con->executar($sql);
-		$this->foldername = ("/public_html/docs/$novoid");
-		mkdir(__DIR__ . $this->foldername, 0755, true);
+		$this->foldername = __DIR__ . "/public_html/docs/$novoid";
+		mkdir($this->foldername, 0755, true);
 		if(!$this->salvar($arquivo)) {
 			return false;
 		}
