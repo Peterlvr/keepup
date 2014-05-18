@@ -5,9 +5,6 @@ class Aluno {
 	private $login;
 	private $nmAluno;
 	private $cdCidade;
-	public function getDataNascimento() {
-		return $this->dtNascimento;
-	}
 	public function __construct($nome, $dtNascimento, $login, $cdCidade) {
 		$this->nmAluno = $nome;
 		$this->login = $login;
