@@ -25,8 +25,8 @@ if($arquivoPrincipal["type"] != "application/x-pdf" && $arquivoPrincipal["type"]
 
 require "../../conexao.class.php";
 require "../../trabalho.class.php";
-$cdUsuario = $sessao["cd_usuario"];
-$trabalho = new Trabalho($nmTitulo, $dsResumo, $cdEscola, $cdCurso, $cdUsuario, $aaPublicacaoReal);
+
+$trabalho = new Trabalho($nmTitulo, $dsResumo, $cdEscola, $cdCurso, $aaPublicacaoReal);
 
 if($trabalho->cadastrar($arquivoPrincipal)) {
 	header("location:../publicar.php?status=sucesso");
