@@ -288,4 +288,4 @@ insert into escola values
   (1, 1, 'Escola (teste)', '12345678901234', '', '', '', '', '', 1);
 
 insert into cursando values
-  (1, 1, 1)
+  (1, 1, 1);
