@@ -63,14 +63,25 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
 		<section id="principal">
 			<?php if(!$logado) { ?>
 				<section id="slides">
-					<h1>Keep Up</h1>
 					<div id="slide1">
+						<p>adoro</p>
 					</div>
 					<div id="slide2">
+						<p>meu</p>
 					</div>
 					<div id="slide3">
+						<p>super</p>
+					</div>
+					<div id="slide4">
+						<p>tcc</p>
 					</div>
 				</section>
+				<script src="js/slides.js"></script>
+				<script>
+					$().ready(function() {
+						$.slides("slide", 4);
+					});
+				</script>
 			<?php } ?>
 			<section id="trabalhos_recentes">
 				<h1>Trabalhos recentes</h1>

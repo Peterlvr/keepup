@@ -1,7 +1,7 @@
 
 <?php if(!$logado) { ?>
 	<script src="js/loginBox.js"></script>
-	<div id="login_box">
+	<div id="login_box" style="display: none">
 		<section id="login">
 			<aside>
 				<p>

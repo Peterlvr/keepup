@@ -14,5 +14,4 @@ $(document).ready(function loginBox() {
 		}
 	}
 	$(".login_link").on("click", loginBoxPop);
-	loginBoxPop();
 });
