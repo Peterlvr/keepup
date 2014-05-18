@@ -12,7 +12,10 @@ if($logado) {
 			trabalho t, autoria a
 		WHERE
 			t.cd_trabalho = a.cd_trabalho and 
-			a.cd_aluno = $codigoPerfil";
+			a.cd_aluno = $codigoPerfil
+		ORDER BY
+			t.dt_publicado DESC
+		LIMIT 3";
 	$trabalhosUsuario = $conexao->consultar($consulta);
 
 	$sessao["trabalhosUsuario"] = $trabalhosUsuario;
@@ -26,7 +29,8 @@ if($logado) {
 			t.cd_trabalho = at.cd_trabalho and
 			at.cd_aluno = a.cd_aluno
 		ORDER BY 
-			at.dt_favoritado DESC";
+			at.dt_favoritado DESC
+		LIMIT 3";
 	$favoritos = $conexao->consultar($cFavoritos);
 
 	$sessao["favoritos"] = $favoritos;
@@ -34,7 +38,6 @@ if($logado) {
 else {
 	
 }
-$umaSemanaAtras = date("Y-m-d H:i:s", strtotime("-1 week"));
 $consulta =
 	"SELECT 
 		t.nm_titulo,
@@ -44,10 +47,10 @@ $consulta =
 	FROM
 		trabalho t, curso c
 	WHERE
-		t.cd_curso = c.cd_curso and
-		t.dt_publicado > '$umaSemanaAtras'
+		t.cd_curso = c.cd_curso
 	ORDER BY
-		t.dt_publicado DESC";
+		t.dt_publicado DESC
+	LIMIT 3";
 
 $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
 ?>
