@@ -2,35 +2,42 @@
 require("../sessao.php");
 require("../conexao.class.php");
 $conexao = new Conexao();
-	//passar para Session
 
-	//através do GET, tira da url o nm-login
 	$cd_usuario = $_GET['u'];
-
+	//seleciona dados da tabela escola pelo codigo de usuario
 	$comando = "SELECT * FROM escola WHERE cd_usuario = $cd_usuario";
-
+	//dados estao no array escola
 	$escola = $conexao->consultar($comando);
 	
-	echo $escola[0]["nm_escola"];
-	echo $escola[0]["cd_cidade"];
-	echo $escola[0]["cd_escola"];
+	//busca o nome da cidade pelo codigo da cidade	
+	$comando = "SELECT nm_cidade FROM cidade WHERE cd_cidade = {$escola[0]["cd_cidade"]}";
+	$cidade = $conexao->consultar($comando);
 
-	/* aqui vao os cursos oferecidos na instituição
-	
-	$cd_aluno = $alunos[0]["cd_aluno"];
-	$curso = "SELECT nm_curso FROM curso WHERE cd_curso = (SELECT cd_curso FROM cursando WHERE cd_aluno = $cd_aluno)";
-
-	$cursoaluno = $conexao->consultar($curso);
-
-	echo $cursoaluno[0]["nm_curso"];
-
-/*		
-	//lista de variáveis do trabalho
-
-	$nm_titulo = ;
-	$ds_resumo = ;
-	$avaliacao = ;
-	$nm_curso = ;
-	$nm_escola = ;
-	$dt_publicacao = ;*/
 ?>
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Pagina de Escola</title>
+   </head>
+    <body>
+    	<h1>Pagina de Instituicao</h1>
+    	<p>Nome da Instituicao: <?php echo $escola[0]['nm_escola']; ?></p>
+		<p>Sobre a instituicao: <?php if($escola[0]['tx_info'] == '') { echo "Aqui vao informacoes sobre a instituicao";} else { echo $escola[0]['tx_info'];}?></p>
+    	<p>Localizacao da instituicao: <?php if($escola[0]['tx_endereco'] == ''){ echo "Aqui vai o endereco";} else { echo $escola[0]['tx_endereco'];}?> </p>
+    	<p>Contato : 
+    		<?php if($escola[0]['tx_contato'] == ''){ 
+    			echo "Aqui vai o telefone, e-mail e site da instituicao";} 
+    				else { echo $escola[0]['tx_contato'] ;}
+    			if ($escola[0]["tx_url_externo"] != '') {
+    				echo '</p><p><a href="http://'.$escola[0]["tx_url_externo"].'">Nossa pagina web</a>';
+    			}
+    	?></p>
+    	
+    	<p>Cursos oferecidos:</p>
+    	<p>Corpo docente:</p>
+    	<p>Monografias recentes:</p>
+    	
+    </body>
+
+
