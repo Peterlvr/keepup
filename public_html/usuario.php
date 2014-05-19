@@ -10,11 +10,6 @@ $conexao = new Conexao();
 	$usuario = "SELECT * FROM usuario WHERE nm_login = '$nm_login'";
 	$pageuser = $conexao->consultar($usuario);
 
-	//existindo resultado da busca são exibidos na tela 
-	echo $pageuser[0]["nm_tipo"];
-	echo $pageuser[0]["cd_usuario"];
-	
-
 	if($pageuser[0]['nm_tipo'] == 'A')
 	{
 		header('location:aluno.php?u='.$pageuser[0]['cd_usuario'].'');
