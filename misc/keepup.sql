@@ -243,6 +243,16 @@ create table votocomentario (
       references comentario (cd_comentario),
   vl_voto tinyint not null
 );
+create table voto (
+  cd_trabalho int,
+  cd_aluno int,
+  constraint pk_voto
+    primary key (
+      cd_trabalho,
+      cd_aluno
+    ),
+  vl_voto tinyint(5)
+);
 create table site_admin (
   cd_admin int not null auto_increment,
   constraint pk_admin
