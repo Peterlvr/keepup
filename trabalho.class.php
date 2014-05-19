@@ -6,14 +6,16 @@ class Trabalho {
 	private $cdCurso;
 	private $dtPublicado;
 	private $aaPublicacao;
+	private $autores;
 	private $con; # Uma conexão para a instância toda
-	public function __construct($titulo, $resumo, $cdEscola, $cdCurso, $aaPublicacao) {
+	public function __construct($titulo, $resumo, $cdEscola, $cdCurso, $aaPublicacao, $autores) {
 		$this->nmTitulo = $titulo;
 		$this->dsResumo = $resumo;
 		$this->cdEscola = $cdEscola;
 		$this->cdCurso = $cdCurso;
 		$this->dtPublicado = date("Y-m-d H:i:s");
 		$this->aaPublicacao = $aaPublicacao;
+		$this->autores = $autores;
 		$this->con = new Conexao();
 	}
 	private $cdTrabalho;
@@ -45,13 +47,12 @@ class Trabalho {
 		if(!$this->salvar($arquivo)) {
 			return false;
 		}
-		#echo $this->autores;
+
 		# para cada autor, uma linha na tabela autoria
-		/*foreach($this->autores as $autor) {
+		foreach($this->autores as $autor) {
 			$sql = "INSERT into autoria values ($autor, $novoid)";
-			echo $sql;
 			$this->con->executar($sql) or die();
-		}*/
+		}
 		return true;
 	}
 }

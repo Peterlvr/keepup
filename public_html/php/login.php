@@ -12,7 +12,7 @@ require_once("../../compararSenhas.php");
 
 # Recuperar dados do formulário ou desistir
 $nmLogin = $_POST["nmLogin"] or volta(1);
-$nmSenha = $_POST["nmSenha"] or volta(1);
+$nmSenha = $_POST["nmSenha"] or volta(2);
 
 $dbConsulta = new Conexao();
 $consulta = $dbConsulta->consultar(
@@ -37,22 +37,23 @@ if(compararSenhas($nmSenha, $dbSenha)) {
 	);
 
 	if($_SESSION["tipoConta"] == "A") {
-		$cdAluno = $dbConsulta->consultar(
-			"SELECT cd_aluno
+		$aluno = $dbConsulta->consultar(
+			"SELECT cd_aluno, nm_url_avatar
 			FROM aluno
-			WHERE cd_usuario = ". $_SESSION["cd_usuario"]
+			WHERE cd_usuario = {$_SESSION["cd_usuario"]}"
 		);
-		$_SESSION["cd_aluno"] = $cdAluno[0];
+		$_SESSION["cd_aluno"] = $aluno[0]["cd_aluno"];
+		$_SESSION["url_avatar"] = $aluno[0]["nm_url_avatar"];
 	}
 	else if($_SESSION["tipoConta"] == "E") {
-		$cdAluno = $dbConsulta->consultar(
-			"SELECT cd_escola
+		$escola = $dbConsulta->consultar(
+			"SELECT cd_escola, tx_url_avatar
 			FROM escola
 			WHERE cd_usuario = ". $_SESSION["cd_usuario"]
 		);
-		$_SESSION["cd_escola"] = $cdAluno[0];
+		$_SESSION["cd_escola"] = $escola[0]["cd_escola"];
+		$_SESSION["url_avatar"] = $escola[0]["tx_url_avatar"];
 	}
-
 
 	header("location:posLogin.php");
 }

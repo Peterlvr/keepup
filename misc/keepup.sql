@@ -265,22 +265,22 @@ create table site_admin (
 
 insert into cidade values
   (null, "Santos", "SP"),
-  (null, "São Vicente", "SP");
+  (null, "S&atilde;o Vicente", "SP");
 
 insert into area values
   (1, "Exatas"),
   (2, "Humanas"),
-  (3, "Biológicas");
+  (3, "Biol&oacute;gicas");
 
 insert into curso values
-  (null, "Informática", 1, 1),
-  (null, "Ciência da Computação", 2, 1),
-  (null, "Sistemas de Informação", 2, 1),
+  (null, "Inform&aacute;tica", 1, 1),
+  (null, "Ci&ecirc;ncia da Computa&ccedil;&atilde;o", 2, 1),
+  (null, "Sistemas de Informa&ccedil;&atilde;o", 2, 1),
   (null, "Jornalismo", 2, 2),
-  (null, "Música", 2, 2),
+  (null, "M&uacute;sica", 2, 2),
   (null, "Letras", 2, 2),
   (null, "Enfermagem", 1, 3),
-  (null, "Veterinária", 2, 3),
+  (null, "Veterin&aacute;ria", 2, 3),
   (null, "Medicina", 2, 3);
 
 # Usuários para teste
