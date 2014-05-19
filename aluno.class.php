@@ -32,7 +32,7 @@ class Aluno {
 		$sql = "INSERT into aluno values(NULL,'"
 			. $this->getIdUsuario() . "','"
 			. $this->nmAluno . "','"
-			. $this->dtNascimento . "',NULL,NULL,"
+			. $this->dtNascimento . "',NULL,NULL,NULL,NULL,NULL,NULL,"
 			. $this->cdCidade . ")";
 		$this->sql = $sql;
 	}

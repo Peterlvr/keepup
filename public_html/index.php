@@ -7,7 +7,9 @@ if($logado) {
 	$codigoPerfil = $_SESSION["cd_aluno"] || $_SESSION["cd_escola"];
 	$consulta =
 		"SELECT
-			t.nm_titulo 'titulo'
+			t.nm_titulo,
+			t.ds_resumo,
+			t.cd_trabalho 
 		FROM
 			trabalho t, autoria a
 		WHERE
@@ -112,10 +114,11 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
 			<?php if($logado) { ?>
 				<section id="meus_trabalhos">
 					<h1>Meus trabalhos</h1>
-					<?php if(isset($sessao["trabalhosUsuario"]) && $sessao["trabalhosUsuario"] > 0) { ?>
+					<?php if(isset($sessao["trabalhosUsuario"]) && sizeof($sessao["trabalhosUsuario"]) > 0) { ?>
 						<ul>
 							<?php foreach($sessao["trabalhosUsuario"] as $trabalho) { ?>
 								<li>
+									<h1><?php echo $trabalho["nm_titulo"]; ?></h1>
 									<div class="imagemTrabalho">
 										<img src="<?php echo $trabalho["url_imagem"]; ?>" alt="">
 										<p>
@@ -136,7 +139,7 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
 				</section>
 				<section id="favoritos_recentes">
 					<h1>Favoritos recentes</h1>
-					<?php if(isset($sessao["favoritos"]) && $sessao["favoritos"] > 0) { ?>
+					<?php if(isset($sessao["favoritos"]) && sizeof($sessao["favoritos"]) > 0) { ?>
 						<ul>
 							<?php foreach($sessao["favoritos"] as $trabalho) { ?>
 								<li>

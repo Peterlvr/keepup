@@ -28,7 +28,7 @@ class Escola {
 		$sql = "INSERT into escola values(NULL,'"
 			. $this->getIdUsuario() . "','"
 			. $this->nmEscola . "', '"
-			. $this->CNPJ . "',NULL,"
+			. $this->CNPJ . "',NULL,NULL,NULL,NULL,NULL,"
 			. $this->cdCidade . ")";
 		$this->sql = $sql;
 	}
