@@ -5,9 +5,11 @@ $conexao = new Conexao();
 	
 
 	//através do GET, tira da url o nm-login
-	$cd_usuario = $_GET['u'];
+	$nm_login = $_GET['u'];
+	$usuario = "SELECT cd_usuario FROM usuario WHERE nm_login = '$nm_login'";
+	$pageuser = $conexao->consultar($usuario);
 	//seleciona dados da tabela aluno pelo codigo de usuario
-	$comando = "SELECT * FROM aluno WHERE cd_usuario = $cd_usuario";
+	$comando = "SELECT * FROM aluno WHERE cd_usuario = {$pageuser[0]['cd_usuario']}";
 	$aluno = $conexao->consultar($comando);
 	//cria variavel contendo o codigo do aluno
 	$cd_aluno = $aluno[0]["cd_aluno"];
@@ -57,13 +59,25 @@ $conexao = new Conexao();
         <title>Pagina do Aluno</title>
    </head>
     <body>
-
+    	<?php include("header.php"); ?>
     	<h1> Pagina do Aluno </h1>
+
+   	<p>AQUI VAI A FOTO DO CABOCLO</p>
     <p> Profissão/Curso: <?php if(isset($profissao)) { echo $profissao;} ?></p>
     <p> Aluno:<?php echo  $aluno[0]["nm_aluno"]; ?> </p>
     <!--<p> Escola: </p>-->
     <p> Sobre mim: <?php echo  $aluno[0]["tx_bio"];?></p>
+
+    <p>Contato: <br/> 
+    	Facebook: <?php if($aluno[0]['nm_fb'] != "") {echo "".$aluno[0]['nm_fb']."<br/>";} 
+    	else { echo "Preencha esse campo.<br/>";} ?>  
+    	Linkedin: <?php if($aluno[0]['tx_url_linkedin'] != "") {echo "".$aluno[0]['tx_url_linkedin']."<br/>";} 
+    	else { echo "Preencha esse campo.<br/>";} ?> </p>
+    <p>Monografias relacionadas</p>
+
     <h1> Monografia em destaque: </h1>
     <p> Titulo : <?php if(isset($trabalhoTop)) {echo $trabalhoTop[0]['nm_titulo'];} ?></p>
 
-</body>
+		<?php include 'footer.php'; ?>
+	</body>
+</html>

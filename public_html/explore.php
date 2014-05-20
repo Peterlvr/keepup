@@ -57,3 +57,4 @@ if(isset($_GET['pesquisa']) and $_GET['pesquisa'] <> '')
 
 ?>
 </body>
+</html>

@@ -18,27 +18,22 @@ if($logado) {
 		ORDER BY
 			t.dt_publicado DESC
 		LIMIT 3";
-	$trabalhosUsuario = $conexao->consultar($consulta);
+	$sessao["trabalhosUsuario"] = $conexao->consultar($consulta);
 
-	$sessao["trabalhosUsuario"] = $trabalhosUsuario;
-
-	$cFavoritos =
+	$favsql = 
 		"SELECT
-			t.nm_titulo 'titulo'
-		FROM 
-			trabalho t, favorito at, aluno a 
-		WHERE 
-			t.cd_trabalho = at.cd_trabalho and
-			at.cd_aluno = a.cd_aluno
-		ORDER BY 
-			at.dt_favoritado DESC
+			t.nm_titulo 'nm_titulo',
+			t.ds_resumo 'ds_resumo',
+			t.cd_trabalho 'cd_trabalho'
+		FROM
+			trabalho t, favorito f
+		WHERE
+			t.cd_trabalho = f.cd_trabalho and
+			f.cd_aluno = {$sessao["cd_aluno"]}
+		ORDER BY
+			f.dt_favoritado DESC
 		LIMIT 3";
-	$favoritos = $conexao->consultar($cFavoritos);
-
-	$sessao["favoritos"] = $favoritos;
-}
-else {
-	
+	$sessao["favoritos"] = $conexao->consultar($favsql);
 }
 $consulta =
 	"SELECT 
@@ -143,6 +138,7 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
 						<ul>
 							<?php foreach($sessao["favoritos"] as $trabalho) { ?>
 								<li>
+									<h1><?php echo $trabalho["nm_titulo"]; ?></h1>
 									<div class="imagemTrabalho">
 										<img src="<?php echo $trabalho["url_imagem"]; ?>" alt="">
 										<p>
@@ -163,8 +159,6 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
 				</section>
 			<?php } ?>
 		</section>
-		<footer>
-			... (rodapé) ...
-		</footer>
+		<?php include 'footer.php'; ?>
     </body>
 </html>
