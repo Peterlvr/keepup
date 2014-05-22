@@ -191,13 +191,13 @@ create table autoria (
       references trabalho (cd_trabalho)
 );
 create table autoria_n_registrada (
-  cd_trabalho int not null,
   cd_autoria tinyint not null auto_increment,
+  cd_trabalho int not null,
   nm_autor varchar(50),
   constraint pk_autoria_n_registrada
     primary key (
-      cd_trabalho,
-      cd_autoria
+      cd_autoria,
+      cd_trabalho
     )
 );
 create table favorito (
