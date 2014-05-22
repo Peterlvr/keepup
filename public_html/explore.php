@@ -2,7 +2,9 @@
 //quando o campo pesquisa está preenchido ele executa o GET
 if(isset($_GET['pesquisa']) and $_GET['pesquisa'] <> '')
 {
+	# vamos usar a conexão mais tarde
 	require "../conexao.class.php";
+
 	//a pesquisa é separada por termos(palavras pesquisadas)
 	$termos = explode(' ', $_GET['pesquisa']);
 	//contagem dos termos
@@ -20,8 +22,11 @@ if(isset($_GET['pesquisa']) and $_GET['pesquisa'] <> '')
 		else if($_GET["criterio"] == "aluno") {
 			$oq = "aluno";
 		}
+		else if($_GET["criterio"] == "trabalho") {
+			$oq = "trabalho";
+		}
 		else {
-			$oq = 'aluno';
+			$oq = 'trabalho';
 		}
 	}
 	else {
