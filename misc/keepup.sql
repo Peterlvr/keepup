@@ -83,6 +83,15 @@ create table matricula (
     foreign key (cd_escola)
       references escola (cd_escola)
 );
+create table matricula_escola_n_registrada (
+  cd_matricula tinyint not null auto_increment,
+  cd_aluno int not null,
+  nm_escola varchar(100) not null,
+  primary key (
+    cd_matricula,
+    cd_aluno
+  )
+);
 create table corpo_docente (
   cd_corpo_docente int not null auto_increment,
   constraint pk_corpo_docente
@@ -166,20 +175,6 @@ create table trabalho (
   dt_publicado datetime not null,
   aa_publicacao int(4) not null
 );
-create table arquivo (
-  cd_arquivo int not null auto_increment,
-  cd_trabalho int not null,
-  constraint pk_arquivo
-    primary key (
-      cd_arquivo,
-      cd_trabalho
-    ),
-  constraint fk_arquivotrabalho
-    foreign key (cd_trabalho)
-      references trabalho (cd_trabalho),
-  nm_arquivo varchar(100),
-  nm_url text not null
-);
 create table autoria (
   cd_aluno int not null,
   cd_trabalho int not null,
@@ -194,6 +189,16 @@ create table autoria (
   constraint fk_alunotrabalho_t
     foreign key (cd_trabalho)
       references trabalho (cd_trabalho)
+);
+create table autoria_n_registrada (
+  cd_trabalho int not null,
+  cd_autoria tinyint not null auto_increment,
+  nm_autor varchar(50),
+  constraint pk_autoria_n_registrada
+    primary key (
+      cd_trabalho,
+      cd_autoria
+    )
 );
 create table favorito (
   cd_aluno int not null,
