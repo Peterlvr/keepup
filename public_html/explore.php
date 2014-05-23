@@ -30,35 +30,54 @@ if(isset($_GET['pesquisa']) and $_GET['pesquisa'] <> '')
 		}
 	}
 	else {
-		$oq = "aluno";
+		$oq = "trabalho";
 	}
 
 	//string pesquisa na TABELA quando...
-	$pesquisar = "SELECT * FROM $oq WHERE ";
+	$pesquisar = "SELECT * FROM $oq WHERE (";
 	
 	for($i=0; $i < $num; $i++) {
 		// adiciona a string de pesquisa cada termos desde que ele corresponda a todos os termos pesquisados
-		$pesquisar .= "nm_$oq LIKE '%{$termos[$i]}%'  ";
+		if($oq == "trabalho") {
+			$pesquisar .= "nm_titulo LIKE '%{$termos[$i]}%'  ";
+		}
+		else {
+			$pesquisar .= "nm_$oq LIKE '%{$termos[$i]}%'  ";
+		}
 
 		if($i < $num - 1) {
-			$pesquisar .= " AND "; 
+			$pesquisar .= " OR "; 
 		}
 	}
+
+	$pesquisar .= ")";
 	
-	//conecta ao banco
+	# se a pesquisa for um trabalho, adiciona pesquisa por descrição
+	if($oq == "trabalho") {
+		$pesquisar .= " OR ( ";
+		for($i=0; $i < $num; $i++) {
+			// adiciona a string de pesquisa cada termos desde que ele corresponda a todos os termos pesquisados
+			$pesquisar .= "ds_resumo LIKE '%{$termos[$i]}%'";
+
+			if($i < $num - 1) {
+				$pesquisar .= " OR "; 
+			}
+		}
+
+		$pesquisar .= ")";
+	}
+	
 	$conexao = new Conexao();
 
-	//executa a busca pelas palavras
 	$pesquisando = $conexao->consultar($pesquisar);
-
 }
-
 ?>
 <!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8">
 		<title>Pesquisa </title>
+		<script src="js/jquery.js"></script>
 	</head>
 	<body>
 		<?php include "header.php"; ?>
@@ -80,11 +99,29 @@ if(isset($_GET['pesquisa']) and $_GET['pesquisa'] <> '')
 		</section>
 		<section id="resultados">
 			<?php if(isset($pesquisando[0])) { ?>
-				<?php foreach($pesquisando as $row)	{ ?>	
-					<p>
-						<?php echo $row["nm_$oq"]; ?>
-					</p>
-				<?php } ?>
+				<ul>
+					<?php foreach($pesquisando as $row)	{ ?>	
+						<li>
+							<h1>
+								<?php
+								# trabalho tem valores diferentes, por isso checamos
+								if($oq == "trabalho"){
+									echo $row["nm_titulo"];
+								}
+								else {
+									echo $row["nm_$oq"];
+								}
+								?>
+							</h1>
+							<p>
+								<?php if($oq == 'trabalho') {
+									echo $row["ds_resumo"];
+								}
+								?>
+							</p>
+						</li>
+					<?php } ?>
+				</ul>
 			<?php } else { ?>
 				<p>Sem resultados</p>
 			<?php } ?>

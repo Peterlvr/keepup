@@ -107,8 +107,6 @@ else {
 				<p>
 					<input name="aaPublicacaoReal" size="4" required pattern="[0-9]{4}" title="AAAA" placeholder="AAAA">
 				</p>
-				<!-- reminder: outros autores -->
-				<!-- reminder: adicionar mídias -->
 				<p>
 					<label for="dsResumo">Faça um resumo do seu trabalho acadêmico para fácil visualização <small>(a Introdução do trabalho pode servir)</small>:</label>
 				</p>

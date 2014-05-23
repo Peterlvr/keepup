@@ -9,6 +9,7 @@
 				</p>
 			</aside>
 			<form action="php/login.php" method="POST">
+				<input type="hidden" name="de" value="javascript:location.href">
 				<p>
 					<label for="nmLogin">Nome de usuário:</label>
 					<input name="nmLogin" type="text" placeholder="Nome de usuário" required>
