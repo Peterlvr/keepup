@@ -100,26 +100,40 @@ if(isset($_GET['pesquisa']) and $_GET['pesquisa'] <> '')
 		<section id="resultados">
 			<?php if(isset($pesquisando[0])) { ?>
 				<ul>
-					<?php foreach($pesquisando as $row)	{ ?>	
-						<li>
-							<h1>
-								<?php
-								# trabalho tem valores diferentes, por isso checamos
-								if($oq == "trabalho"){
-									echo $row["nm_titulo"];
-								}
-								else {
-									echo $row["nm_$oq"];
-								}
-								?>
-							</h1>
-							<p>
-								<?php if($oq == 'trabalho') {
-									echo $row["ds_resumo"];
-								}
-								?>
-							</p>
-						</li>
+					<?php if($oq == 'trabalho') { ?>
+						<?php foreach($pesquisando as $row)	{ ?>	
+							<li>
+								<h1>
+									<?php echo $row["nm_titulo"]; ?>
+								</h1>
+								<p>
+									<?php echo $row["ds_resumo"]; ?>
+								</p>
+							</li>
+						<?php } ?>
+					<?php }
+					else if(($oq == "aluno") || ($oq == "escola")) { ?>
+						<?php foreach($pesquisando as $row) { ?>
+							<li>
+								<h1>
+									<?php echo $row["nm_$oq"]; ?>
+								</h1>
+								<p>
+									<?php echo $row["tx_bio"]; ?>
+								</p>
+							</li>
+						<?php } ?>
+					<?php }
+					else if($oq == "curso") { ?>
+						<?php foreach($pesquisando as $row) { ?>
+							<li>
+								<p>
+									<a href="#">
+										<?php echo $row["nm_curso"]; ?>
+									</a>
+								</p>
+							</li>
+						<?php } ?>
 					<?php } ?>
 				</ul>
 			<?php } else { ?>
