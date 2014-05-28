@@ -56,7 +56,7 @@
 			</p>
 			<ul>
 				<li>
-					<a href="#">Editar perfil</a>
+					<a href="editarperfil.php">Editar perfil</a>
 				</li>
 				<li>
 					<a href="php/logout.php">Sair</a>

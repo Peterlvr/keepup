@@ -6,7 +6,7 @@ if($logado) {
 require "../conexao.class.php";
 
 $con = new Conexao();
-$sessao["cidades"] = $con->consultar("SELECT * FROM cidade");
+$sessao["estados"] = $con->consultar("SELECT * FROM estado")
 
 ?>
 <!doctype html>
@@ -14,7 +14,24 @@ $sessao["cidades"] = $con->consultar("SELECT * FROM cidade");
     <head>
         <meta charset="UTF-8">
         <title>Cadastro - Keep Up</title>
-    	<script src="js/jquery.js"></script>
+    	<script type="text/javascript" src="js/prototype.js"></script>
+    	<script type="text/javascript">
+		function CarregaCidades(codEstado)
+		{
+			if(codEstado){
+				var myAjax = new Ajax.Updater('cidadeAjax','php/carrega_cidades.php?codEstado='+codEstado,
+				{
+					method : 'get',
+				}) ;
+			}
+			
+		}
+		</script>
+    	<script type="text/javascript" src="js/jquery.js"></script>
+    	<script type="text/javascript">
+    	jQuery.noConflict();
+    	</script>
+    	
     </head>
     <body>
     	<?php require("header.php"); ?>
@@ -46,17 +63,25 @@ $sessao["cidades"] = $con->consultar("SELECT * FROM cidade");
 					<input placeholder="exemplo@email.com" type="email" name="nmEmail" required>
 				</p>
 				<p>
-					<label>Cidade:</label>
+					<label>Estado:</label>
 				</p>
 				<p>
-					<select name="cdCidade">
-						<?php foreach($sessao["cidades"] as $cidade) { ?>
-							<option value="<?php echo $cidade["cd_cidade"]; ?>">
-								<?php echo "{$cidade["nm_cidade"]} - {$cidade["sg_estado"]}"; ?>
+					<select name="estado" id="estado" onchange="CarregaCidades(this.value)">
+						<?php foreach($sessao["estados"] as $estado) { ?>
+							<option value="<?php echo $estado["cd_estado"]; ?>">
+								<?php echo "{$estado["sg_estado"]}"; ?>
 							</option>
 						<?php } ?>
 					</select>
 				</p>
+				<p>
+					<label>Cidade:</label>
+				</p>
+				<div id="cidadeAjax">
+      			<select name="cdCidade" id="cidade">
+      			<option value="">Selecione o estado</option>
+    			</select>
+    			</div>
 			</section>
 			<section id="tipoForm">
 				<p>
@@ -101,9 +126,10 @@ $sessao["cidades"] = $con->consultar("SELECT * FROM cidade");
 				<input id="envia" type="submit" value="Enviar" disabled="true">
 			</section>
 			<section id="erro_form">
-				<?php echo $e; ?>
+				<?php if(isset($e)){ echo $e; } ?>
 			</section>
 		</form>
-		<script src="js/cadastro.js"></script>
+		<?php include 'footer.php'; ?>
 	</body>
 </html>
+<script type="text/javascript" src="js/cadastro.js"></script>
