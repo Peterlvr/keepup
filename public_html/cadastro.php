@@ -15,19 +15,7 @@ $sessao["estados"] = $con->consultar("SELECT * FROM estado")
         <meta charset="UTF-8">
         <title>Cadastro - Keep Up</title>
     	<script type="text/javascript" src="js/jquery.js"></script>
-    	<script type="text/javascript">
-    		$( ).ready(function() { 
-				$("#estado").on("change", function carregaCidades() {
-					var codEstado = $(this).val();
-					if(codEstado){
-						$.ajax('php/carrega_cidades.php?codEstado=' + codEstado)
-							.done(function(response) {
-								$("#cidade").html(response);
-							});
-					}
-				});
-			});
-		</script>
+    	<script type="text/javascript" src="js/carregaCidade.js"></script>
     </head>
     <body>
     	<?php require("header.php"); ?>
@@ -122,8 +110,8 @@ $sessao["estados"] = $con->consultar("SELECT * FROM estado")
 			<section id="erro_form">
 				<?php if(isset($e)){ echo $e; } ?>
 			</section>
+			<script type="text/javascript" src="js/cadastro.js"></script>
 		</form>
 		<?php include 'footer.php'; ?>
 	</body>
 </html>
-<script type="text/javascript" src="js/cadastro.js"></script>
