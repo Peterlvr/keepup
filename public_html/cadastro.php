@@ -14,24 +14,18 @@ $sessao["estados"] = $con->consultar("SELECT * FROM estado")
     <head>
         <meta charset="UTF-8">
         <title>Cadastro - Keep Up</title>
-    	<script type="text/javascript" src="js/prototype.js"></script>
-    	<script type="text/javascript">
-		function CarregaCidades(codEstado)
-		{
-			if(codEstado){
-				var myAjax = new Ajax.Updater('cidadeAjax','php/carrega_cidades.php?codEstado='+codEstado,
-				{
-					method : 'get',
-				}) ;
-			}
-			
-		}
-		</script>
     	<script type="text/javascript" src="js/jquery.js"></script>
     	<script type="text/javascript">
-    	jQuery.noConflict();
-    	</script>
-    	
+			function CarregaCidades(codEstado)
+			{
+				if(codEstado){
+					$.ajax('php/carrega_cidades.php?codEstado=' + codEstado)
+						.done(function(response) {
+							$("#cidade").html(response);
+						});
+				}
+			}
+		</script>
     </head>
     <body>
     	<?php require("header.php"); ?>
@@ -77,11 +71,9 @@ $sessao["estados"] = $con->consultar("SELECT * FROM estado")
 				<p>
 					<label>Cidade:</label>
 				</p>
-				<div id="cidadeAjax">
       			<select name="cdCidade" id="cidade">
-      			<option value="">Selecione o estado</option>
+      				<option value="">Selecione o estado</option>
     			</select>
-    			</div>
 			</section>
 			<section id="tipoForm">
 				<p>

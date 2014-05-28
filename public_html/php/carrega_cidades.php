@@ -8,10 +8,8 @@ $con = new Conexao();
 $sessao["cidades"] = $con->consultar("SELECT * FROM cidade  WHERE cd_estado=$codEstado");
 
 ?>
-<select name="cdCidade" id="cidade">
 <?php foreach($sessao["cidades"] as $cidade) { ?>
 	<option value="<?php echo $cidade["cd_cidade"]; ?>">
-	<?php echo "{$cidade["nm_cidade"]}"; ?>
+		<?php echo "{$cidade["nm_cidade"]}"; ?>
 	</option>
 <?php } ?>
-</select>

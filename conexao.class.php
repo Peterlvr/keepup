@@ -1,8 +1,8 @@
 <?php # Classe de conexão
 class Conexao {
-	private $host = "localhost:3306";
+	private $host = "localhost:3307";
 	private $usuario = "root";
-	private $senha = "root";
+	private $senha = "usbw";
 	private $banco = "keepup";
 	private $conexao;
 	private $conexaoBanco;
