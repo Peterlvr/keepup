@@ -9,6 +9,11 @@ class Conexao {
 	private function conectar() {
 		if($this->conexao = mysql_connect($this->host, $this->usuario, $this->senha)) {
 			if($this->conexaoBanco = mysql_select_db($this->banco)) {
+				header('Content-Type: text/html; charset=utf-8');
+				mysql_query("SET NAMES 'utf8'");
+				mysql_query('SET character_set_connection=utf8');
+				mysql_query('SET character_set_client=utf8');
+				mysql_query('SET character_set_results=utf8');
 				return $this;
 			}
 		}
@@ -22,11 +27,6 @@ class Conexao {
 	}
 	public function consultar($sql) {
 		$this->conectar();
-		header('Content-Type: text/html; charset=utf-8');
-		mysql_query("SET NAMES 'utf8'");
-		mysql_query('SET character_set_connection=utf8');
-		mysql_query('SET character_set_client=utf8');
-		mysql_query('SET character_set_results=utf8');
 		if($query = mysql_query($sql)) {
 			$arr_resultado = array();
 			while($resultado = mysql_fetch_array($query)) {
