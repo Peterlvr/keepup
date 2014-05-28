@@ -16,15 +16,17 @@ $sessao["estados"] = $con->consultar("SELECT * FROM estado")
         <title>Cadastro - Keep Up</title>
     	<script type="text/javascript" src="js/jquery.js"></script>
     	<script type="text/javascript">
-			function CarregaCidades(codEstado)
-			{
-				if(codEstado){
-					$.ajax('php/carrega_cidades.php?codEstado=' + codEstado)
-						.done(function(response) {
-							$("#cidade").html(response);
-						});
-				}
-			}
+    		$( ).ready(function() { 
+				$("#estado").on("change", function carregaCidades() {
+					var codEstado = $(this).val();
+					if(codEstado){
+						$.ajax('php/carrega_cidades.php?codEstado=' + codEstado)
+							.done(function(response) {
+								$("#cidade").html(response);
+							});
+					}
+				});
+			});
 		</script>
     </head>
     <body>
@@ -60,7 +62,7 @@ $sessao["estados"] = $con->consultar("SELECT * FROM estado")
 					<label>Estado:</label>
 				</p>
 				<p>
-					<select name="estado" id="estado" onchange="CarregaCidades(this.value)">
+					<select name="estado" id="estado">
 						<?php foreach($sessao["estados"] as $estado) { ?>
 							<option value="<?php echo $estado["cd_estado"]; ?>">
 								<?php echo "{$estado["sg_estado"]}"; ?>
