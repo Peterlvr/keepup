@@ -14,30 +14,21 @@ if(isset($_GET['pesquisa']) and $_GET['pesquisa'] <> '')
 	//contagem dos termos
 	$num = count($termos);
 
-	# checar o que se pesquisa
-	# talvez devêssemos achar um nome melhor que critério
-	/*
-	if(isset($_GET["criterio"])) {
-		if($_GET["criterio"] == "escola") {
-			$oq = "escola";
-		}
-		else if($_GET["criterio"] == "aluno") {
-			$oq = "aluno";
-		}
-		else if($_GET["criterio"] == "trabalho") {
-			$oq = "trabalho";
-		}
-		else {
-			$oq = 'trabalho';
-		}
-	}
-	else {
-		$oq = "trabalho";
-	}
-	#*/
-
-	//string pesquisa na TABELA quando...
-	$pesquisar = "SELECT * FROM trabalho WHERE ";
+	$pesquisar =
+		"SELECT
+			t.cd_trabalho 'cd',
+			t.nm_titulo 'titulo',
+			t.ds_resumo 'resumo',
+			c.nm_curso 'curso',
+			t.aa_publicacao 'publicado_em',
+			e.nm_escola 'escola'
+		FROM
+			trabalho t,
+			curso c,
+			escola e
+		WHERE 
+			t.cd_curso = c.cd_curso AND
+			e.cd_escola = t.cd_escola AND (";
 	
 	for($i=0; $i < $num; $i++) {
 		// adiciona a string de pesquisa cada termos desde que ele corresponda a todos os termos pesquisados
@@ -49,12 +40,14 @@ if(isset($_GET['pesquisa']) and $_GET['pesquisa'] <> '')
 		}
 	}
 
+	$pesquisar .= ")";
+
 	if(isset($_GET["curso"])) {
-		$pesquisar .= " OR cd_curso = {$_GET["curso"]}";
+		$pesquisar .= " AND cd_curso = {$_GET["curso"]}";
 	}
 
 	if(isset($_GET["escola"])) {
-		$pesquisar .= " OR cd_escola = {$_GET["escola"]}";
+		$pesquisar .= " AND cd_escola = {$_GET["escola"]}";
 	}
 
 	$pesquisando = $conexao->consultar($pesquisar);
@@ -62,20 +55,20 @@ if(isset($_GET['pesquisa']) and $_GET['pesquisa'] <> '')
 
 $cursos = $conexao->consultar("SELECT * FROM curso");
 $alunos = $conexao->consultar("SELECT * FROM aluno");
-$escolas = $conexao->consultar("SELECT * FROM escola");
+$escolas= $conexao->consultar("SELECT * FROM escola");
 ?>
 <!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Pesquisa</title>
+		<title>Explore - Keep Up</title>
 		<script src="js/jquery.js"></script>
 		<script src="js/explore.js"></script>
 	</head>
 	<body>
 		<?php include "header.php"; ?>
 		<section id="pesquisa">
-			<form name="pesquisa" method="GET" action="">
+			<form name="pesquisa" id="pesquisaForm" method="GET" action="">
 				<p>
 					<input type="text" name="pesquisa">
 				</p>
@@ -90,8 +83,8 @@ $escolas = $conexao->consultar("SELECT * FROM escola");
 					</select>
 				</p>
 				<p>
-					<input type="checkbox" data-activates="aluno">
-					<select name="aluno" disabled>
+					<input type="checkbox" data-activates="autor">
+					<select name="autor" disabled>
 						<?php foreach($alunos as $aluno) { ?>
 							<option value="<?php echo $aluno["cd_aluno"]; ?>">
 								<?php echo $aluno["nm_aluno"]; ?>
@@ -99,7 +92,7 @@ $escolas = $conexao->consultar("SELECT * FROM escola");
 						<?php } ?>
 					</select>
 				</p>
-				<p>		
+				<p>
 					<input type="checkbox" data-activates="escola">
 					<select name="escola" disabled>
 						<?php foreach($escolas as $escola) { ?>
@@ -114,24 +107,7 @@ $escolas = $conexao->consultar("SELECT * FROM escola");
 				</p>
 			</form>
 		</section>
-		<section id="resultados">
-			<?php if(isset($pesquisando[0])) { ?>
-				<ul>
-					<?php foreach($pesquisando as $row)	{ ?>	
-						<li>
-							<h1>
-								<?php echo $row["nm_titulo"]; ?>
-							</h1>
-							<p>
-								<?php echo $row["ds_resumo"]; ?>
-							</p>
-						</li>
-					<?php } ?>
-				</ul>
-			<?php } else { ?>
-				<p>Sem resultados</p>
-			<?php } ?>
-		</section>
+		<section id="resultados"></section>
 		<?php include "footer.php"; ?>
 	</body>
 </html>
