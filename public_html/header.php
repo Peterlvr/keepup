@@ -49,8 +49,13 @@
 		</ul>
 	</nav>
 	<section id="usuario">
-		<?php if($logado) { ?>
-			<img src="<?php echo $sessao["imgUsuario"]; ?>" alt="">
+		<?php if($logado) { 
+			if($_SESSION['url_avatar'] <> '') {
+				echo "<img src='images/upload/{$sessao["cd_aluno"]}/{$_SESSION['url_avatar']}' style='width:50px; height:50px' >";
+			}
+			else {
+				echo "Edite seu perfil e insira uma foto.";
+			}?>
 			<p>
 				<?php echo $sessao["nome"]; ?>
 			</p>

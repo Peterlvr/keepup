@@ -60,9 +60,9 @@ $conexao = new Conexao();
    </head>
     <body>
     	<?php include("header.php"); ?>
-    	<h1> Pagina do Aluno </h1>
+    	<h2> Pagina do Aluno </h2>
 
-   	<p>AQUI VAI A FOTO DO CABOCLO</p>
+   	<p><?php if($aluno[0]['nm_url_avatar'] <> '') {  echo "<img src='../misc/upload/".$aluno[0]['nm_url_avatar']."' style='width:200px;height:200px;'>" ;  } ?></p>
     <p> Profissão/Curso: <?php if(isset($profissao)) { echo $profissao;} ?></p>
     <p> Aluno:<?php echo  $aluno[0]["nm_aluno"]; ?> </p>
     <!--<p> Escola: </p>-->
@@ -75,7 +75,7 @@ $conexao = new Conexao();
     	else { echo "Preencha esse campo.<br/>";} ?> </p>
     <p>Monografias relacionadas</p>
 
-    <h1> Monografia em destaque: </h1>
+    <h2> Monografia em destaque: </h2>
     <p> Titulo : <?php if(isset($trabalhoTop)) {echo $trabalhoTop[0]['nm_titulo'];} ?></p>
 
 		<?php include 'footer.php'; ?>

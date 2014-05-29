@@ -18,6 +18,7 @@ $(document).ready(function() {
 	});
 	$("#pesquisaForm").on("submit", function(e) {
 		e.preventDefault();
+		console.log($(this).serialize());
 		$.ajax("php/pesquisa.php?"+$("#pesquisaForm").serialize())
 			.done(function(data) {
 				$("#resultados").html(data);

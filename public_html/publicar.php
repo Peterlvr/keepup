@@ -16,6 +16,21 @@ if($logado) {
 else {
 	header("location:./");
 }
+
+$msg = "";
+if(isset($_GET["e"])) {
+	switch($_GET["e"]) {
+		case 6:
+			$msg = "Você não pode publicar um trabalho que não é seu!";
+			break;
+		default:
+			$msg = "Erro indefinido";
+	}
+}
+
+if(isset($_GET["status"]) && $_GET["status"] == "sucesso") {
+	$msg = "Publicação realizada com sucesso!";
+}
 ?>
 <!doctype html>
 <html>
@@ -28,6 +43,7 @@ else {
 	<body>
 		<?php require("header.php"); ?>
 		<section id="publicar">
+			<?php echo $msg; ?>
 			<form enctype="multipart/form-data" action="php/publicar.php" method="POST">
 				<h1>Publicar trabalho</h1>
 				<p>
@@ -75,28 +91,14 @@ else {
 					<label for="cdAluno">Cite os autores:</label>
 				</p>
 				<p id="cdAluno">
-					<?php if($sessao["tipoConta"] == "E") { ?>
-						<select name="cdAluno1" class="cdAluno">
-							<?php foreach($sessao["alunos"] as $aluno) { ?>
-								<option value="<?php echo $aluno["cd_aluno"]; ?>">
-									<?php echo $aluno["nm_aluno"]; ?>
-								</option>
-							<?php } ?>
-							<!--option value="outra">Outra...</option-->
-						</select>
-					<?php } ?>
-					<?php if($sessao["tipoConta"] == "A") { ?>
-						<select name="cdAluno1" class="cdAluno">
-							<option value="<?php echo $sessao["cd_aluno"]; ?>">
-								<?php echo $sessao["nome"]; ?>
+					<select name="cdAluno1" class="cdAluno">
+						<?php foreach($sessao["alunos"] as $aluno) { ?>
+							<option value="<?php echo $aluno["cd_aluno"]; ?>">
+								<?php echo $aluno["nm_aluno"]; ?>
 							</option>
-							<?php foreach($sessao["alunos"] as $aluno) { ?>
-								<option value="<?php echo $aluno["cd_aluno"]; ?>">
-									<?php echo $aluno["nm_aluno"]; ?>
-								</option>
-							<?php } ?>
-						</select>
-					<?php } ?>
+						<?php } ?>
+						<!--option value="outra">Outra...</option-->
+					</select>
 				</p>
 				<p>
 					<a href="javascript:void(0)" id="adicionarAutor">+ autor</a>

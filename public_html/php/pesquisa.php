@@ -5,7 +5,7 @@ require "../../conexao.class.php";
 $conexao = new Conexao();
 
 //quando o campo pesquisa está preenchido ele executa o GET
-if(isset($_GET['pesquisa']) and $_GET['pesquisa'] <> '')
+if(isset($_GET['pesquisa']))
 {
 
 	//a pesquisa é separada por termos(palavras pesquisadas)
@@ -61,8 +61,6 @@ if(isset($_GET['pesquisa']) and $_GET['pesquisa'] <> '')
 		$pesquisar .= " AND au.cd_aluno = {$_GET["autor"]}";
 	}
 
-	echo $pesquisar;
-
 	$pesquisando = $conexao->consultar($pesquisar);
 }
 ?>
@@ -72,14 +70,13 @@ if(isset($_GET['pesquisa']) and $_GET['pesquisa'] <> '')
 			<li>
 				<a href="docs/<?php echo $row["cd"]; ?>/main.pdf">
 					<h1>
-						<?php echo $row["titulo"]; ?>
+						<?php echo $row["titulo"]; ?>,
+						<?php echo $row["publicado_em"]; ?>
 					</h1>
 					<p>
 						<?php echo $row["resumo"]; ?>
 					</p>
-					<p>Publicado em:
-						<?php echo $row["publicado_em"]; ?>
-						| Curso:
+					<p>Curso:
 						<?php echo $row["curso"]; ?>
 					</p>
 				</a>

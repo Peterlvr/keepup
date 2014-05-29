@@ -1,4 +1,4 @@
-# Usuários para teste
+﻿# Usuários para teste
   # escola : escola22
   # aluno : aluno22
 
@@ -107,5 +107,5 @@ insert into escola values
   (12, 46, '(UFRN) Universidade Federal do Rio Grande do Norte', '12345678901246', '', '', '', '', '', 3705),
   (13, 47, '(UFPE) Universidade Federal de Pernambuco', '12345678901247', '', '', '', '', '', 3315),
   (14, 48, '(UECE) Universidade Estadual do Ceará', '12345678901248', '', '', '', '', '', 756),
-  (15, 49, '(UNIFAL) Universidade Federal de Alfeneas', '12345678901249', '', '', '', '', '', 1580),
+  (15, 49, '(UNIFAL) Universidade Federal de Alfenas', '12345678901249', '', '', '', '', '', 1580),
   (16, 50, '(UNISUL) Universidade do Sul de Santa Catarina', '12345678901250', '', '', '', '', '', 4431);

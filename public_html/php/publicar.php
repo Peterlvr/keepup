@@ -32,12 +32,11 @@ while($haAutores) {
 		$haAutores = false;
 		break;
 	}
-	if(($_POST["cdAluno$i"] == $sessao["cd_aluno"]) || !isset($sessao["cd_aluno"])) {
+	if(($_POST["cdAluno$i"] == $sessao["cd_aluno"]) || $sessao["tipoConta"] != "A") {
 		$autoriaDoUsuario = true;
 	}
 	$i++;
 }
-
 if(!$autoriaDoUsuario) volta(6);
 
 # Checar se o arquivo é PDF

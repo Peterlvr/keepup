@@ -53,9 +53,9 @@ if(isset($_GET['pesquisa']) and $_GET['pesquisa'] <> '')
 	$pesquisando = $conexao->consultar($pesquisar);
 }
 
-$cursos = $conexao->consultar("SELECT * FROM curso");
-$alunos = $conexao->consultar("SELECT * FROM aluno");
-$escolas= $conexao->consultar("SELECT * FROM escola");
+$cursos = $conexao->consultar("SELECT * FROM curso ORDER BY nm_curso");
+$alunos = $conexao->consultar("SELECT * FROM aluno ORDER BY nm_aluno");
+$escolas= $conexao->consultar("SELECT * FROM escola ORDER BY nm_escola");
 ?>
 <!doctype html>
 <html>
