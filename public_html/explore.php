@@ -6,8 +6,7 @@ require "../sessao.php";
 $conexao = new Conexao();
 
 //quando o campo pesquisa está preenchido ele executa o GET
-if(isset($_GET['pesquisa']) and $_GET['pesquisa'] <> '')
-{
+/*{
 
 	//a pesquisa é separada por termos(palavras pesquisadas)
 	$termos = explode(' ', $_GET['pesquisa']);
@@ -51,11 +50,12 @@ if(isset($_GET['pesquisa']) and $_GET['pesquisa'] <> '')
 	}
 
 	$pesquisando = $conexao->consultar($pesquisar);
-}
+}*/ 
 
 $cursos = $conexao->consultar("SELECT * FROM curso ORDER BY nm_curso");
 $alunos = $conexao->consultar("SELECT * FROM aluno ORDER BY nm_aluno");
 $escolas= $conexao->consultar("SELECT * FROM escola ORDER BY nm_escola");
+$sessao["estados"] = $conexao->consultar("SELECT * FROM estado");
 ?>
 <!doctype html>
 <html>
@@ -64,6 +64,7 @@ $escolas= $conexao->consultar("SELECT * FROM escola ORDER BY nm_escola");
 		<title>Explore - Keep Up</title>
 		<script src="js/jquery.js"></script>
 		<script src="js/explore.js"></script>
+		<script src="js/carregaCidade.js"></script>
 	</head>
 	<body>
 		<?php include "header.php"; ?>
@@ -73,7 +74,7 @@ $escolas= $conexao->consultar("SELECT * FROM escola ORDER BY nm_escola");
 					<input type="text" name="pesquisa">
 				</p>
 				<p>
-					<input type="checkbox" data-activates="curso">	
+					<input type="checkbox" data-activates="curso">
 					<select name="curso" disabled>
 						<?php foreach($cursos as $curso) { ?>
 							<option value="<?php echo $curso["cd_curso"]; ?>">
@@ -100,6 +101,20 @@ $escolas= $conexao->consultar("SELECT * FROM escola ORDER BY nm_escola");
 								<?php echo $escola["nm_escola"]; ?>
 							</option>
 						<?php } ?>
+					</select>
+				</p>
+				<p>
+					<input type="checkbox" data-activates="estado">
+					<select id="estado" name="estado" disabled>
+						<?php foreach($sessao["estados"] as $estado) { ?>
+							<option value="<?php echo $estado["cd_estado"]; ?>">
+								<?php echo $estado["sg_estado"]; ?>
+							</option>
+						<?php } ?>
+					</select>
+					<input type="checkbox" data-activates="cidade">
+					<select name="cidade" id="cidade" disabled>
+						<option>Selecione um estado...</option>
 					</select>
 				</p>
 				<p>

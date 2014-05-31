@@ -63,12 +63,25 @@ if(isset($_GET['pesquisa']))
 
 	$pesquisando = $conexao->consultar($pesquisar);
 }
+
+$cursos = array();
+foreach($pesquisando as $row) {
+	$jaFoi = false;
+	foreach($cursos as $curso) {
+		if($row["curso"] == $curso){
+			$curso[1]++;
+			$jaFoi = true;
+		}
+	}
+	if(!$jaFoi)
+		array_push($cursos, array($row["curso"], 1));
+}
 ?>
 <?php if(isset($pesquisando[0])) { ?>
 	<ul>
 		<?php foreach($pesquisando as $row)	{ ?>	
 			<li>
-				<a href="docs/<?php echo $row["cd"]; ?>/main.pdf">
+				<a href="trabalho.php?t=<?php echo $row["cd"]; ?>">
 					<h1>
 						<?php echo $row["titulo"]; ?>,
 						<?php echo $row["publicado_em"]; ?>
@@ -83,6 +96,17 @@ if(isset($_GET['pesquisa']))
 			</li>
 		<?php } ?>
 	</ul>
+	<section id="filtros">
+		<h1>Filtrar por:</h1>
+		<h2>Curso</h2>
+		<ul>
+			<?php foreach($cursos as $curso) { ?>
+				<li>
+					<p><?php echo "{$curso[0]} ({$curso[1]})"; ?></p>
+				</li>
+			<?php } ?>
+		</ul>
+	</section>
 <?php } else { ?>
 	<p>Sem resultados</p>
 <?php } ?>

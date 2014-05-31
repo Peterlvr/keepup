@@ -54,7 +54,7 @@
 				echo "<img src='images/upload/{$sessao["cd_aluno"]}/{$_SESSION['url_avatar']}' style='width:50px; height:50px' >";
 			}
 			else {
-				echo "Edite seu perfil e insira uma foto.";
+				echo "<img src='images/default/usericon.png' alt='' style='width:50px;height:50px'>";
 			}?>
 			<p>
 				<?php echo $sessao["nome"]; ?>

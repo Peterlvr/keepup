@@ -3,7 +3,7 @@ require("../sessao.php");
 require("../conexao.class.php");
 $conexao = new Conexao();	
 
-$cd_trabalho = $_GET['u'];
+$cd_trabalho = $_GET['t'];
 
 $comando = "SELECT * FROM trabalho WHERE cd_trabalho = $cd_trabalho";
 $trabalho = $conexao->consultar($comando);
@@ -20,14 +20,14 @@ if($logado and isset($_SESSION["cd_aluno"])) {
 	$dados_aluno = $conexao->consultar($comando);	
 }
 
-$comando = "SELECT 
-                a.cd_aluno, l.nm_aluno, l.nm_url_avatar 
-            FROM 
-                autoria a, aluno l 
-            WHERE 
-                cd_trabalho = $cd_trabalho 
-                and
-                a.cd_aluno = l.cd_aluno";
+$comando =
+    "SELECT
+        a.nm_aluno 'nome', a.cd_aluno 'cd', a.nm_url_avatar 'urlAvatar'
+    FROM 
+        autoria au, aluno a, trabalho t
+    WHERE
+        au.cd_trabalho = $cd_trabalho and
+        a.cd_aluno = l.cd_aluno";
 
 $autores = $conexao->consultar($comando);
  
@@ -42,9 +42,7 @@ $comando = "SELECT
                 cd_usuario = 
             (SELECT cd_usuario FROM aluno WHERE cd_aluno = {$autores[$x]['cd_aluno']})"; */
 
-$loginautores = $conexao->consultar($comando);
-
-$nm_login = $loginautores[0]['nm_login'];
+$nm_login = $autores[0]['nm_login'];
 ?>
 <!doctype html>
 <html>
@@ -67,7 +65,7 @@ $nm_login = $loginautores[0]['nm_login'];
     	<p>Palavras-chave: </p>
     	<p>Autores: <?php 
            foreach ($autores as $autor) {
-                echo "<a href='usuario.php?u=$nm_login'>".$autor['nm_aluno']."</a><br/>";
+                echo "<a href='usuario.php?u={$autor["login"]}'>{$autor['aluno']}</a><br/>";
                 }
         ?></p>
     	<p>Instituicao: <?php echo $escola[0]['nm_escola'];?></p>

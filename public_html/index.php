@@ -94,9 +94,7 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
 									<img src="<?php echo $trabalho["url_imagem"]; ?>" alt="">
 								</div>
 								<p>
-									<a href="docs/<?php echo $trabalho["cd_trabalho"]; ?>/main.pdf">
-										<?php echo $trabalho["ds_resumo"]; ?>
-									</a>
+									<?php echo $trabalho["ds_resumo"]; ?>
 								</p>
 							</li>
 						<?php } ?>
@@ -117,9 +115,7 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
 									<div class="imagemTrabalho">
 										<img src="<?php echo $trabalho["url_imagem"]; ?>" alt="">
 										<p>
-											<a href="docs/<?php echo $trabalho["cd_trabalho"]; ?>/main.pdf">
-												<?php echo $trabalho["ds_resumo"]; ?>
-											</a>
+											<?php echo $trabalho["ds_resumo"]; ?>
 										</p>
 									</div>
 								</li>
@@ -142,9 +138,7 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
 									<div class="imagemTrabalho">
 										<img src="<?php echo $trabalho["url_imagem"]; ?>" alt="">
 										<p>
-											<a href="docs/<?php echo $trabalho["cd_trabalho"]; ?>/main.pdf">
-												<?php echo $trabalho["ds_resumo"]; ?>
-											</a>
+											<?php echo $trabalho["ds_resumo"]; ?>
 										</p>
 									</div>
 								</li>
