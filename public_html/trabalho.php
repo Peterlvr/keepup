@@ -27,22 +27,10 @@ $comando =
         autoria au, aluno a, trabalho t
     WHERE
         au.cd_trabalho = $cd_trabalho and
-        a.cd_aluno = l.cd_aluno";
+        a.cd_aluno = au.cd_aluno";
 
 $autores = $conexao->consultar($comando);
- 
-//buscar o nm_login da tabela usuario por cd_usuario de cada autor
-/*$rows = mysql_num_rows($autores);
-for($x=0; $x<=$rows; $x++)
-$comando = "SELECT 
-                nm_login 
-            FROM 
-                usuario 
-            WHERE 
-                cd_usuario = 
-            (SELECT cd_usuario FROM aluno WHERE cd_aluno = {$autores[$x]['cd_aluno']})"; */
 
-$nm_login = $autores[0]['nm_login'];
 ?>
 <!doctype html>
 <html>
@@ -65,7 +53,7 @@ $nm_login = $autores[0]['nm_login'];
     	<p>Palavras-chave: </p>
     	<p>Autores: <?php 
            foreach ($autores as $autor) {
-                echo "<a href='usuario.php?u={$autor["login"]}'>{$autor['aluno']}</a><br/>";
+                echo "<a href='usuario.php?u={$autor["cd"]}'>{$autor['nome']}</a><br/>";
                 }
         ?></p>
     	<p>Instituicao: <?php echo $escola[0]['nm_escola'];?></p>

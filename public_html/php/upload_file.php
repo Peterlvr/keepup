@@ -21,9 +21,9 @@ if($_FILES['file']['name'] <> '')
 
 		//ler endereço de foto de usuario no banco e permitir nova foto, apagando a anterior
 		if($_FILES["file"]["name"] <> $foto_aluno) {
-			mkdir("../images/upload/{$_SESSION["cd_aluno"]}");
+			mkdir("../images/upload/{$_SESSION["cd_usuario"]}");
 			$con->executar("UPDATE aluno SET nm_url_avatar = '".$_FILES["file"]["name"]."' WHERE cd_aluno = {$_SESSION["cd_aluno"]}; ");
-			move_uploaded_file($_FILES["file"]["tmp_name"], "../images/upload/". $_SESSION["cd_aluno"] . "/" . $_FILES["file"]["name"]);
+			move_uploaded_file($_FILES["file"]["tmp_name"], "../images/upload/". $_SESSION["cd_usuario"] . "/" . $_FILES["file"]["name"]);
 			$_SESSION['url_avatar'] = $_FILES["file"]["name"];	  	
 		  	header ("location:../editarperfil.php?e=sucesso");
 	  	}

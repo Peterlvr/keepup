@@ -5,9 +5,9 @@ $conexao = new Conexao();
 	//passa para Session
 	//através do GET, tira da url o nm-login
 	//$nm_login = $_GET["u"];
-	$nm_login = $_GET['u'];
+	$cd_usuario = $_GET['u'];
 		
-	$usuario = "SELECT nm_tipo, nm_login FROM usuario WHERE nm_login = '$nm_login'";
+	$usuario = "SELECT nm_tipo, nm_login FROM usuario WHERE cd_usuario = '$cd_usuario'";
 	$pageuser = $conexao->consultar($usuario);
 
 	if($pageuser[0]['nm_tipo'] == 'A')
