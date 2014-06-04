@@ -9,6 +9,7 @@ $_SESSION["login"]; //nm_login
 $_SESSION["cd_usuario"];
 $_SESSION["cd_aluno"];
 $_SESSION["nome"];
+$sessao["tipoConta"];
 
 $email_usuario = $con->consultar("SELECT nm_email FROM usuario WHERE cd_usuario = {$_SESSION['cd_usuario']}");
 
@@ -16,11 +17,18 @@ $dados_aluno = $con->consultar("SELECT * FROM aluno WHERE cd_aluno = {$_SESSION[
 
 $dt_nascimento = $dados_aluno[0]['dt_nascimento'];
 
+$sessao["escolas"] = $con->consultar("SELECT nm_escola, cd_escola FROM escola");
+
+if($sessao["tipoConta"] == "A") {
+$aluno_matriculado = $con->consultar("SELECT e.nm_escola 
+		FROM escola e, matricula m, aluno al 
+		WHERE al.cd_aluno = m.cd_aluno AND e.cd_escola = m.cd_escola AND al.cd_aluno = {$_SESSION['cd_aluno']}");
+}
 ?>
 <!doctype html>
 <html>
     <head>
-        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Editar Perfil - Keep Up</title>
         <script type="text/javascript" src="js/jquery.js"></script>
     	<script type="text/javascript" src="js/carregaCidade.js"></script>
@@ -28,6 +36,8 @@ $dt_nascimento = $dados_aluno[0]['dt_nascimento'];
 			$(document).ready(function () {
 			    $('#mudaCidade').change(function () {
 			      $('#cidades').fadeToggle(); });
+			    $('#mudaMatricula').change(function () {
+			    	$('#escola').fadeToggle();  });
 	    	});
 		
 		</script>
@@ -74,6 +84,7 @@ $dt_nascimento = $dados_aluno[0]['dt_nascimento'];
 			</section>
 			<input id="envia" type="submit" value="Alterar dados pessoais" >
     	</form>
+    	
 		<form action="php/editarperfil.php" method="POST" id="editarPerfilForm">
 			<section id="painelUsuario">
 				<p>
@@ -96,50 +107,6 @@ $dt_nascimento = $dados_aluno[0]['dt_nascimento'];
 				</p>
 				<p>
 					<textarea placeholder="Sobre mim..." name="sobreMim" ><?php echo $dados_aluno[0]['tx_bio']; ?></textarea>
-					
-				</p>
-				<?php if(isset($dados_aluno[0]['cd_cidade'])) { 
-					$cidade_usuario = $con->consultar("SELECT e.sg_estado, c.nm_cidade 
-					FROM estado e, cidade c WHERE c.cd_estado = e.cd_estado AND c.cd_cidade = {$dados_aluno[0]['cd_cidade']};");?>
-				<p>
-					<label>Estado:</label> <label><?php echo $cidade_usuario[0]['sg_estado'];?> </label>
-				</p>
-				<p>
-					<label>Cidade:</label> <label><?php echo $cidade_usuario[0]['nm_cidade'];?></label>
-				</p>
-      			<?php } ?>
-
-      			
-      			Alterar sua cidade e estado? <input type="checkbox" id="mudaCidade"> 
-				<div id="cidades" style="display:none;"> 
-				<form action="php/editarperfil.php" method="POST" name="editarCidadeForm" id="cidadesForm">
-				<p>
-					<label>Estado:</label>
-				</p>
-				<p>
-					<select name="estado" id="estado">
-						<?php foreach($sessao["estados"] as $estado) { ?>
-							<option value="<?php echo $estado["cd_estado"]; ?>">
-								<?php echo "{$estado["sg_estado"]}"; ?>
-							</option>
-						<?php } ?>
-					</select>
-				</p>
-				<p>
-					<label>Cidade:</label>
-				</p>
-	      			<select name="cdCidade" id="cidade">
-	      				<option value="">Selecione o estado</option>
-	    			</select> 
-	    			<input id="envia" type="submit" value="Alterar cidade" >
-    			</form>
-      			</div> 
-				<p>
-					<label>Instituicao de Ensino:</label>
-				</p>
-				<p>
-					<input placeholder="Nome da instituicao" type="text" name="nmInstituicao" value="Instituicao testando" >
-				</p>
 				<p>
 					<label>Profissao:</label>
 				</p>
@@ -168,6 +135,76 @@ $dt_nascimento = $dados_aluno[0]['dt_nascimento'];
 						
 			<input id="envia" type="submit" value="Alterar dados pessoais" >
 		</form>
+		</p>
+				<?php if(isset($dados_aluno[0]['cd_cidade'])) { 
+					$cidade_usuario = $con->consultar("SELECT e.sg_estado, c.nm_cidade 
+					FROM estado e, cidade c WHERE c.cd_estado = e.cd_estado AND c.cd_cidade = {$dados_aluno[0]['cd_cidade']};");?>
+				<p>
+					<label>Estado:</label> <label><?php echo $cidade_usuario[0]['sg_estado'];?> </label>
+				</p>
+				<p>
+					<label>Cidade:</label> <label><?php echo $cidade_usuario[0]['nm_cidade'];?></label>
+				</p>
+      			<?php } ?>
+
+      			
+      			Alterar sua cidade e estado? <input type="checkbox" id="mudaCidade"> 
+				<div id="cidades" style="display:none;"> 
+				<form action="php/editarCidade.php" method="POST" name="editarCidadeForm" id="cidadesForm">
+				<p>
+					<label>Estado:</label>
+				</p>
+				<p>
+					<select name="estado" id="estado">
+						<?php foreach($sessao["estados"] as $estado) { ?>
+							<option value="<?php echo $estado["cd_estado"]; ?>">
+								<?php echo "{$estado["sg_estado"]}"; ?>
+							</option>
+						<?php } ?>
+					</select>
+				</p>
+				<p>
+					<label>Cidade:</label>
+				</p>
+	      			<select name="cdCidade" id="cidade">
+	      				<option value="">Selecione o estado</option>
+	    			</select> 
+	    			<input id="envia" type="submit" value="Alterar cidade" >
+    			</form>
+      			</div> 
+				<p>
+					<label>Instituição de Ensino:</label> 
+					<label><?php if(isset($aluno_matriculado[0]['nm_escola'])) { echo $aluno_matriculado[0]['nm_escola']; }
+					else { echo "Você não está matriculado em uma instituição de ensino.";} ?></label>
+				</p>
+				Mudar sua instituição de ensino? <input type="checkbox" id="mudaMatricula">
+				<div id="escola" style="display:none;">
+					<form action="php/editarMatricula.php" method="POST" name="editarMatriculaForm" id="matriculaForm">
+				<p>
+					<label for="cdEscola">Para qual instituição?</label>
+				</p>
+				<p>
+					<?php if($sessao["tipoConta"] == "A") { ?>
+						<select name="cdEscola">
+							<?php foreach($sessao["escolas"] as $escola) { ?>
+								<option value="<?php echo $escola["cd_escola"]; ?>">
+									<?php echo $escola["nm_escola"]; ?>
+								</option>
+							<?php } ?>
+							<!--option value="outra">Outra...</option-->
+						</select>
+					<?php } ?>
+					<?php if($sessao["tipoConta"] == "E") { ?>
+						<select name="cdEscola" disabled>
+							<option value="<?php echo $sessao["cd_escola"]; ?>">
+								<?php echo $escola["nome"]; ?>
+							</option>
+						</select>
+					<?php } ?>
+				</p>
+					<input id="envia" type="submit" value="Alterar Instituição" >
+    				</form>
+				</div>
 		<?php include "footer.php"; ?>
 	</body>
 </html>
