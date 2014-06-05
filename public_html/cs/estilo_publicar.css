@@ -1,0 +1,220 @@
+	#section1 {
+	width:95%;
+	background-color:white;
+	margin:auto;
+	height:auto;
+	}
+	
+	#img_publicar{
+		width:100%;
+		height:470px;
+		background-image:url(../images/bg_pub2.jpg);
+		box-shadow:0 0 5px black;
+		}
+		
+		#esquerda_pub {
+			width:46%;
+			height:420px;
+			float:left;
+			padding-top:50px;
+			padding-left:2%;
+			padding-right:2%;
+			color:white;
+			}
+			
+			#esquerda_pub h1{font-size:1.5em;}
+			#esquerda_pub p{font-size:1em;}
+			
+			
+		#direita_pub{
+			width:50%;
+			height:470px;
+			float:left;
+			}
+			
+			#img_vantagens_enviar {
+				background-image:url(../images/bg_pub2.png);
+				width:380px;
+				height:395px;
+				margin:auto;
+				margin-top:35px;
+				padding-top:5px;
+				padding-left:30px;
+				padding-right:30px;
+				}
+				
+				#img_vantagens_enviar h1{
+					text-align:center;
+					font-weight:100;
+					font-size:1.1em;
+					}
+				
+				#img_vantagens_enviar p{
+					font-weight:100;
+					font-size:.9em;
+					margin:7px 0 7px 0 ;
+					}
+					
+					.td {
+						width:40px;
+						text-align:center;
+						}
+					
+					#table_pub {
+						border-bottom:1px solid rgba(0,0,0,.2);
+						padding-bottom:20px;
+						}
+						
+						#table_pub p {
+							color:#333
+							}
+
+
+article {
+	width:100%;
+	margin:auto;
+	height:auto;
+	}
+	
+	#asideLeft {
+		width:68%;
+		height:auto;
+		float:left;
+		padding:1%;
+		margin-top:2%
+		}
+		
+		#asideLeft h2 {
+			font-size:1.1em;
+			color:#15556b;
+			margin-left:2%;
+			}
+		
+		#asideLeft p {
+			font-size:.8em;
+			color:#666;
+			}
+		
+			
+			.latest_posts
+			{
+				float:left;
+				width:auto;
+				padding-left:1%; padding-right:1%;
+				height:50px;
+				margin-top:-10px;
+				background-color:#2c87af;
+				color:white;
+			}
+				.latest_posts h1 {
+					font-size:.9em;
+					margin-top:15px;
+					color:white;
+					}
+					
+					.UltimosTrabalhos {
+					background-color:white;
+					height:40px;
+					margin-top:20px;
+					width:97%;
+					margin:auto;
+					}
+	
+	#asideRight {
+		width:28%;
+		height:200px;
+		float:left;
+		padding:1%;
+		margin-top:2%;
+		}
+
+
+/*etapa1*/
+#section2 {
+	width:95%;
+	background-color:white;
+	margin:auto;
+	padding-top:20px;
+	padding-bottom:20px;
+	}
+		
+	#formulario_publicar {
+		width:98%;
+		height:auto;
+		padding-left:1%;
+		padding-right:1%;
+		}
+		
+		#table_publicar_1 {	
+			
+			width:65%;
+			margin:auto;
+			}
+			
+			#table_publicar_1 h1{
+				margin:10px 0 0 0;
+				}
+				
+			#table_publicar_1 cite {
+				font-size:.8em;
+				}
+			
+			#txtTituloMonografia {
+				width:100%;
+				}
+				
+			.inputFile { 
+			width: 100%;
+			height:200px;
+			position: relative; 
+			overflow: hidden;
+			background:red;}
+			
+			.inputFile span { display: block; position: absolute; }
+			
+			.inputFile input { 
+			position: absolute;
+			right: 0;
+			z-index: 2;
+			font-size: 100px;
+			opacity: 0;
+			filter: alpha(opacity=0); }
+			
+			
+			.etapa_pub p {
+				font-size:.9em;
+				}
+			
+	#btnPublicar {
+		width:255px;
+		margin:20px auto auto auto;
+		height:45px;
+		text-align:right;
+		color:white;
+		background-color:#e46432;
+		box-shadow:1px 1px 2px black;
+					-webkit-transition: background-color;
+					-webkit-transition-duration:0.1s ;
+					-webkit-transition-timing-function:ease-in;
+					}
+					
+					#btnPublicar:hover {
+						background-color:#db5f30;
+						}
+
+	#btnPublicarTrabalho {
+		
+		}
+		
+		
+
+#accordion p {
+	font-size:.8em;
+	}
+
+#accordion h3 {
+	font-size:.9em;
+	font-weight:100;
+	}
+		
+			

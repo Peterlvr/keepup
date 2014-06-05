@@ -1,17 +1,18 @@
 $(document).ready(function loginBox() {
 	function loginBoxPop() {
-		if($("#login_box").css("display") != "block") {
-			$("#login_box").css({
-				"display": "block",
-				"opacity": "1"
-			});
+		console.log("boxpop hey");
+		if($("#bg_login").css("display") != "block") {
+
+			$("#bg_login").fadeIn();
+			
 		}
 		else {
-			$("#login_box").css({
+			$("#bg_login").css({
 				"display": "none",
 				"opacity": "0"
 			});
 		}
 	}
-	$(".login_link").on("click", loginBoxPop);
+
+	$("#alogin").on("click", loginBoxPop);
 });

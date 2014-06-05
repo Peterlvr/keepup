@@ -173,6 +173,7 @@ CREATE TABLE `comentario` (
   `tx_comentario` text NOT NULL,
   `cd_autor` int(11) NOT NULL,
   `cd_trabalho` int(11) NOT NULL,
+  `dt_publicado` datetime NOT NULL,
   PRIMARY KEY (`cd_comentario`),
   KEY `fk_autor` (`cd_autor`),
   KEY `fk_trabalho` (`cd_trabalho`),

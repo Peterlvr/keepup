@@ -1,0 +1,405 @@
+section {
+	width:95%;
+	height:auto;
+	margin:auto;
+	}
+	
+	p {font-size:.8em;}
+	
+	#esquerda {
+			width:70%;
+			background-color:red;
+			float:left;
+			height:auto;
+			margin:0; padding:0
+		}
+		
+		#imagem_monografia {
+			width:100%;
+			background-color:white;
+			margin-bottom:2%;
+			border:1px solid rgba(0,0,0,.4);
+			text-align:center;
+			max-height:300px;
+			}
+			
+			.imagem_monografia {
+				max-width:100%;
+				max-height:300px;
+				}
+			
+			.imagem_usuario {
+				width:100%;
+				max-height:100%;
+				}
+		
+		#bloco1_esquerda_resumo {
+			width:68%;
+			height:auto;
+			color:white;
+			margin:0;
+			padding-top:10px;
+			float:left;
+			}
+				
+			#bloco1_esquerda_resumo h1 {
+				margin:0;
+				margin-left:1%;
+				font-weight:100;
+				font-size:1.1em;
+				}
+				
+				#bloco1_esquerda_titulo {
+					width:76%;
+					padding:2%;
+					height:20px;
+					margin-top:-10px;
+					background-color:#2c87af;
+					float:left;
+					margin-right:0.2%;
+					overflow:hidden;
+					}
+					
+				#bloco1_esquerda_favorito {
+					width:5.7%;
+					height:20px;
+					padding:2%;
+					margin-top:-10px;
+					background-color:#2c87af;
+					float:left;
+					margin-right:0.2%;
+					background-image:url(../images/index_icons/star.png);
+					background-position:center;
+					background-repeat:no-repeat;
+					-webkit-transition: background-color;
+					-webkit-transition-duration:0.1s ;
+					-webkit-transition-timing-function:ease-in;
+					}
+					
+					#bloco1_esquerda_favorito:hover {
+						background-color:#1f4350;
+						}
+				
+				#bloco1_esquerda_baixar {
+					width:5.7%;
+					height:20px;
+					padding:2%;
+					margin-top:-10px;
+					background-color:#2c87af;
+					float:left;
+					background-image:url(../images/index_icons/favorito.png);
+					background-position:center;
+					background-repeat:no-repeat;
+					-webkit-transition: background-color;
+					-webkit-transition-duration:0.1s ;
+					-webkit-transition-timing-function:ease-in;
+					}
+					
+					#bloco1_esquerda_baixar:hover {
+						background-color:#1f4350;
+						}
+					
+			#bloco1_esquerda_parte_escrita {
+				width:96%;
+				height:auto;
+				padding:2%;
+				background-color:white;
+				clear:both; color:black;
+				border-bottom:1px solid black;
+				}
+				
+					
+			#bloco1_esquerda_comentario {
+				width:96%;
+				height:auto;
+				padding:0 2% 0 2%;
+				overflow:hidden
+				}
+		
+	#direita {
+			width:30%;
+			float:right;
+			height:auto;
+			height:60px;
+		}
+		
+		#bloco1_titulo_avalicao {
+			width:100%;
+			height:auto;
+			background-color:white;
+			}
+		
+				
+				#area_avaliacao {
+					width:100%;
+					height:auto;
+					background-color:white;
+					padding-bottom:10px;
+					margin-top:-20px;
+					}
+					
+					
+		#bloco2_palavra_chave {
+			width:96%;
+			height:auto;
+			background-color:white;
+			margin-top:5%;
+			padding-bottom:2%;
+			}
+			
+			
+			#bloco2_palavra_chave p {margin:10px; margin-top:-10px; font-size:.8em}
+			
+			.UltimosTrabalhos {
+					margin-top:20px;
+					width:97%;
+					background-color:white;
+					margin:auto;
+					MARGIN-TOP:10%;
+					}
+					
+				.latest_posts
+			{
+				float:left;
+				width:auto;
+				padding-left:2%; padding-right:2%;
+				height:50px;
+				margin-top:-10px;
+				background-color:#2c87af;
+				color:white;
+				margin-left:10px;
+			}
+				.latest_posts h1 {
+					font-size:1.1em;
+					margin-top:15px;
+					}	
+					
+		#bloco3_autores {
+			width:96%;
+			height:auto;
+			background-color:white;
+			margin-top:5%;
+			padding-bottom:2%;
+			}
+			
+		
+		
+			
+			#table_autores {
+				width:100%;
+				}
+				
+				#table_autores a:link {color:black;}
+				
+				#table_autores tr {
+					-webkit-transition: background-color;
+					-webkit-transition-duration:0.1s ;
+					-webkit-transition-timing-function:ease-in;
+						}
+				#table_autores tr:hover {background-color:rgba(204,204,204,.3);}				
+				
+		#bloco4_monografia_relacionada {
+			width:86%;
+			height:auto;
+			background-color:white;
+			margin-top:5%;
+			padding-bottom:2%;
+			padding-right:5%;
+			padding-left:5%;
+			}
+			
+			#cada_monografia_relacionada {
+				width:100%;
+				height:175px;
+				background-color:orange;
+				margin-bottom:10px;
+				}
+				
+				.imagem_monografia_relacionada {
+						width:100%;
+						height:125px;
+						background-color:white;
+						border:1px solid #1f4350;
+				}
+				
+					.imagem_relacionada {
+						width:100%;
+						height:100%;
+						text-align:left;
+						position:relative;
+						opacity:.8;
+							-webkit-transition: opacity;
+							-webkit-transition-duration:0.1s ;
+							-webkit-transition-timing-function:ease-in;
+					}
+					
+					.imagem_relacionada:hover {
+						opacity:1
+						}
+						
+						a:link {text-decoration:none;}
+						
+				
+				.titulo_relacionada {
+						width:96%;
+						height:50px;
+						background-color:#1f4350;
+						border:1px solid #1f4350;
+						color:white;
+						padding-left:2%;
+						padding-right:2%;
+						}
+						
+						
+						.titulo_relacionada h1 {
+							margin:15px 0 0 0;
+							font-size:.9em;
+							}
+
+			#foto_usuario_monografia {
+				width:80px;
+				height:80px;
+				margin:auto;
+				}
+				
+		#foto_usuario_pracomentar {
+			width:150px;
+			height:150px;
+			background-image:url(../images/usuario_postou/1.jpg);
+			background-repeat:no-repeat;
+			background-position:center center;
+			background-size:cover;
+			}
+			
+			#usuario_comentar {
+				width:100%;
+				height:auto;
+				padding:0;
+				margin:0
+				}
+				
+				#usuario_comentar h1 {
+					color:black;
+					margin-bottom:10px;
+					margin-top:10px;
+					}
+				
+			#usuarios_comentarios {
+				width:100%;
+				height:500px;
+				}
+				
+				#cada_comentario {
+					width:98%;
+					height:auto;
+					background-color:white;
+					margin-top:10px;
+					margin-bottom:10px;
+					padding:1%;
+					}
+					
+					.foto_cada_comentario {
+						width:150px;
+						height:150px;
+						background-color:#39F;
+						position:relative;
+						top:0;
+						}
+					
+					.texto_cada_comentario {
+						width:98%;
+						background-color:white;
+						height:auto;
+						padding:1%;	
+						}
+				
+						#table_cada_comentario {
+							border:0;
+							padding:0;
+							vertical-align:top;
+							color:black;
+							}
+				.foto {
+					width:150px;
+					}
+					
+				#btnEnviarComentario {
+					float:right;
+					width:70px;
+					margin-right:1.5%;
+					overflow:auto;
+					background-color:#2c87af;
+					color:white;
+					border:0;
+					height:30px;
+					}
+					
+				#txtEnviarComentario {
+					width:96%;
+					height:100px;
+					padding-left:1%;
+					padding-right:1%;
+					}
+					
+		#comentrarios_dos_outros {
+			margin-top:1%;
+			width:96%;
+			height:auto;
+			padding:0 2% 0 2%;
+			}
+			
+			#comentrarios_dos_outros h1 {
+				margin:0;
+				font-size:1.1em;
+				margin-left:1%;
+				font-weight:600
+				}
+			
+			#comentrarios_dos_outros h2 {
+				margin:0;
+				font-size:0.7em;
+				margin-left:1%;
+				font-weight:500;
+				border-bottom:1px solid #2c87af;
+				padding-bottom:1%;
+				}
+				
+				#cada_comentario p {
+					margin:0;
+					}
+			
+		#foto_comentario_usuario {
+			width:100%;
+			height:50px;
+			margin-top:-95px;
+			position:relative;
+			vertical-align:top;
+			}
+			
+#rodape_monografia {
+	width:98%;
+	padding:1%;
+	}
+	
+	#table_rodape {
+		width:100%;
+		}
+	
+	#rodape_monografia p {
+		margin:0;
+		}
+/* mensagem */
+#msg_favorito {
+	width:200px;
+	height:100px;
+	background-color:black;
+	position:fixed;
+	bottom:5%;
+	left:2%;
+	transition:bottom 1s;
+	display:none;
+	}
+		
+		
+					
+				

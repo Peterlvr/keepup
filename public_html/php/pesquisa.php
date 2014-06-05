@@ -78,25 +78,22 @@ foreach($pesquisando as $row) {
 }
 ?>
 <?php if(isset($pesquisando[0])) { ?>
-	<ul>
-		<?php foreach($pesquisando as $row)	{ ?>	
-			<li>
-				<a href="trabalho.php?t=<?php echo $row["cd"]; ?>">
-					<h1>
-						<?php echo $row["titulo"]; ?>,
-						<?php echo $row["publicado_em"]; ?>
-					</h1>
-					<p>
-						<?php echo $row["resumo"]; ?>
-					</p>
-					<p>Curso:
-						<?php echo $row["curso"]; ?>
-					</p>
-				</a>
-			</li>
-		<?php } ?>
-	</ul>
-	<section id="filtros">
+	<?php foreach($pesquisando as $row)	{ ?>
+        <a href="trabalho.php?t=<?php echo $row["cd"]; ?>">
+            <div id="cada_monografia">
+                <div id="cada_titulo_monografia"> 
+                    <h1><?php echo $row["titulo"]; ?></h1>
+                </div>
+                <div id="img_cada_monografia"> </div>
+                
+                <div id="cada_resumo">
+                    <p><?php echo $row["resumo"]; ?></p>
+                </div>
+                <!-- <?php echo $row["curso"]; ?>, <?php echo $row["publicado_em"]; ?> -->
+            </div>
+		</a>
+	<?php } ?>
+	<!--section id="filtros">
 		<h1>Filtrar por:</h1>
 		<h2>Curso</h2>
 		<ul>
@@ -106,7 +103,8 @@ foreach($pesquisando as $row) {
 				</li>
 			<?php } ?>
 		</ul>
-	</section>
+	</section-->
 <?php } else { ?>
 	<p>Sem resultados</p>
 <?php } ?>
+
