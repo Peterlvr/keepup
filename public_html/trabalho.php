@@ -80,8 +80,7 @@ $relacionados = $conexao->consultar(
                 <div id="imagem_monografia"> 
                     <?php if(isset($trabalho[0]["nm_img"])) { ?>
                         <img src="../../images/imagens_monografias/logo_tradeshop.jpg" class="imagem_monografia">
-                    
-        <?php } ?>
+                    <?php } ?>
                 </div>
         
         		<div id="bloco1_esquerda_titulo" style="height:auto"> 
@@ -278,5 +277,6 @@ $relacionados = $conexao->consultar(
     <?php 
 		include_once("footer.php");
 	?>
+
 </body>
 </html>

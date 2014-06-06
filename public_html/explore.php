@@ -2,7 +2,6 @@
 # vamos usar a conexão mais tarde
 require "../conexao.class.php";
 require "../sessao.php";
-
 $conexao = new Conexao();
 
 //quando o campo pesquisa está preenchido ele executa o GET
@@ -51,7 +50,6 @@ $conexao = new Conexao();
 
 	$pesquisando = $conexao->consultar($pesquisar);
 }*/ 
-echo $_SERVER['QUERY_STRING'];
 $cursos = $conexao->consultar("SELECT * FROM curso ORDER BY nm_curso");
 $alunos = $conexao->consultar("SELECT * FROM aluno ORDER BY nm_aluno");
 $escolas= $conexao->consultar("SELECT * FROM escola ORDER BY nm_escola");
@@ -67,28 +65,24 @@ $sessao["estados"] = $conexao->consultar("SELECT * FROM estado");
     <link href="cs/global.css" rel="stylesheet" type="text/css" />
     <script src="js/jquery.js" type="text/javascript"></script>
 	<script src="js/script.js" type="text/javascript"> </script>
-		<script src="js/explore.js"></script>
-		<script src="js/carregaCidade.js"></script> 
+	<script src="js/explore.js"></script>
+	<script src="js/carregaCidade.js"></script> 
 </head>
 
 <body>
 		<?php include "header.php"; ?>
 	<section>
     	<aside>
-           
             <div id="pesquisa">
-            
             <form name="pesquisa" id="pesquisaForm" method="GET" action="">
             <h1> Pesquisar </h1>
             	<table>
-                   
                        <tr>
                        		<td>
                        		<input type="text" name="pesquisa" class="inputPesquisa">
                             </td>
                        </tr>
                 </table>
-				
 				<table>
                 	
                 	<tr>
@@ -837,6 +831,10 @@ $sessao["estados"] = $conexao->consultar("SELECT * FROM estado");
             </div>
         </article>
     </section>
-    
+    <script>
+    $().ready(function() {
+       pesquisaAjax("<?php echo $_SERVER["QUERY_STRING"]; ?>"); 
+    });
+    </script>
 </body>
 </html>
