@@ -96,10 +96,10 @@
     	
     </header>
      <div id="pesquisa_aberto">
-        <form method="post">
+        <form method="GET" action="explore.php">
             <table id="table_pesquisa">
                 <tr>
-                    <td> <input type="text" id="txtPesquisa" placeholder="Pesquise sua monografia aqui..." /> </td>
+                    <td> <input type="text" id="txtPesquisa" name="pesquisa" placeholder="Pesquise sua monografia aqui..." /> </td>
                     <td> <input type="submit" value="Pesquisar" id="btnPesquisar" /> </td>
                 </tr>
             </table>
