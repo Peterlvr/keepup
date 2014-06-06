@@ -62,20 +62,22 @@ if(isset($_GET['pesquisa']))
 	}
 
 	$pesquisando = $conexao->consultar($pesquisar);
+	
+	$cursos = array();
+	foreach($pesquisando as $row) {
+		$jaFoi = false;
+		foreach($cursos as $curso) {
+			if($row["curso"] == $curso){
+				$curso[1]++;
+				$jaFoi = true;
+			}
+		}
+		if(!$jaFoi)
+			array_push($cursos, array($row["curso"], 1));
+	}
 }
 
-$cursos = array();
-foreach($pesquisando as $row) {
-	$jaFoi = false;
-	foreach($cursos as $curso) {
-		if($row["curso"] == $curso){
-			$curso[1]++;
-			$jaFoi = true;
-		}
-	}
-	if(!$jaFoi)
-		array_push($cursos, array($row["curso"], 1));
-}
+
 ?>
 <?php if(isset($pesquisando[0])) { ?>
 	<?php foreach($pesquisando as $row)	{ ?>
