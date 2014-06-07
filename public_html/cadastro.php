@@ -149,6 +149,22 @@ $sessao["escolas"] = $con->consultar("SELECT * FROM escola");
                 <p>
                     <input placeholder="CNPJ" type="text" name="cdCNPJ" title="Insira apenas números." pattern="[0-9]{14}">
                 </p>
+                <p>
+                    <label>Localização <small>(seja específico, como com o endereço completo)</small>:</label>
+                </p>
+                <p>
+                    <input placeholder="Rua X, 333, Bairro Y - São Paulo, SP" type="text" name="nmLocalizacao">
+                </p>
+                <p>Que cursos são oferecidos?</p>
+                <p id="cdCurso">
+                    <select name="cdCurso1" class="cdCurso">
+                        <?php foreach($sessao["cursos"] as $curso) { ?>
+                            <option value="<?php echo $curso["cd_curso"]; ?>">
+                                <?php echo $curso["nm_curso"]; ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </p>
             </fieldset>
             <section id="final">
                 <input type="hidden" value="false" name="jsAtivo" id="jsAtivo">

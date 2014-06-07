@@ -90,11 +90,44 @@ else if($rbTipo == "E") { # E = escola
 	require_once("../../escola.class.php");
 	$nmEscola = $_POST["nmEscola"] or volta(1);
 	$cdCNPJ = $_POST["cdCNPJ"] or volta(1);
+	$nmLocalizacao = $_POST["nmLocalizacao"] or volta(2);
 	$usuario = new Usuario($nmLogin, $nmSenha, true);
 	$usuario->setValsCadastro($nmEmail, "E");
 	$usuario->cadastrar();
-	$escola = new Escola($nmEscola, $nmLogin, $cdCNPJ, $cdCidade);
+	$escola = new Escola($nmEscola, $nmLogin, $cdCNPJ, $cdCidade, $nmLocalizacao);
 	$escola->cadastrar();
+
+	$con = new Conexao();
+
+	$consultaCdAluno = $con->consultar(
+		"SELECT cd_escola
+		FROM escola
+		where
+			cd_usuario = (
+				SELECT cd_usuario FROM usuario WHERE nm_login = '$nmLogin'
+			)") or die("cadastro:107 ".mysql_error());
+	$cdEscola = $consultaCdAluno[0]["cd_escola"];
+
+	# Adicionar todos os cursos para Array
+	$haCursos = true;
+	$i = 1;
+	$cursos = array();
+	while($haCursos) {
+		if(isset($_POST["cdCurso$i"])) {
+			array_push($cursos, $_POST["cdCurso$i"]);
+		}
+		else {
+			$haCursos = false;
+			break;
+		}
+		$i++;
+	}
+	#var_dump($cursos);
+	foreach($cursos as $curso) {
+		$adcCurso = "INSERT into curso_oferecido values ($cdEscola, $curso)";
+		$con->executar($adcCurso) or die("127: " . mysql_error());
+	#	var_dump($curso);
+	}
 }
 else { # Este tipo não existe!
 	volta(1);

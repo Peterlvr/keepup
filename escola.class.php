@@ -5,11 +5,12 @@ class Escola {
 	private $nmEscola;
 	private $CNPJ;
 	private $cdCidade;
-	public function __construct($nome, $login, $CNPJ, $cdCidade) {
+	public function __construct($nome, $login, $CNPJ, $cdCidade, $nmLocalizacao) {
 		$this->nmEscola = $nome;
 		$this->login = $login;
 		$this->CNPJ = $CNPJ;
 		$this->cdCidade = $cdCidade;
+		$this->nmLocalizacao = $nmLocalizacao;
 	}
 	private $bio;
 	public function setBio($txt) {
@@ -28,7 +29,7 @@ class Escola {
 		$sql = "INSERT into escola values(NULL,'"
 			. $this->getIdUsuario() . "','"
 			. $this->nmEscola . "', '"
-			. $this->CNPJ . "',NULL,NULL,NULL,NULL,NULL,"
+			. $this->CNPJ . "',NULL,NULL,'{$this->nmLocalizacao}',NULL,NULL,"
 			. $this->cdCidade . ")";
 		$this->sql = $sql;
 	}

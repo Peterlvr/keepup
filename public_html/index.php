@@ -4,34 +4,53 @@ require("../conexao.class.php");
 $conexao = new Conexao();
 if($logado) {
 	$cdUsuario = $sessao["cd_usuario"];
-	$codigoPerfil = $_SESSION["cd_aluno"];
-	$consulta =
-		"SELECT
-			t.nm_titulo 'titulo',
-			t.ds_resumo 'resumo',
-			t.cd_trabalho 'cd'
-		FROM
-			trabalho t, autoria a
-		WHERE
-			t.cd_trabalho = a.cd_trabalho and 
-			a.cd_aluno = $codigoPerfil
-		ORDER BY
-			t.dt_publicado DESC
-		LIMIT 3";
+    if($sessao["tipoConta"] == "A") {
+    	$codigoPerfil = $_SESSION["cd_aluno"];
+    	$consulta =
+    		"SELECT
+    			t.nm_titulo 'titulo',
+    			t.ds_resumo 'resumo',
+    			t.cd_trabalho 'cd'
+    		FROM
+    			trabalho t, autoria a
+    		WHERE
+    			t.cd_trabalho = a.cd_trabalho and 
+    			a.cd_aluno = $codigoPerfil
+    		ORDER BY
+    			t.dt_publicado DESC
+    		LIMIT 3";
+    }
+    else if($sessao["tipoConta"] == "E") {
+        $codigoPerfil = $_SESSION["cd_escola"];
+        $consulta =
+            "SELECT
+                t.nm_titulo 'titulo',
+                t.ds_resumo 'resumo',
+                t.cd_trabalho 'cd'
+            FROM
+                trabalho t
+            WHERE
+                t.cd_escola = $codigoPerfil
+            ORDER BY
+                t.dt_publicado DESC
+            LIMIT 3";
+    }
 	$sessao["trabalhosUsuario"] = $conexao->consultar($consulta);
 
-	$favsql = 
-		"SELECT
-			t.*
-		FROM
-			trabalho t, favorito f
-		WHERE
-			t.cd_trabalho = f.cd_trabalho and
-			f.cd_aluno = {$sessao["cd_aluno"]}
-		ORDER BY
-			f.dt_favoritado DESC
-		LIMIT 3";
-	$sessao["favoritos"] = $conexao->consultar($favsql);
+    if($sessao["tipoConta"] == "A") {
+    	$favsql = 
+    		"SELECT
+    			t.*
+    		FROM
+    			trabalho t, favorito f
+    		WHERE
+    			t.cd_trabalho = f.cd_trabalho and
+    			f.cd_aluno = {$sessao["cd_aluno"]}
+    		ORDER BY
+    			f.dt_favoritado DESC
+    		LIMIT 3";
+    	$sessao["favoritos"] = $conexao->consultar($favsql);
+    }
 }
 $consulta =
 	"SELECT 
