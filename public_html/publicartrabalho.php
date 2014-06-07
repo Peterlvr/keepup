@@ -264,8 +264,11 @@ if(isset($_GET["status"]) && $_GET["status"] == "sucesso") {
 				<p>
 					<textarea name="dsResumo"></textarea>
 				</p>
+                <p>
+                    <label for="tx_pchaves">Palavras-chave:</label>
+                </p>
 				<p>
-					<textarea name="tx_pchaves"></textarea>
+					<input type="text" name="tx_pchaves">
 				</p>
 				<p>
 					<label for="arquivoPrincipal">Insira o documento principal do trabalho (em PDF):</label>
