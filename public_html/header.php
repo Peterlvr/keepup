@@ -9,7 +9,10 @@
     				</p>
     			</aside>
     		<form action="php/login.php" method="POST">
-            	<input type="hidden" name="de" value="javascript:location.href">
+            	<input type="hidden" name="prev" id='login_form_prev'>
+                <script>
+                    $("#login_form_prev").attr("value", location.href);
+                </script>
                     <table>
                         <tr>
                         	<td> <label for="nmLogin">Nome de usuário:</label> </td>

@@ -1,5 +1,6 @@
 <?php # Pós-login
 session_start();
+$ultimaPagina = $_GET["ultimaPagina"] || "";
 if(isset($_SESSION["logado"]) && $_SESSION["logado"] == true) {
 	require_once("../../conexao.class.php");
 	$con = new Conexao();
@@ -18,7 +19,7 @@ if(isset($_SESSION["logado"]) && $_SESSION["logado"] == true) {
 		$_SESSION["nome"] = $resultado["nm_escola"];
 	}
 
-	header("location:../");
+	echo "<!doctype html><script>location.href='../$ultimaPagina';</script>";
 }
 else {
 	header("location:../");

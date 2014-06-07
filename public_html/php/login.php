@@ -1,9 +1,9 @@
 <?php # Script de login
-
+$ultimaPag = $_POST["prev"] || "";
 # Funções de retorno
 function volta($e) {
 	#header("location:../?e=" . $e);
-	echo "<script>history.back()</script>";
+	echo "<script>location.href='../$ultimaPag?e=$e'</script>";
 	die();
 }
 
@@ -18,7 +18,7 @@ $nmSenha = $_POST["nmSenha"] or volta(2);
 $dbConsulta = new Conexao();
 $consulta = $dbConsulta->consultar(
 	"SELECT * FROM usuario WHERE nm_login = '$nmLogin'");
-
+var_dump($consulta);
 $resultadoConsulta = $consulta[0];
 
 $dbSenha = $resultadoConsulta["nm_senha"];
@@ -60,12 +60,9 @@ if(compararSenhas($nmSenha, $dbSenha)) {
 		$_SESSION["nome"] = $aluno[0]["nm_escola"];
 		
 	}
-	#header("location:posLogin.php");
+	header("location:posLogin.php");
 }
 else {
 	volta(3);
 }
 ?>
-<script>
-history.back();
-</script>

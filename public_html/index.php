@@ -22,9 +22,7 @@ if($logado) {
 
 	$favsql = 
 		"SELECT
-			t.nm_titulo 'nm_titulo',
-			t.ds_resumo 'ds_resumo',
-			t.cd_trabalho 'cd'
+			t.*
 		FROM
 			trabalho t, favorito f
 		WHERE
