@@ -312,6 +312,17 @@ section {
 						height:auto;
 						padding:1%;	
 						}
+
+						#excluir_comentario {
+							width: 30px;
+							height: 30px;
+							float: right;
+							border-radius: 5px;
+							padding: 2px;
+							background-color:#1f4350;
+							top:0;
+
+						}
 				
 						#table_cada_comentario {
 							border:0;

@@ -41,7 +41,7 @@ foreach($autores as $autor)
 		$autorDoTrabalho = true;
 
 $comentariosTrabalho = $conexao->consultar(
-	"SELECT c.cd_autor, al.nm_aluno, al.nm_url_avatar, c.tx_comentario, c.dt_publicado
+	"SELECT c.cd_autor, al.nm_aluno, al.nm_url_avatar, c.tx_comentario, c.dt_publicado, c.cd_comentario
 	FROM aluno al, comentario c
 	WHERE c.cd_autor = al.cd_aluno AND c.cd_trabalho = $cd_trabalho
 	ORDER BY c.dt_publicado DESC"
@@ -51,6 +51,23 @@ $relacionados = $conexao->consultar(
 	"    SELECT * FROM trabalho t where cd_curso = {$trabalho[0]["cd_curso"]}
     order by rand() limit 3;"
 );
+
+$somaAvaliacoes = "SELECT sum(vl_voto) FROM voto WHERE cd_trabalho = $cd_trabalho";
+$soma = $conexao->consultar($somaAvaliacoes);
+
+            if($soma[0][0] <> null) {
+                
+                $qtVotos = $conexao->consultar("SELECT count(vl_voto) FROM voto WHERE cd_trabalho = $cd_trabalho");
+                $total =  (int)$soma[0][0];
+                $divide = (int)$qtVotos[0][0];
+                $media = $total/$divide;
+                $media = number_format($media, 1);
+                $decimal = explode('.', $media);
+                $comparar = $decimal[1];                
+                
+                if($comparar <=5 ) { $media = floor($media);}
+                if($comparar > 5) { $media = ceil($media); }
+            }
 ?>
 
 <!doctype html>
@@ -64,6 +81,81 @@ $relacionados = $conexao->consultar(
     <script src="js/jquery.js" type="text/javascript"></script>
 	<script src="js/script.js" type="text/javascript"> </script> 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+            function EstrelaCor(numero) {
+                var teste = document.getElementById(numero).value;
+                
+                switch (teste) {
+                    case '1':
+                    document.getElementById('um').style.backgroundColor = '#f4c239';
+                    document.getElementById('dois').style.backgroundColor = 'white';
+                    document.getElementById('tres').style.backgroundColor = 'white';
+                    document.getElementById('quatro').style.backgroundColor = 'white';
+                    document.getElementById('cinco').style.backgroundColor = 'white';
+
+                    break;
+
+                    case '2':
+                    document.getElementById('um').style.backgroundColor = '#f4c239';
+                    document.getElementById('dois').style.backgroundColor = '#f4c239';
+                    document.getElementById('tres').style.backgroundColor = 'white';
+                    document.getElementById('quatro').style.backgroundColor = 'white';
+                    document.getElementById('cinco').style.backgroundColor = 'white';
+                    break;
+                    
+                    case '3':
+                    document.getElementById('um').style.backgroundColor = '#f4c239';
+                    document.getElementById('dois').style.backgroundColor = '#f4c239';
+                    document.getElementById('tres').style.backgroundColor = '#f4c239';
+                    document.getElementById('quatro').style.backgroundColor = 'white';
+                    document.getElementById('cinco').style.backgroundColor = 'white';
+                    break;
+                    
+                    case '4':
+                    document.getElementById('um').style.backgroundColor = '#f4c239';
+                    document.getElementById('dois').style.backgroundColor = '#f4c239';
+                    document.getElementById('tres').style.backgroundColor = '#f4c239';
+                    document.getElementById('quatro').style.backgroundColor = '#f4c239';
+                    document.getElementById('cinco').style.backgroundColor = 'white';
+
+                    break;
+                    
+                    case '5':
+                    document.getElementById('um').style.backgroundColor = '#f4c239';
+                    document.getElementById('dois').style.backgroundColor = '#f4c239';
+                    document.getElementById('tres').style.backgroundColor = '#f4c239';
+                    document.getElementById('quatro').style.backgroundColor = '#f4c239';
+                    document.getElementById('cinco').style.backgroundColor = '#f4c239';
+                    break;
+                }        
+            }
+            function EstrelaSemCor(){
+                    document.getElementById('um').style.backgroundColor = 'white';
+                    document.getElementById('dois').style.backgroundColor = 'white';
+                    document.getElementById('tres').style.backgroundColor = 'white';
+                    document.getElementById('quatro').style.backgroundColor = 'white';
+                    document.getElementById('cinco').style.backgroundColor = 'white';
+
+            }
+
+            function votar(nota) {
+                var x = new XMLHttpRequest();
+                var url = 'avaliacao.php';
+                var a = document.getElementById(nota).value;
+                    var vars = 'opcao='+a;
+                    x.open("POST", url, true);
+                        x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                x.onreadystatechange = function() {
+                    if(x.readyState == 4 && x.status == 200) {
+                        var retorna_valor = x.responseText;
+                        document.getElementById('status').innerHTML = retorna_valor;
+                    }
+                }
+
+                x.send(vars);
+                document.getElementById('status').innerHTML = 'processing...';
+            }   
+        </script>
 
 </head>
 
@@ -75,7 +167,7 @@ $relacionados = $conexao->consultar(
     
 	 <section> 
     
-    	<div id="bloco1_esquerda_resumo">
+    	<div id="bloco1_esquerda_resumo" onmouseout='EstrelaCor(<?php if(isset($media)) { echo $media;}?>)'>
         
                 <div id="imagem_monografia"> 
                     <?php if(isset($trabalho[0]["nm_img"])) { ?>
@@ -87,7 +179,7 @@ $relacionados = $conexao->consultar(
                 	<h1><?php echo $trabalho[0]['nm_titulo']; ?></h1> 
                 </div>
                 
-                	<a href="#">
+                	<a href="#"> 
                 <div id="bloco1_esquerda_favorito"> <script> 
                     $("#bloco1_esquerda_favorito").on("click", function() {
                         console.log("clicado");
@@ -118,6 +210,32 @@ $relacionados = $conexao->consultar(
                     <div id="rodape_monografia">
                     	<table id="table_rodape">
                         	<tr>
+                                 <td>
+
+                                 <div id="votar">
+                                <input type='image' title='Fraco'  class='estrela' src='images/stars.png' id='um' value='1' onmouseover='EstrelaCor("1")' onmouseout='EstrelaSemCor()' onclick="votar('1');">
+                                    <input type='hidden' name='opcao' id='1' value='1'>
+                                <input type='image' title='Regular' class='estrela' src='images/stars.png' id='dois' value='2' onmouseover='EstrelaCor("2")' onmouseout='EstrelaSemCor()' onclick="votar('2');">
+                                    <input type='hidden' name='opcao' id='2' value='2'>
+                                <input type='image' title='Bom' class='estrela' src='images/stars.png' id='tres' value='3' onmouseover='EstrelaCor("3")' onmouseout='EstrelaSemCor()' onclick="votar('3');">
+                                    <input type='hidden' name='opcao' id='3' value='3'>
+                                <input type='image' title='Muito Bom' class='estrela' src='images/stars.png' id='quatro' value='4' onmouseover='EstrelaCor("4")' onmouseout='EstrelaSemCor()' onclick="votar('4');">
+                                    <input type='hidden' name='opcao' id='4' value='4'>
+                                <input type='image' title='Excelente' class='estrela' src='images/stars.png' id='cinco' value='5' onmouseover='EstrelaCor("5")' onmouseout='EstrelaSemCor()' onclick="votar('5');">
+                                    <input type='hidden' name='opcao' id='5' value='5'>                                                            
+
+                                </div>
+                                <div id='status'> <?php if(isset($media)) { ?>
+                                    <script> EstrelaCor(<?php echo $media;?>) </script>
+                                <?php
+                                    }
+                                    else {
+                                        echo "Seja o primeiro a votar neste trabalho.";
+                                } ?></div>
+
+                                </td>
+                            </tr>
+                            <tr>   
                             <td> 
                             	<h1> Instituição de ensino </h1>
                                 <p> <?php echo $escola[0]['nm_escola'];?> </p>
@@ -125,6 +243,7 @@ $relacionados = $conexao->consultar(
                             	<td> <h1> Curso: </h1> <p><?php echo $autores[0]['nmCurso'];?></p> </td>
                                
                                 <td style="text-align:right;"> <h1> Ano de Publicação </h1> <p><?php echo $trabalho[0]['aa_publicacao']; ?></p></td>
+
                             </tr>	
                         </table>
                     </div>
@@ -151,7 +270,8 @@ $relacionados = $conexao->consultar(
                             <td class="comentar">
                             <h1> Escreva um comentário sobre o projeto: </h1>
                             	<form action='php/novoComentario.php' method='POST' id='novoComentarioForm'>
-<textarea placeholder='Comente este trabalho...' name='campoComentario' id="txtEnviarComentario" rows='8' cols='60'></textarea>                                    <input id="btnEnviarComentario" type="submit" value="Enviar" />
+<textarea placeholder='Comente este trabalho...' name='campoComentario' id="txtEnviarComentario" rows='8' cols='60'></textarea>   
+                                 <input id="btnEnviarComentario" type="submit" value="Enviar" />
                             	</form>
                             </td>
                         </tr>
@@ -179,8 +299,16 @@ $relacionados = $conexao->consultar(
                                 <td style="width:100%;">
                                  <h1><?php echo $comentario['nm_aluno']; ?></h1>
                                  <h2><?php echo $comentario['dt_publicado']; ?></h2>
-                                	<div class="texto_cada_comentario">
-                                    	<p><?php echo $comentario['tx_comentario']; ?></p>
+                                	<div class="texto_cada_comentario"> 
+                                       <?php if($logado and $autorDoTrabalho == true) { ?>
+                                            <div id='excluir_comentario'>
+                                            <form action='php/excluirComentario.php' method='POST' id='excluirComentarioForm'>
+                                                <input type='hidden' name='comentarioExcluido' value='<?php echo $comentario["cd_comentario"]; ?>'>
+                                                <input type='image' src='images/pencil.png'>
+                                            </form> </div>
+                                       <?php }  ?> 
+                                       <p><?php echo $comentario['tx_comentario']; 
+                                        ?></p>
                                     </div>
                                 </td>
                         	</tr>
