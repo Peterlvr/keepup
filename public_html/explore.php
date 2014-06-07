@@ -82,27 +82,6 @@ $sessao["estados"] = $conexao->consultar("SELECT * FROM estado");
 					</select>
                         </Td>
                     </Tr>
-					<Tr>
-                    	<td><input type="checkbox" data-activates="estado"> </td>
-                        <td> 
-                        <select id="estado" name="estado" class="largura"  disabled>
-						<?php foreach($sessao["estados"] as $estado) { ?>
-                        <option>Selecione um estado...</option>
-							<option value="<?php echo $estado["cd_estado"]; ?>">
-								<?php echo $estado["sg_estado"]; ?>
-							</option>
-						<?php } ?>
-					</select>
-                        </td>
-                    </Tr>
-                    <Tr>
-                    	<td><input type="checkbox" data-activates="cidade"> </td>
-                        <td> 
-                        <select name="cidade"  class="largura"  id="cidade" disabled>
-						<option>Selecione uma cidade...</option>
-					</select>
-                        </td>
-                    </Tr>
                     <tr>
                     	<td colspan="2"><input type='submit' value='Buscar'> <td>
                     </tr>
