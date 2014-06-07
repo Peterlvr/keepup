@@ -10,16 +10,7 @@ require("../conexao.class.php");
 <title>Publicar</title>
 
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
-	<link href="cs/estilo_index.css" rel="stylesheet" type="text/css" />
-    <link href="cs/global.css" rel="stylesheet" type="text/css" />
-    <link href="cs/estilo_publicar.css" rel="stylesheet" type="text/css"/>
-    <link href="js/jquery-ui-1.10.4.min.css" type="text/css" rel="stylesheet">
-    <link href="js/jquery-ui-1.10.4.css" type="text/css" rel="stylesheet">
-    <script src="js/jquery.js" type="text/javascript"> </script>
-    <script src="js/jquery-1.10.2.js" type="text/javascript"> </script>
-    <script src="js/jquery-ui-1.10.4.js" type="text/javascript"> </script>
-    <script src="js/jquery-ui-1.10.4.min.js" type="text/javascript"> </script>
-    <script src="js/script.js" type="text/javascript"> </script>
+<link href="cs/global.css"  rel="stylesheet" type="text/css" />     <link  href="cs/estilo_publicar.css" rel="stylesheet" type="text/css"/>      <link href="js/jquery-ui-1.10.4.min.css" type="text/css"  rel="stylesheet">     <script src="js/jquery.js"  type="text/javascript"> </script>     <script  src="js/jquery-ui-1.10.4.min.js" type="text/javascript">  </script>     <script src="js/script.js"  type="text/javascript"> </script>
 
     
 </head>
