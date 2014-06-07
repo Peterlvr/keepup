@@ -1,4 +1,5 @@
 <?php 
+error_reporting(E_ALL);
 require("../sessao.php");
 require("../conexao.class.php");
 $conexao = new Conexao();
@@ -58,8 +59,16 @@ $conexao = new Conexao();
         AND t.cd_curso = c.cd_curso");
   $nomeInstituicao = $conexao->consultar("SELECT nm_escola 
     FROM escola WHERE cd_escola = {$trabalhoTop[0]['cd_escola']}");
+
 	}
 
+  $cursosquery = 
+    "SELECT c.*
+    FROM curso c, cursando cu
+    WHERE
+        cu.cd_curso = c.cd_curso and
+        cu.cd_aluno = {$aluno[0]["cd_aluno"]}";
+  $cursosAluno = $conexao->consultar($cursosquery);
    ?>
 <!doctype html>
 <html>
@@ -201,6 +210,8 @@ $conexao = new Conexao();
         </table>
         
             <p><?php echo  $aluno[0]["tx_bio"];?></p>
+
+            <p><?php foreach($cursosAluno as $curso) echo $curso["nm_curso"]; ?></p>
 
              <div id="monografias_do_usuario"> 
                 <div id="trabalhos">

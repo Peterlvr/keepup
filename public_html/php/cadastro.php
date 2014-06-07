@@ -30,6 +30,39 @@ if($rbTipo == "A") { # A = aluno
 	$usuario->cadastrar();
 	$aluno = new Aluno($nmAluno, $dtNascimento, $nmLogin, $cdCidade);
 	$aluno->cadastrar();
+
+	$con = new Conexao();
+
+	$consultaCdAluno = $con->consultar(
+		"SELECT cd_aluno
+		FROM aluno
+		where
+			cd_usuario = (
+				SELECT cd_usuario FROM usuario WHERE nm_login = '$nmLogin'
+			)") or die("cadastro:42 ".mysql_error());
+	$cdAluno = $consultaCdAluno[0]["cd_aluno"];
+
+	# Adicionar todos os cursos para Array
+	$haCursos = true;
+	$i = 1;
+	$cursos = array();
+	while($haCursos) {
+		if(isset($_POST["cdCurso$i"])) {
+			array_push($cursos, $_POST["cdCurso$i"]);
+		}
+		else {
+			$haCursos = false;
+			break;
+		}
+		$i++;
+	}
+	#var_dump($cursos);
+	foreach($cursos as $curso) {
+		$adcCurso = "INSERT into cursando values ($cdAluno, $curso, 1)";
+		$con->executar($adcCurso) or die("60: " . mysql_error());
+	#	var_dump($curso);
+	}
+	#die("manu");
 }
 else if($rbTipo == "E") { # E = escola
 	require_once("../../escola.class.php");

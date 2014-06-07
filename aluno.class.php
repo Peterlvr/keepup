@@ -40,7 +40,7 @@ class Aluno {
 	public function cadastrar() {
 		$this->conexao = new Conexao();
 		$this->criarSql();
-		$this->conexao->executar($this->sql) or die(mysql_error());
+		$this->conexao->executar($this->sql) or die("aluno.class:" .mysql_error());
 	}
 }
 ?>

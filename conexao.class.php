@@ -9,7 +9,7 @@ class Conexao {
 	private function conectar() {
 		if($this->conexao = mysql_connect($this->host, $this->usuario, $this->senha)) {
 			if($this->conexaoBanco = mysql_select_db($this->banco)) {
-				header('Content-Type: text/html; charset=utf-8');
+		#		header('Content-Type: text/html; charset=utf-8');
 				mysql_query("SET NAMES 'utf8'");
 				mysql_query('SET character_set_connection=utf8');
 				mysql_query('SET character_set_client=utf8');
@@ -17,7 +17,7 @@ class Conexao {
 				return $this;
 			}
 		}
-		die(mysql_error());
+		die("conexao.class:20". mysql_error());
 	}
 	private function desconectar() {
 		mysql_close($this->conexao);
@@ -36,7 +36,7 @@ class Conexao {
 			return $arr_resultado;
 		}
 		else {
-			echo mysql_error();
+			echo "conexao:39: ".mysql_error();
 			$this->desconectar();
 			return false;
 		}
@@ -48,7 +48,7 @@ class Conexao {
 			return true;
 		}
 		else {
-			echo mysql_error();
+			echo "conexao.class: ". mysql_error();
 			$this->desconectar();
 			return false;
 		}

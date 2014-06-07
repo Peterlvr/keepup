@@ -6,14 +6,14 @@ if($logado) {
 require "../conexao.class.php";
 
 $con = new Conexao();
-$sessao["estados"] = $con->consultar("SELECT * FROM estado")
-
+$sessao["estados"] = $con->consultar("SELECT * FROM estado");
+$sessao["cursos"] = $con->consultar("SELECT * FROM curso");
 ?>
 <!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>Publicar trabalho acadêmico</title>
+<title>Cadastro - Keep Up</title>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
 	<link href="cs/estilo_index.css" rel="stylesheet" type="text/css" />
     <link href="cs/global.css" rel="stylesheet" type="text/css" />
@@ -23,6 +23,7 @@ $sessao["estados"] = $con->consultar("SELECT * FROM estado")
     <script src="js/jquery-ui-1.10.4.min.js" type="text/javascript"> </script>
     <script src="js/script.js" type="text/javascript"> </script>
     <script src="js/publicar.js" type="text/javascript"> </script>
+    <script src="js/carregaCidade.js"></script>
 </head>
 
 <body>
@@ -108,6 +109,17 @@ $( "#dtNascimento" ).datepicker();
 });
 </script>
                 </p>
+                <p>Em que áreas você já estudou?</p>
+                <p id="cdCurso">
+                    <select name="cdCurso1" class="cdCurso">
+                        <?php foreach($sessao["cursos"] as $curso) { ?>
+                            <option value="<?php echo $curso["cd_curso"]; ?>">
+                                <?php echo $curso["nm_curso"]; ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </p>
+                <p><input type="button" id="adicionarCurso" value="+ curso"></p>
             </section>
             <section id="painelEscola" class="condicional">
                 <p>

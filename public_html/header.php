@@ -56,7 +56,7 @@
             <a href="ajuda.php"> <div class="bot_nav"> Ajuda </div> </a>
 
         </div>
-    <?php if($logado) { echo "<a href='usuario.php?u={$sessao["cd"]}'>"; } ?>
+    <?php if($logado) { echo "<a href='usuario.php?u={$sessao["cd_usuario"]}'>"; } ?>
     	<div id="foto_usuario_menu">
           		
                        
