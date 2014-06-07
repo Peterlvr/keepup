@@ -52,22 +52,7 @@ $relacionados = $conexao->consultar(
     order by rand() limit 3;"
 );
 
-$somaAvaliacoes = "SELECT sum(vl_voto) FROM voto WHERE cd_trabalho = $cd_trabalho";
-$soma = $conexao->consultar($somaAvaliacoes);
-
-            if($soma[0][0] <> null) {
-                
-                $qtVotos = $conexao->consultar("SELECT count(vl_voto) FROM voto WHERE cd_trabalho = $cd_trabalho");
-                $total =  (int)$soma[0][0];
-                $divide = (int)$qtVotos[0][0];
-                $media = $total/$divide;
-                $media = number_format($media, 1);
-                $decimal = explode('.', $media);
-                $comparar = $decimal[1];                
-                
-                if($comparar <=5 ) { $media = floor($media);}
-                if($comparar > 5) { $media = ceil($media); }
-            }
+require("php/mediaAvaliacao.php");
 ?>
 
 <!doctype html>
@@ -81,63 +66,9 @@ $soma = $conexao->consultar($somaAvaliacoes);
     <script src="js/jquery.js" type="text/javascript"></script>
 	<script src="js/script.js" type="text/javascript"> </script> 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
-    <script type='text/javascript'>
-            function EstrelaCor(numero) {
-                var teste = document.getElementById(numero).value;
-                
-                switch (teste) {
-                    case '1':
-                    document.getElementById('um').style.backgroundColor = '#f4c239';
-                    document.getElementById('dois').style.backgroundColor = 'white';
-                    document.getElementById('tres').style.backgroundColor = 'white';
-                    document.getElementById('quatro').style.backgroundColor = 'white';
-                    document.getElementById('cinco').style.backgroundColor = 'white';
-
-                    break;
-
-                    case '2':
-                    document.getElementById('um').style.backgroundColor = '#f4c239';
-                    document.getElementById('dois').style.backgroundColor = '#f4c239';
-                    document.getElementById('tres').style.backgroundColor = 'white';
-                    document.getElementById('quatro').style.backgroundColor = 'white';
-                    document.getElementById('cinco').style.backgroundColor = 'white';
-                    break;
-                    
-                    case '3':
-                    document.getElementById('um').style.backgroundColor = '#f4c239';
-                    document.getElementById('dois').style.backgroundColor = '#f4c239';
-                    document.getElementById('tres').style.backgroundColor = '#f4c239';
-                    document.getElementById('quatro').style.backgroundColor = 'white';
-                    document.getElementById('cinco').style.backgroundColor = 'white';
-                    break;
-                    
-                    case '4':
-                    document.getElementById('um').style.backgroundColor = '#f4c239';
-                    document.getElementById('dois').style.backgroundColor = '#f4c239';
-                    document.getElementById('tres').style.backgroundColor = '#f4c239';
-                    document.getElementById('quatro').style.backgroundColor = '#f4c239';
-                    document.getElementById('cinco').style.backgroundColor = 'white';
-
-                    break;
-                    
-                    case '5':
-                    document.getElementById('um').style.backgroundColor = '#f4c239';
-                    document.getElementById('dois').style.backgroundColor = '#f4c239';
-                    document.getElementById('tres').style.backgroundColor = '#f4c239';
-                    document.getElementById('quatro').style.backgroundColor = '#f4c239';
-                    document.getElementById('cinco').style.backgroundColor = '#f4c239';
-                    break;
-                }        
-            }
-            function EstrelaSemCor(){
-                    document.getElementById('um').style.backgroundColor = 'white';
-                    document.getElementById('dois').style.backgroundColor = 'white';
-                    document.getElementById('tres').style.backgroundColor = 'white';
-                    document.getElementById('quatro').style.backgroundColor = 'white';
-                    document.getElementById('cinco').style.backgroundColor = 'white';
-
-            }
-
+    <script src="js/estrelaAvaliacao.js" type="text/javascript"></script>
+    <?php if($logado) { ?><script type='text/javascript'>
+            
             function votar(nota) {
                 var x = new XMLHttpRequest();
                 var url = 'avaliacao.php';
@@ -155,7 +86,7 @@ $soma = $conexao->consultar($somaAvaliacoes);
                 x.send(vars);
                 document.getElementById('status').innerHTML = 'processing...';
             }   
-        </script>
+        </script> <?php }?>
 
 </head>
 

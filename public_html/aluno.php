@@ -69,7 +69,7 @@ $conexao = new Conexao();
 <link href="cs/global.css" type="text/css" rel="stylesheet">
 <link href="cs/estilo_user.css" rel="stylesheet" type="text/css">
 <script src="js/jquery.js" type="text/javascript"> </script>	
-<script src="js/script.js" type="text/javascript"> </script>	
+<script src="js/script.js" type="text/javascript"> </script>
 </head>
 
 <body>
@@ -231,7 +231,25 @@ $conexao = new Conexao();
                             <footer class="rodape_mono">
                                     <table>
                                         <tr>
-                                            <td><img src="images/index_icons/votacao.png" width="80px"> </td>
+                                            <td><?php $cd_trabalho = $trabalhoTop[0]['cd_trabalho'];
+                                            require("php/mediaAvaliacao.php"); 
+                                            switch($media) {
+                                                case 1:
+                                                    echo  "<img src='images/index_icons/umaestrela.png'>";
+                                                    break;
+                                                case 2:
+                                                    echo  "<img src='images/index_icons/duasestrelas.png'>";
+                                                    break;
+                                                case 3:
+                                                    echo  "<img src='images/index_icons/tresestrelas.png'>";
+                                                    break;
+                                                case 4:
+                                                    echo "<img src='images/index_icons/quatroestrelas.png'>";
+                                                    break;
+                                                case 5:
+                                                    echo "<img src='images/index_icons/cincoestrelas.png'>";  
+                                                    break;   }?>
+                                          </td>
                                             <td> <!-- linkar com page monografia da escola x -->
                                             <a href="../escola/Escola_monos.html"><?php echo $nomeCurso[0]['nm_curso'];?></a> </td>
                                             <td> <a href="../escola/Escola.html"><?php echo $nomeInstituicao[0]['nm_escola']; ?></a> </td> 
