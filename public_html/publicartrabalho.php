@@ -250,7 +250,7 @@ if(isset($_GET["status"]) && $_GET["status"] == "sucesso") {
 					</select>
 				</p>
 				<p>
-					<a href="javascript:void(0)" id="adicionarAutor">+ autor</a>
+					<input type="button" id="adicionarAutor" value="+ autor">
 				</p>
 				<p>
 					<label for="aaPublicacaoReal">Em que ano esse trabalho foi apresentado?</label>
