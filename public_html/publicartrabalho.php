@@ -42,10 +42,7 @@ if(isset($_GET["status"]) && $_GET["status"] == "sucesso") {
     <link href="cs/global.css" rel="stylesheet" type="text/css" />
     <link href="cs/estilo_publicar.css" rel="stylesheet" type="text/css"/>
     <link href="js/jquery-ui-1.10.4.min.css" type="text/css" rel="stylesheet">
-    <link href="js/jquery-ui-1.10.4.css" type="text/css" rel="stylesheet">
     <script src="js/jquery.js" type="text/javascript"> </script>
-    <script src="js/jquery-1.10.2.js" type="text/javascript"> </script>
-    <script src="js/jquery-ui-1.10.4.js" type="text/javascript"> </script>
     <script src="js/jquery-ui-1.10.4.min.js" type="text/javascript"> </script>
     <script src="js/script.js" type="text/javascript"> </script>
     <script src="js/publicar.js" type="text/javascript"> </script>

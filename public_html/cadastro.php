@@ -19,10 +19,7 @@ $sessao["estados"] = $con->consultar("SELECT * FROM estado")
     <link href="cs/global.css" rel="stylesheet" type="text/css" />
     <link href="cs/estilo_publicar.css" rel="stylesheet" type="text/css"/>
     <link href="js/jquery-ui-1.10.4.min.css" type="text/css" rel="stylesheet">
-    <link href="js/jquery-ui-1.10.4.css" type="text/css" rel="stylesheet">
     <script src="js/jquery.js" type="text/javascript"> </script>
-    <script src="js/jquery-1.10.2.js" type="text/javascript"> </script>
-    <script src="js/jquery-ui-1.10.4.js" type="text/javascript"> </script>
     <script src="js/jquery-ui-1.10.4.min.js" type="text/javascript"> </script>
     <script src="js/script.js" type="text/javascript"> </script>
     <script src="js/publicar.js" type="text/javascript"> </script>
@@ -37,7 +34,7 @@ $sessao["estados"] = $con->consultar("SELECT * FROM estado")
             <article id="formulario_publicar">
 				<aside id="asideLeft">
 	<?php echo $msg; ?>
-        <h1>Cadastre-se</h1>
+        <div class="UltimosTrabalhos"><div class="latest-posts"><h1>Cadastre-se</h1></div></div>
         <form action="php/cadastro.php" method="POST" id="cadastroForm">
             <section id="painelUsuario">
                 <p>
@@ -139,9 +136,9 @@ $( "#dtNascimento" ).datepicker();
 		</aside>
                 
                 <aside id="asideRight" class="etapa_pub">
-                    <header class="UltimosTrabalhos" style="background-color:white;">
+                    <div class="UltimosTrabalhos" style="background-color:white;">
                           <div class="latest_posts"> <h1>Dicas de preenchimento</h1> </div>
-                </header><p>
+                </div><p>
 1) Aqui começa sua jornada para ter sua monografia no Keep Up. Use sua conta para pesquisar, avaliar monografias e perfis de outros usuários, além de favoritar suas teses favoritas.
 </p><p>
 2) Você pode preencher seu nome completo ou o apelido pelo qual você gosta de ser lembrado. Lembre-se: Em TODAS as etapas do cadastro, TODOS os campos são de preenchimento obrigatório.
