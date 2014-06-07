@@ -8,6 +8,7 @@ require "../conexao.class.php";
 $con = new Conexao();
 $sessao["estados"] = $con->consultar("SELECT * FROM estado");
 $sessao["cursos"] = $con->consultar("SELECT * FROM curso");
+$sessao["escolas"] = $con->consultar("SELECT * FROM escola");
 ?>
 <!doctype html>
 <html>
@@ -92,7 +93,7 @@ $sessao["cursos"] = $con->consultar("SELECT * FROM curso");
                     <input name="rbTipo" value="E" id="rbTipoE" type="radio"> <label>Instituição de ensino</label>
                 </p>
             </section>
-            <section id="painelAluno" class="condicional">
+            <fieldset id="painelAluno" class="condicional">
                 <p>
                     <label>Seu nome:</label>
                 <p>
@@ -103,11 +104,14 @@ $sessao["cursos"] = $con->consultar("SELECT * FROM curso");
                 </p>
                 <p>
                     <input type="text" id="dtNascimento" name="dtNascimento">
- <script>
-$(function() {
-$( "#dtNascimento" ).datepicker();
-});
-</script>
+                     <script>
+
+                    $( "#dtNascimento" ).datepicker({
+                        inline:true,            
+                        showOtherMonths: true,
+                        dateFormat: "yy-mm-dd"
+                    });
+                    </script>
                 </p>
                 <p>Em que áreas você já estudou?</p>
                 <p id="cdCurso">
@@ -120,8 +124,19 @@ $( "#dtNascimento" ).datepicker();
                     </select>
                 </p>
                 <p><input type="button" id="adicionarCurso" value="+ curso"></p>
-            </section>
-            <section id="painelEscola" class="condicional">
+                <p>Em que escolas você estuda?</p>
+                <p id="cdEscola">
+                    <select name="cdEscola1" class="cdEscola">
+                        <?php foreach($sessao["escolas"] as $escola) { ?>
+                            <option value="<?php echo $escola["cd_escola"]; ?>">
+                                <?php echo $escola["nm_escola"]; ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </p>
+                <p><input type="button" id="adicionarEscola" value="+ escola"></p>
+            </fieldset>
+            <fieldset id="painelEscola" class="condicional">
                 <p>
                     <label>Nome da instituição:</label>
                 </p>
@@ -134,7 +149,7 @@ $( "#dtNascimento" ).datepicker();
                 <p>
                     <input placeholder="CNPJ" type="text" name="cdCNPJ" title="Insira apenas números." pattern="[0-9]{14}">
                 </p>
-            </section>
+            </fieldset>
             <section id="final">
                 <input type="hidden" value="false" name="jsAtivo" id="jsAtivo">
                 <input id="envia" type="submit" value="Enviar" disabled="true">

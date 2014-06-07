@@ -63,6 +63,28 @@ if($rbTipo == "A") { # A = aluno
 	#	var_dump($curso);
 	}
 	#die("manu");
+
+	# Adicionar todos os escolas para Array
+	$haEscolas = true;
+	$i = 1;
+	$escolas = array();
+	while($haEscolas) {
+		if(isset($_POST["cdEscola$i"])) {
+			array_push($escolas, $_POST["cdEscola$i"]);
+		}
+		else {
+			$haEscolas = false;
+			break;
+		}
+		$i++;
+	}
+	#var_dump($cursos);
+	foreach($escolas as $escola) {
+		$adcEscola = "INSERT into matricula values ($cdAluno, $escola)";
+		$con->executar($adcEscola) or die("84: " . mysql_error());
+	#	var_dump($curso);
+	}
+	#die("manu");
 }
 else if($rbTipo == "E") { # E = escola
 	require_once("../../escola.class.php");
