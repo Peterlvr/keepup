@@ -28,10 +28,7 @@ body {
 				}
 				
 				.inputPesquisa {
-					background-image:url(../images/explore_icons/search.png);
-					background-repeat:no-repeat;
-					height:25px;
-					padding-left:25px;
+					width: 100%;
 					}
 				
 				

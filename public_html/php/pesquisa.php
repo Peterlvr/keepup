@@ -40,7 +40,8 @@ if(isset($_GET['pesquisa']))
 	for($i=0; $i < $num; $i++) {
 		// adiciona a string de pesquisa cada termos desde que ele corresponda a todos os termos pesquisados
 		$pesquisar .= "t.nm_titulo LIKE '%{$termos[$i]}%' OR ";
-		$pesquisar .= "t.ds_resumo LIKE '%{$termos[$i]}%'";
+		$pesquisar .= "t.ds_resumo LIKE '%{$termos[$i]}%' OR ";
+		$pesquisar .= "t.tx_pchave LIKE '%{$termos[$i]}%' ";
 
 		if($i < $num - 1) {
 			$pesquisar .= " OR ";

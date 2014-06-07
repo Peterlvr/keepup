@@ -7,12 +7,14 @@ class Trabalho {
 	private $dtPublicado;
 	private $aaPublicacao;
 	private $autores;
+	private $pchaves;
 	private $con; # Uma conexão para a instância toda
-	public function __construct($titulo, $resumo, $cdEscola, $cdCurso, $aaPublicacao, $autores) {
+	public function __construct($titulo, $resumo, $cdEscola, $cdCurso, $aaPublicacao, $autores, $pchave) {
 		$this->nmTitulo = $titulo;
 		$this->dsResumo = $resumo;
 		$this->cdEscola = $cdEscola;
 		$this->cdCurso = $cdCurso;
+		$this->pchaves = $pchaves;
 		$this->dtPublicado = date("Y-m-d H:i:s");
 		$this->aaPublicacao = $aaPublicacao;
 		$this->autores = $autores;
@@ -39,7 +41,8 @@ class Trabalho {
 			'{$this->cdEscola}',
 			'{$this->cdCurso}',
 			'{$this->dtPublicado}',
-			{$this->aaPublicacao})";
+			{$this->aaPublicacao},
+			'{$this->pchaves}')";
 		
 		$this->con->executar($sql);
 		$this->foldername = __DIR__ . "/public_html/docs/$novoid";

@@ -18,6 +18,7 @@ $cdEscola = $_POST["cdEscola"] or volta(3);
 $aaPublicacaoReal = $_POST["aaPublicacaoReal"] or volta(4);
 $dsResumo = $_POST["dsResumo"] or "";
 $arquivoPrincipal = $_FILES["arquivoPrincipal"] or volta(5);
+$pchave = $_POST["tx_pchaves"] or volta(6);
 
 # Adicionar todos os alunos para Array
 $haAutores = true;
@@ -47,7 +48,7 @@ if($arquivoPrincipal["type"] != "application/x-pdf" && $arquivoPrincipal["type"]
 require "../../conexao.class.php";
 require "../../trabalho.class.php";
 
-$trabalho = new Trabalho($nmTitulo, $dsResumo, $cdEscola, $cdCurso, $aaPublicacaoReal, $autores);
+$trabalho = new Trabalho($nmTitulo, $dsResumo, $cdEscola, $cdCurso, $aaPublicacaoReal, $autores, $pchave);
 
 if($trabalho->cadastrar($arquivoPrincipal)) {
 	header("location:../publicar.php?status=sucesso");

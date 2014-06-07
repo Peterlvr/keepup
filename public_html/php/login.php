@@ -2,7 +2,8 @@
 
 # Funções de retorno
 function volta($e) {
-	header("location:../?e=" . $e);
+	#header("location:../?e=" . $e);
+	echo "<script>history.back()</script>";
 	die();
 }
 
@@ -38,26 +39,33 @@ if(compararSenhas($nmSenha, $dbSenha)) {
 
 	if($_SESSION["tipoConta"] == "A") {
 		$aluno = $dbConsulta->consultar(
-			"SELECT cd_aluno, nm_url_avatar
+			"SELECT *
 			FROM aluno
 			WHERE cd_usuario = {$_SESSION["cd_usuario"]}"
 		);
 		$_SESSION["cd_aluno"] = $aluno[0]["cd_aluno"];
+		$_SESSION["cd"] = $aluno[0]["cd_aluno"];
 		$_SESSION["url_avatar"] = $aluno[0]["nm_url_avatar"];
+		$_SESSION["nome"] = $aluno[0]["nm_aluno"];
 	}
 	else if($_SESSION["tipoConta"] == "E") {
 		$escola = $dbConsulta->consultar(
-			"SELECT cd_escola, tx_url_avatar
+			"SELECT *
 			FROM escola
 			WHERE cd_usuario = ". $_SESSION["cd_usuario"]
 		);
 		$_SESSION["cd_escola"] = $escola[0]["cd_escola"];
+		$_SESSION["cd"] = $escola[0]["cd_escola"];
 		$_SESSION["url_avatar"] = $escola[0]["tx_url_avatar"];
+		$_SESSION["nome"] = $aluno[0]["nm_escola"];
+		
 	}
-
-	header("location:posLogin.php");
+	#header("location:posLogin.php");
 }
 else {
 	volta(3);
 }
 ?>
+<script>
+history.back();
+</script>

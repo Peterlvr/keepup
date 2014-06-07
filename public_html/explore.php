@@ -1,55 +1,8 @@
 <?php
-# vamos usar a conexão mais tarde
 require "../conexao.class.php";
 require "../sessao.php";
 $conexao = new Conexao();
 
-//quando o campo pesquisa está preenchido ele executa o GET
-/*{
-
-	//a pesquisa é separada por termos(palavras pesquisadas)
-	$termos = explode(' ', $_GET['pesquisa']);
-	//contagem dos termos
-	$num = count($termos);
-
-	$pesquisar =
-		"SELECT
-			t.cd_trabalho 'cd',
-			t.nm_titulo 'titulo',
-			t.ds_resumo 'resumo',
-			c.nm_curso 'curso',
-			t.aa_publicacao 'publicado_em',
-			e.nm_escola 'escola'
-		FROM
-			trabalho t,
-			curso c,
-			escola e
-		WHERE 
-			t.cd_curso = c.cd_curso AND
-			e.cd_escola = t.cd_escola AND (";
-	
-	for($i=0; $i < $num; $i++) {
-		// adiciona a string de pesquisa cada termos desde que ele corresponda a todos os termos pesquisados
-		$pesquisar .= "nm_titulo LIKE '%{$termos[$i]}%' OR ";
-		$pesquisar .= "ds_resumo LIKE '%{$termos[$i]}%'";
-
-		if($i < $num - 1) {
-			$pesquisar .= " OR ";
-		}
-	}
-
-	$pesquisar .= ")";
-
-	if(isset($_GET["curso"])) {
-		$pesquisar .= " AND cd_curso = {$_GET["curso"]}";
-	}
-
-	if(isset($_GET["escola"])) {
-		$pesquisar .= " AND cd_escola = {$_GET["escola"]}";
-	}
-
-	$pesquisando = $conexao->consultar($pesquisar);
-}*/ 
 $cursos = $conexao->consultar("SELECT * FROM curso ORDER BY nm_curso");
 $alunos = $conexao->consultar("SELECT * FROM aluno ORDER BY nm_aluno");
 $escolas= $conexao->consultar("SELECT * FROM escola ORDER BY nm_escola");
@@ -62,9 +15,9 @@ $sessao["estados"] = $conexao->consultar("SELECT * FROM estado");
 <title>Explorar</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
 	<link href="cs/estilo_explorar.css" type="text/css" rel="stylesheet">
-    <link href="cs/global.css" rel="stylesheet" type="text/css" />
+    <link href="cs/global.css" rel="stylesheet" type="text/css">
     <script src="js/jquery.js" type="text/javascript"></script>
-	<script src="js/script.js" type="text/javascript"> </script>
+	<script src="js/script.js" type="text/javascript"></script>
 	<script src="js/explore.js"></script>
 	<script src="js/carregaCidade.js"></script> 
 </head>
@@ -79,12 +32,15 @@ $sessao["estados"] = $conexao->consultar("SELECT * FROM estado");
             	<table>
                        <tr>
                        		<td>
-                       		<input type="text" name="pesquisa" class="inputPesquisa">
+                       		<img src="images/explore_icons/search.png">
+                            </td>
+                            <td>
+                            <input type="text" name="pesquisa" placeholder="Título ou conteúdo..." class="inputPesquisa">
                             </td>
                        </tr>
-                </table>
-				<table>
-                	
+                       <Tr>
+                       		<Td colspan="2"> <Cite> texto aqui pfvr parça </Cite> </Td>
+                       </Tr>
                 	<tr>
                     	<td> <input type="checkbox" data-activates="curso"></td>
                     	<td>

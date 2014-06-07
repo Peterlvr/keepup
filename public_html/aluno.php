@@ -14,7 +14,9 @@ $conexao = new Conexao();
 	//cria variavel contendo o codigo do aluno
 	$cd_aluno = $aluno[0]["cd_aluno"];
 	//seleciona o nome do curso da tabela curso caso o aluno tenha um curso registrado
-	$curso = "SELECT nm_curso FROM curso WHERE cd_curso = (SELECT cd_curso FROM cursando WHERE cd_aluno = $cd_aluno)";
+	$curso = "SELECT c.nm_curso
+        FROM curso c, cursando cu
+        WHERE cu.cd_curso = c.cd_curso and cu.cd_aluno = $cd_aluno";
 	$cursoaluno = $conexao->consultar($curso);
 
 	$profissao = $aluno[0]['nm_profissao'];
@@ -250,8 +252,6 @@ $conexao = new Conexao();
         <?php } ?>
         </div></div>
         <aside class="direita">
-                
-            
             
             <div id="monografias_relacionadas">
                 <header class="UltimosTrabalhos"  style="background-color:white;">
@@ -272,19 +272,9 @@ $conexao = new Conexao();
                     <div class="imagem_monografia_relacionada" id="relacionada_3"> </div>
                     <footer class="titulo_relacionada"> <h1> tradeshop.com </h1>  </footer>
                 </div>
-            
             </div>
-            
         </aside>
-        
-       
-        
      </section>
-     
-    
-     
-    
-     
     	<?php include 'footer.php'; ?>
 </body>
 </html>
