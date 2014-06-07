@@ -282,7 +282,7 @@ require("php/mediaAvaliacao.php");
                           </div>
                     </header>
 	<?php foreach ($autores as $autor) { ?>
-        <a href='usuario.php?u=<?php echo $autor['cd']; ?>' style="color:black;">
+        <a href='usuario.php?u=<?php echo $autor['cdUser']; ?>' style="color:black;">
            <table id="table_autores">
               <tr>
               <td style="width:80px">

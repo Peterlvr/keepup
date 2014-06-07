@@ -244,7 +244,7 @@ $conexao = new Conexao();
                                         <tr>
                                             <td><?php $cd_trabalho = $trabalhoTop[0]['cd_trabalho'];
                                             require("php/mediaAvaliacao.php"); 
-                                            switch($media) {
+                                            if(isset($media)) { switch($media) {
                                                 case 1:
                                                     echo  "<img src='images/index_icons/umaestrela.png'>";
                                                     break;
@@ -259,7 +259,7 @@ $conexao = new Conexao();
                                                     break;
                                                 case 5:
                                                     echo "<img src='images/index_icons/cincoestrelas.png'>";  
-                                                    break;   }?>
+                                                    break; }  }?>
                                           </td>
                                             <td> <!-- linkar com page monografia da escola x -->
                                             <a href="../escola/Escola_monos.html"><?php echo $nomeCurso[0]['nm_curso'];?></a> </td>
