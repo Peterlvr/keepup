@@ -6,15 +6,18 @@ class Usuario {
 	private $nmTipo;
 	private $dtCriacaoConta;
 	private $dtUltimoAcesso;
+	private $desativado = 0;
 	public function setValsCadastro($email, $tipo) {
 		$this->nmEmail = $email;
 		$this->nmTipo = $tipo;
 		$this->dtCriacaoConta = date("Y-m-d");
 		$this->dtUltimoAcesso = date("Y-m-d H:i:s");
 	}
-	public function __construct($login, $senha) {
+	public function __construct($login, $senha, $real) {
 		$this->nmLogin = $login;
 		$this->nmSenha = $senha;
+		if($real == false)
+			$this->desativado = 1;
 	}
 	private $sql;
 	private function criarSql() {
@@ -24,7 +27,7 @@ class Usuario {
 			. $this->nmEmail . "','"
 			. $this->nmTipo . "','"
 			. $this->dtCriacaoConta . "','"
-			. $this->dtUltimoAcesso . "')";
+			. $this->dtUltimoAcesso . "', {$this->desativado})";
 		$this->sql = $sql;
 	}
 	private $conexao;
