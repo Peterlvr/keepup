@@ -4,10 +4,11 @@ require "../../conexao.class.php";
 
 $conexao = new Conexao();
 
+$pesquisa = "";
 //quando o campo pesquisa está preenchido ele executa o GET
 if(isset($_GET['pesquisa']))
 {
-
+	$pesquisa = $_GET["pesquisa"];
 	//a pesquisa é separada por termos(palavras pesquisadas)
 	$termos = explode(' ', $_GET['pesquisa']);
 	//contagem dos termos
@@ -80,7 +81,7 @@ if(isset($_GET['pesquisa']))
 
 
 ?>
-<h1> Resultados para <?php echo $_GET["pesquisa"]; ?></h1>
+<h1> Resultados para "<?php echo $pesquisa; ?>"</h1>
 <?php if(isset($pesquisando[0])) { ?>
 	<?php foreach($pesquisando as $row)	{ ?>
         <a href="trabalho.php?t=<?php echo $row["cd"]; ?>">
