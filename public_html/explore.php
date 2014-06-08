@@ -18,7 +18,6 @@ $sessao["estados"] = $conexao->consultar("SELECT * FROM estado");
     <link href="cs/global.css" rel="stylesheet" type="text/css">
     <script src="js/jquery.js" type="text/javascript"></script>
 	<script src="js/script.js" type="text/javascript"></script>
-    <script src="js/toggleFields.js" type="text/javascript"></script>
 	<script src="js/explore.js"></script>
 	<script src="js/carregaCidade.js"></script> 
 </head>
@@ -40,7 +39,7 @@ $sessao["estados"] = $conexao->consultar("SELECT * FROM estado");
                             </td>
                        </tr>
                        <Tr>
-                       		<Td colspan="2"> <Cite> texto aqui pfvr parça </Cite> </Td>
+                       		<Td colspan="2"> <Cite> Filtre sua pesquisa: </Cite> </Td>
                        </Tr>
                 	<tr>
                     	<td> <input type="checkbox" data-activates="curso"></td>
