@@ -32,29 +32,20 @@ $aluno_matriculado = $con->consultar("SELECT e.nm_escola
         <title>Editar Perfil - Keep Up</title>
         <script type="text/javascript" src="js/jquery.js"></script>
     	<script type="text/javascript" src="js/carregaCidade.js"></script>
-    	<script language="javascript">
-			$(document).ready(function () {
-			    $('#mudaCidade').change(function () {
-			      $('#cidades').fadeToggle(); });
-			    $('#mudaMatricula').change(function () {
-			    	$('#escola').fadeToggle();  });
-	    	});
-		
-		</script>
-        
+
+        <script type='text/javascript' src="js/toggleFields.js"></script>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
-    <link href="cs/global.css" rel="stylesheet" type="text/css" />
-    <link href="cs/estilo_user.css" rel="stylesheet" type="text/css">
-	<link href="cs/estilo_editarUser.css" rel="stylesheet" type="text/css">
-    <script src="js/jquery.js" type="text/javascript"></script>
-    <script src="js/slides.js" type="text/javascript"></script>
-    <script src="js/script.js" type="text/javascript"></script>
+        <link href="cs/global.css" rel="stylesheet" type="text/css" />
+        <link href="cs/estilo_user.css" rel="stylesheet" type="text/css">
+    	<link href="cs/estilo_editarUser.css" rel="stylesheet" type="text/css">
+        <script src="js/slides.js" type="text/javascript"></script>
+        <script src="js/script.js" type="text/javascript"></script>
     
 
     </head>
     
 <body>
-<?php include_once("header.php")?>
+<?php include_once("header.php"); ?>
 
 
 <div id="usuario"> 
@@ -204,30 +195,13 @@ $aluno_matriculado = $con->consultar("SELECT e.nm_escola
 				<?php if(isset($dados_aluno[0]['cd_cidade'])) { 
 					$cidade_usuario = $con->consultar("SELECT e.sg_estado, c.nm_cidade 
 					FROM estado e, cidade c WHERE c.cd_estado = e.cd_estado AND c.cd_cidade = {$dados_aluno[0]['cd_cidade']};");?>
-				<table id="table_form">
-                    <tr>
-                    	<td class="td_left"> <h1> Estado: </h1> </td>
-                        <td colspan="2"> <p> <?php echo $cidade_usuario[0]['sg_estado'];?>  </p> </td>
-                    </tr>
-                    <tr>
-                    	<td class="td_left"> <h1> Cidade: </h1> </td>
-                        <td colspan="2"> <p> <?php echo $cidade_usuario[0]['nm_cidade'];?>  </p> </td>
-                    </tr>
-      			<?php } ?>
-            
-               		<Tr>
-                    	<td  colspan="2" style=" float:right;width:500px;"> <input type="checkbox" style="float:right;" id="mudaCidade"> Alterar sua cidade e estado?   </td>
-                    </Tr> 
-                    </table>
-                
-                
-				<div id="cidades" style="display:none;"> 
-                    <form action="php/editarCidade.php" method="POST" name="editarCidadeForm" id="cidadesForm">
+                <form action="php/editarCidade.php" method="POST" name="editarCidadeForm" id="cidadesForm">
                         <table id="table_form">
                             <tr>
-                                <td class="td_left"> <h1> Estado </h1> </td>
+                                <td class="td_left"> <h1>Estado </h1> </td>
                                 <td colspan="2">
-                                    <select name="estado" id="estado">
+                                    <input type="checkbox" data-activates="estado">
+                                    <select name="estado" id="estado" disabled>
                                         <?php foreach($sessao["estados"] as $estado) { ?>
                                             <option value="<?php echo $estado["cd_estado"]; ?>">
                                                 <?php echo "{$estado["sg_estado"]}"; ?>
@@ -237,21 +211,22 @@ $aluno_matriculado = $con->consultar("SELECT e.nm_escola
                                 </td>
                             </tr>
                             <tr>
-                                <td class="td_left"> <h1> Cidade: </h1></td>
+                                <td class="td_left"> <h1>Cidade: </h1></td>
                                 <td colspan="2">
-                                    <select name="cdCidade" id="cidade">
+                                     <input type="checkbox" data-activates="cidade"> 
+                                    <select name="cidade" id="cidade" disabled>
                                         <option value="">Selecione o estado</option>
                                     </select> 
                                 </td>
                             </tr>
                             <tr>
-                            	<td colspan="2"> <input id="envia" type="submit" value="Alterar cidade" > </td>
+                                <td colspan="2"> <input id="envia" type="submit" value="Alterar cidade" > </td>
                             </tr>
                         </table> 
                     </form>
-      			</div> 
-				
-                
+      			<?php } ?>
+
+              
                 <table id="table_form"> 
                 	<tr>
                     	<td class="td_left"> <h1 style=" margin-left:-25px;"> Instituição de Ensino: </h1> </td>
@@ -259,12 +234,16 @@ $aluno_matriculado = $con->consultar("SELECT e.nm_escola
                     <tr>    
                         
                         <td colspan="2"> 
-                        	<?php if(isset($aluno_matriculado[0]['nm_escola'])) { echo $aluno_matriculado[0]['nm_escola']; }
-					else { echo "Você não está matriculado em uma instituição de ensino.";} ?>
-                        </td>
+          <?php if(isset($aluno_matriculado) and sizeof($aluno_matriculado) > 0) { ?>
+                <?php foreach($aluno_matriculado as $matricula) { ?>
+                    <p><?php echo $matricula["nm_escola"]; ?></p>
+                <?php } ?>
+           <?php } else { ?>
+            <p>Você não está matriculado em nenhuma instituição de ensino.</p>
+            <?php } ?>                        </td>
                 	</tr>
                     <Tr>
-                    	<td colspan="2" style=" float:right;width:500px;"><input type="checkbox" id="mudaMatricula" style="float:right"> Mudar sua instituição de ensino?    </td>
+                    	<td colspan="2" style=" float:right;width:500px;"> Mudar sua instituição de ensino?    </td>
                     </Tr> 
                 </table>
                 
@@ -276,7 +255,7 @@ $aluno_matriculado = $con->consultar("SELECT e.nm_escola
                     	<Tr>
                         	<td class="td_left"> <h1> Instituição de Ensino: </h1> </td>
                             <td colspan="2">
-                            	<?php if($sessao["tipoConta"] == "A") { ?>
+                                <?php if($sessao["tipoConta"] == "A") { ?>
                                     <select name="cdEscola">
                                         <?php foreach($sessao["escolas"] as $escola) { ?>
                                             <option value="<?php echo $escola["cd_escola"]; ?>">
@@ -286,14 +265,6 @@ $aluno_matriculado = $con->consultar("SELECT e.nm_escola
                                         <!--option value="outra">Outra...</option-->
                                     </select>
                                 <?php } ?>
-                                <?php if($sessao["tipoConta"] == "E") { ?>
-                                    <select name="cdEscola" disabled>
-                                        <option value="<?php echo $sessao["cd_escola"]; ?>">
-                                            <?php echo $escola["nome"]; ?>
-                                        </option>
-                                    </select>
-                                <?php } ?>
-                            
                             </td>
                         </Tr>
                     </table>

@@ -18,6 +18,7 @@ $sessao["estados"] = $conexao->consultar("SELECT * FROM estado");
     <link href="cs/global.css" rel="stylesheet" type="text/css">
     <script src="js/jquery.js" type="text/javascript"></script>
 	<script src="js/script.js" type="text/javascript"></script>
+    <script src="js/toggleFields.js" type="text/javascript"></script>
 	<script src="js/explore.js"></script>
 	<script src="js/carregaCidade.js"></script> 
 </head>
