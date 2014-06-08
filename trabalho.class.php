@@ -9,7 +9,7 @@ class Trabalho {
 	private $autores;
 	private $pchaves;
 	private $con; # Uma conexão para a instância toda
-	public function __construct($titulo, $resumo, $cdEscola, $cdCurso, $aaPublicacao, $autores, $pchave) {
+	public function __construct($titulo, $resumo, $cdEscola, $cdCurso, $aaPublicacao, $autores, $pchaves) {
 		$this->nmTitulo = $titulo;
 		$this->dsResumo = $resumo;
 		$this->cdEscola = $cdEscola;
