@@ -92,6 +92,19 @@ $sessao["escolas"] = $con->consultar("SELECT * FROM escola");
                 <p>
                     <input name="rbTipo" value="E" id="rbTipoE" type="radio"> <label>Instituição de ensino</label>
                 </p>
+                <p id="perguntaCurso"></p>
+                <p id="cdCurso">
+                    <select name="cdCurso1" class="cdCurso">
+                        <?php foreach($sessao["cursos"] as $curso) { ?>
+                            <option value="<?php echo $curso["cd_curso"]; ?>">
+                                <?php echo $curso["nm_curso"]; ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </p>
+                <p>
+                    <input type="button" id="adicionarCurso" value="+ curso">
+                </p>
             </section>
             <fieldset id="painelAluno" class="condicional">
                 <p>
@@ -113,17 +126,6 @@ $sessao["escolas"] = $con->consultar("SELECT * FROM escola");
                     });
                     </script>
                 </p>
-                <p>Em que áreas você já estudou?</p>
-                <p id="cdCurso">
-                    <select name="cdCurso1" class="cdCurso">
-                        <?php foreach($sessao["cursos"] as $curso) { ?>
-                            <option value="<?php echo $curso["cd_curso"]; ?>">
-                                <?php echo $curso["nm_curso"]; ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-                </p>
-                <p><input type="button" id="adicionarCurso" value="+ curso"></p>
                 <p>Em que escolas você estuda?</p>
                 <p id="cdEscola">
                     <select name="cdEscola1" class="cdEscola">
@@ -154,16 +156,6 @@ $sessao["escolas"] = $con->consultar("SELECT * FROM escola");
                 </p>
                 <p>
                     <input placeholder="Rua X, 333, Bairro Y - São Paulo, SP" type="text" name="nmLocalizacao">
-                </p>
-                <p>Que cursos são oferecidos?</p>
-                <p id="cdCurso">
-                    <select name="cdCurso1" class="cdCurso">
-                        <?php foreach($sessao["cursos"] as $curso) { ?>
-                            <option value="<?php echo $curso["cd_curso"]; ?>">
-                                <?php echo $curso["nm_curso"]; ?>
-                            </option>
-                        <?php } ?>
-                    </select>
                 </p>
             </fieldset>
             <section id="final">

@@ -7,8 +7,10 @@ $(document).ready(function() {
 			$("#painelAluno").removeAttr("disabled");
 			$("#painelEscola").attr("disabled", "true");
 			$("#envia").removeAttr("disabled");
+			$("#perguntaCurso").html("Em que áreas você estudou, ou pretende estudar?");
 		}
 		else if(tipo == "E") {
+			$("#perguntaCurso").html("Que cursos a instituição oferece?");
 			$("#painelAluno").css("display", "none");
 			$("#painelEscola").css("display", "block");
 			$("#painelAluno").attr("disabled", "true");
@@ -42,7 +44,7 @@ $(document).ready(function() {
 	$("#tipoForm").on("click", mudaTipoForm);
 	$("#cadastroForm").on("submit", validaSenha);
 
-	$("#adicionarCurso").on("click", function adicionarAutor() {
+	$("#adicionarCurso, .adicionarCurso").on("click", function adicionarCurso() {
 		var select = document.createElement("select");
 		select.setAttribute("class", "cdCurso");
 		select.setAttribute("id", "cdCurso" + ($(".cdCurso").length + 1));
