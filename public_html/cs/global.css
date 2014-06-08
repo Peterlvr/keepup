@@ -12,6 +12,10 @@
 	border-radius:2%;
 	color:black;
 	}
+
+a {
+	color: inherit;
+}
 	
 	
 	#table_loginn p {
