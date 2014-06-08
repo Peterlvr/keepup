@@ -88,22 +88,17 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
     
     				<div id='video_background'>
                     	<div class="slide" id="slide1">
-						   <h1> e1 </h1>
-                       </div>
+                       	</div>
+                        
                         <div class="slide" id="slide2">
-                          </div>
+                        </div>
+                        
                         <div class="slide" id="slide3">
-                           <h1> 3</h1>
-                       </div>
-                        <div class="slide" id="slide4">
-                           <h1> 4</h1>
-                       </div>
-                        <div class="slide" id="slide5">
-                           <h1> 5 </h1>
-                       </div>
+    	                </div>
+                    </div>
                        <script>
 					   $().ready(function() {
-						   $.slides("slide", 5);
+						   $.slides("slide", 3);
 					   });
 					   </script>
                     </div>
@@ -269,7 +264,17 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
       	</div>
     </Section>
     
-<?php include "footer.php"; ?>
+    <footer>
+            <div id="footer_centralizado">
+                <p> 
+                <a href="#"> Mapa do site </a> |
+                <a href="#"> Termos de uso </a> | 
+                <a href="#"> Política de privacidade </a> | 
+                <a href="#"> Desenvolvedores  </a>
+                </p>
+            		<h5> © 2014 Keep Up - Todos os direitos reservados. </h5>
+            </div>   
+        </footer>
 
 </body>
 </html>

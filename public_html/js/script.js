@@ -11,27 +11,60 @@ $(document).ready(function(e) {
                     $("#configuracoes_aberto").fadeToggle("fast")
                 });	
 				
-
+				
+					var menu = false;
+				$("#pesquisa_menu").click(function(e) {
+					if(menu == false) {
+                    $(this).css("background-color","#1f4350");
+					menu = true;	
+					} else {
+					$(this).css("background-color","");
+					menu = false;
+					}
+                });
+				
+				/* botão login */
+				var alogin = false
+				
+				$("#alogin").click(function(e) {
+                if (alogin == false) 
+				{
+					$("#area_logar").slideDown();
+					$(this).css("background-color","#1f4350");
+					alogin = true;
+					$("#area_logar").animate({width:"20%"});
+					$("#login_box").fadeIn("slow");
+					}
+				else 
+				{
+					$("#area_logar").animate({width:"15%"});
+					$("#area_logar").slideUp("slow");
+					$(this).css("background-color","#2c87af");
+					$("#login_box").fadeOut("slow");
+					alogin = false	
+						}
+		
+                });
 					
 					
 					/* jqueryui */
 					$(function() {
-    var icons = {
-      header: "ui-icon-circle-arrow-e",
-      activeHeader: "ui-icon-circle-arrow-s"
-    };
-    $( "#accordion" ).accordion({
-      icons: icons
-    });
-    $( "#toggle" ).button().click(function() {
-      if ( $( "#accordion" ).accordion( "option", "icons" ) ) {
-        $( "#accordion" ).accordion( "option", "icons", null );
-      } else {
-        $( "#accordion" ).accordion( "option", "icons", icons );
-      }
-    });
-  });
-					
+						var icons = {
+						  header: "ui-icon-circle-arrow-e",
+						  activeHeader: "ui-icon-circle-arrow-s"
+						};
+						$( "#accordion" ).accordion({
+						  icons: icons
+						});
+						$( "#toggle" ).button().click(function() {
+						  if ( $( "#accordion" ).accordion( "option", "icons" ) ) {
+							$( "#accordion" ).accordion( "option", "icons", null );
+						  } else {
+							$( "#accordion" ).accordion( "option", "icons", icons );
+						  }
+						});
+					  });
+										
 					
 					$("#pes1").click(function(e) {
 						$("#pes1_abrir").css("left","0");
@@ -95,16 +128,14 @@ $(document).ready(function(e) {
 					$("#arquivo").change(function() {
 						$(this).prev().html($(this).val()); 
 					});
-					
-				
-					
-			
+
 				$("#menu").click(function(e) {
 					$("aside").css("left","-20%");
 					$("article").css("width","100%");
 				});
 
-            });
+
+			});
 			
 		
 			
