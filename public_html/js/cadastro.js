@@ -6,6 +6,7 @@ $(document).ready(function() {
 			$("#painelEscola").css("display", "none");
 			$("#painelAluno").removeAttr("disabled");
 			$("#painelEscola").attr("disabled", "true");
+			$("#curso").css("visibility", "visible");
 			$("#envia").removeAttr("disabled");
 			$("#perguntaCurso").html("Em que áreas você estudou, ou pretende estudar?");
 		}
@@ -14,6 +15,7 @@ $(document).ready(function() {
 			$("#painelAluno").css("display", "none");
 			$("#painelEscola").css("display", "block");
 			$("#painelAluno").attr("disabled", "true");
+			$("#curso").css("visibility", "visible");
 			$("#painelEscola").removeAttr("disabled");
 			$("#envia").removeAttr("disabled");
 		}
@@ -22,6 +24,7 @@ $(document).ready(function() {
 			$("#painelEscola").css("display", "none");
 			$("#painelAluno").attr("disabled", "true");
 			$("#painelEscola").attr("disabled", "true");
+			$("#curso").css("visibility", "hidden");
 			$("#envia").attr("disabled", "true");
 		}
 	},

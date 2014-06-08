@@ -92,19 +92,21 @@ $sessao["escolas"] = $con->consultar("SELECT * FROM escola");
                 <p>
                     <input name="rbTipo" value="E" id="rbTipoE" type="radio"> <label>Instituição de ensino</label>
                 </p>
-                <p id="perguntaCurso"></p>
-                <p id="cdCurso">
-                    <select name="cdCurso1" class="cdCurso">
-                        <?php foreach($sessao["cursos"] as $curso) { ?>
-                            <option value="<?php echo $curso["cd_curso"]; ?>">
-                                <?php echo $curso["nm_curso"]; ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-                </p>
-                <p>
-                    <input type="button" id="adicionarCurso" value="+ curso">
-                </p>
+                <section id="curso" style="visibility:hidden">
+                    <p id="perguntaCurso"></p>
+                    <p id="cdCurso">
+                        <select name="cdCurso1" class="cdCurso">
+                            <?php foreach($sessao["cursos"] as $curso) { ?>
+                                <option value="<?php echo $curso["cd_curso"]; ?>">
+                                    <?php echo $curso["nm_curso"]; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </p>
+                    <p>
+                        <input type="button" id="adicionarCurso" value="+ curso">
+                    </p>
+                </section>
             </section>
             <fieldset id="painelAluno" class="condicional">
                 <p>
