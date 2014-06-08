@@ -295,7 +295,13 @@ $relacionados = $conexao->consultar($relacionadas);
                           </div>
                     </header>
             		<ul>
-                        <?php foreach($cursosAluno as $curso) echo "<li><a href='explore.php?pesquisa=&amp;curso={$curso["cd_curso"]}'>{$curso["nm_curso"]}</a></li>"; ?>
+                        <?php foreach($cursosAluno as $curso) echo "
+						<table id='table_curso'>
+						<tr>
+							<td> <p><a href='explore.php?pesquisa=&amp;curso={$curso["cd_curso"]}'>{$curso["nm_curso"]}</a></p> </td>
+						</tr>
+						</table>
+						"; ?>
                     </ul> 
                 </div>
             </div>  

@@ -394,6 +394,13 @@
 		
 		
 		
+		/*curso*/
+		#table_curso p {
+			margin:0;
+			text-align:left;
+			width:100%; margin-left:-40px; text-align:justify
+			}
+		
 /*Se ele não possuir monografia*/
 #without_monografia {display:block;}
 
