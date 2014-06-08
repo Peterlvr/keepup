@@ -56,7 +56,19 @@ if($sessao["tipoConta"] == "E") {
         <script src="js/slides.js" type="text/javascript"></script>
         <script src="js/script.js" type="text/javascript"></script>
     
-
+        <script>
+            function rmFavorito(t, self) {
+                $.post("php/favoritar.php", {trabalho: t})
+                    .done(function(data) {
+                        if(data == "0") {
+                            $(self).parent().remove();
+                        }
+                        else {
+                            console.log(data);
+                        }
+                    })
+            }
+        </script>
     </head>
     
 <body>
@@ -335,8 +347,8 @@ if($sessao["tipoConta"] == "E") {
                 <div id="form_favoritos">
                     <?php foreach($favoritos as $trabalho) { ?> 
                         <div class="form_cada_favorito"> 
-                            <img src="images/close.png" style="float:right; margin:-10px -10px 0 0">
-                        	<div class="form_imagem_favorito"> </div>
+                            <img src="images/close.png" style="float:right; margin:-10px -10px 0 0" onclick="javascript:rmFavorito(<?php echo $trabalho["cd_trabalho"]; ?>,this);">
+                            <div class="form_imagem_favorito"> </div>
                             <h1> <?php echo $trabalho["nm_titulo"]; ?></h1>
                         </div>
                     <?php } ?>
