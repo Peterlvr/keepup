@@ -300,7 +300,7 @@ require("php/mediaAvaliacao.php");
 		                          <table>
                                   	<tr>
                                     	<td> <img src="images/index_icons/autores.png"> </td>
-                                  		<td> <h1> Autores </h1> </td>
+                                  		<td> <h1 > Autores </h1> </td>
                                     </tr>
                                   </table>
                           </div>
@@ -334,11 +334,11 @@ require("php/mediaAvaliacao.php");
            <?php if(sizeof($relacionados) > 0) { ?> 
             <div id="bloco4_monografia_relacionada">
                     <header class="UltimosTrabalhos">
-                          <div class="latest_posts"> 
+                          <div class="latest_posts" style="margin-left:-2%;"> 
                               <table>
                                 <tr>
                                     <td> <img src="images/perfil_usuario/monografias.png" width="30"> </td>
-                                    <td> <h1> Monografias relacionadas </h1> </td>
+                                    <td> <h1 style="font-size:.9em"> Monografias relacionadas </h1> </td>
                                 </tr>
                               </table>
                           </div>
