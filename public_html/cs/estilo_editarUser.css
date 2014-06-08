@@ -26,8 +26,8 @@
 #form_monografias {
 	width:100%;
 	margin:auto;
-	height:auto;
-	overflow:auto;
+	height: auto;
+	overflow-x:auto;
 	}
 	
 	.form_cada_monografia {
@@ -35,7 +35,14 @@
 		height:275px;
 		background-color:orange;
 		float:left;
-		margin:1.5%
+		margin:1.5%;
+		}
+
+		.form_cada_monografia h1 {
+
+		font-size: .8em;
+		overflow-y: hidden;
+		height: 50px;
 		}
 		
 		#form_postar_monografia {
@@ -58,7 +65,9 @@
 		.form_imagem_monografia {
 			height:225px;
 			width:100%;
-			background-color:pink;
+			background-image: url(../images/imagens_monografias/img_vis.jpg);
+			background-size:cover;
+			background-position:center;
 			}
 			
 			.removerMonos {

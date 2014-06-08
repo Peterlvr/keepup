@@ -31,13 +31,21 @@ if($sessao["tipoConta"] == "A") {
         FROM trabalho t, favorito f, aluno a
         WHERE t.cd_trabalho = f.cd_trabalho and
         a.cd_aluno = f.cd_aluno and
-        f.cd_aluno = {$sessao["cd"]} ORDER BY f.dt_favoritado");
+        f.cd_aluno = {$sessao["cd"]} ORDER BY f.dt_favoritado LIMIT 3");
+    $trabalhos = $con->consultar("SELECT t.*
+        FROM trabalho t, autoria au
+        WHERE t.cd_trabalho = au.cd_trabalho and au.cd_aluno = {$sessao["cd"]}
+        ORDER BY t.dt_publicado LIMIT 3");
 }
 if($sessao["tipoConta"] == "E") {
     $escola_cursos = $con->consultar(
         "SELECT c.* FROM curso c, escola e, curso_oferecido co
         WHERE c.cd_curso = co.cd_curso and e.cd_escola = co.cd_escola
         and cd_escola = {$sessao["cd"]}");
+    $trabalhos = $con->consultar("SELECT *
+        FROM trabalho
+        WHERE cd_escola = {$sessao["cd"]}
+        ORDER BY dt_publicado LIMIT 3");
 }
 ?>
 <!doctype html>
@@ -315,26 +323,20 @@ if($sessao["tipoConta"] == "E") {
                 
                 <div id="form_monografias">
                 	
-                    <a href="#">
+                    <a href="publicar.php">
                         <div class="form_cada_monografia" id="form_postar_monografia">
                             <h1> Publicar monografia </h1>
                         </div>
                     </a>
-                    
-                    <div class="form_cada_monografia">
-                    	<a href="#"> 
-                        	<img src="images/close.png" style="float:right; margin:-10px -10px 0 0">
-                        </a>
-                    	<div class="form_imagem_monografia"> </div>
-                    </div>
-                    
-                     <div class="form_cada_monografia"> 
-                    	<a href="#"> 
-                        	<img src="images/close.png" style="float:right; margin:-10px -10px 0 0">
-                        </a>
-                    	<div class="form_imagem_monografia"> </div>
-                    </div>
-                    
+                    <?php foreach($trabalhos as $trabalho) { ?>
+                        <div class="form_cada_monografia">
+                        	<a href="trabalho.php?t=<?php echo $trabalho["cd_trabalho"]; ?>"> 
+                            	<img src="images/close.png" style="float:right; margin:-10px -10px 0 0">
+                            </a>
+                        	<div class="form_imagem_monografia"> </div>
+                            <h1><?php echo $trabalho["nm_titulo"]; ?></h1>
+                        </div>
+                    <?php } ?>
                     
                     <div style="width:100%; clear:both;"></div>
                 </div>
