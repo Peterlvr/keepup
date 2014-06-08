@@ -297,7 +297,7 @@ $relacionados = $conexao->consultar($relacionadas);
                           </div>
                     </header>
                     <?php foreach ($relacionados as $trabalhoRelacionado) {
-                    if($trabalhoRelacionado['cd_trabalho'] <> $cd_trabalho){   ?>
+                    if($trabalhoRelacionado['cd_trabalho'] <> $trabalho["cd_trabalho"]){   ?>
                     <a href="trabalho.php?t=<?php echo $trabalhoRelacionado['cd_trabalho'];?>">
                          <div id="mono_recente">
                             <div class="imagem_monografia_relacionada"  style="background-image: url(images/imagens_monografias/img_vis.jpg)" id="relacionada_1"> </div>
