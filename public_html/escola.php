@@ -13,10 +13,13 @@ $conexao = new Conexao();
     $comando = "SELECT nm_cidade FROM cidade WHERE cd_cidade = {$escola[0]["cd_cidade"]}";
     $cidade = $conexao->consultar($comando);
 
+    $cursos = $conexao->consultar(
+        "SELECT c.* FROM curso c, curso_oferecido co WHERE co.cd_curso = c.cd_curso and co.cd_escola = {$escola[0]["cd_escola"]}");
+
 $recente = $conexao->consultar(
     "SELECT t.*, c.nm_curso from trabalho t, curso c
     WHERE c.cd_curso = t.cd_curso and t.cd_escola = {$escola[0]["cd_escola"]}
-    ORDER BY t.dt_publicado LIMIT 3");
+    ORDER BY t.dt_publicado LIMIT 6");
 
 ?>
 <!doctype html>
@@ -95,11 +98,15 @@ $recente = $conexao->consultar(
             </table>
             
             <div id="campo_pesquisa_monografia">
-                <form>
+                <form action="" id="pesquisaForm">
                     <table>
                         <tr> 
-                            <td> <input type="text" style="width:98%; padding-left:2%;" id="txtCampoPesquisaEscola" placeholder="Pesquise o tema de sua monografia aqui" /> </td>
-                            <td> <input type="submit" style="width:100%" id="btnPesquisaEscola" value="Pesquisar"> </td>
+                            <td>
+                                <input type="text" style="width:98%; padding-left:2%;" id="txtCampoPesquisaEscola" placeholder="Pesquise o tema de sua monografia aqui" name="pesquisa">
+                            </td>
+                            <td>
+                                <input type="hidden" value="<?php echo $escola[0]["cd_escola"]; ?>" name="escola"> 
+                                <input type="submit" style="width:100%" id="btnPesquisaEscola" value="Pesquisar"> </td>
 
                         </tr>
                     </table>
@@ -107,347 +114,14 @@ $recente = $conexao->consultar(
                 
                 
             </div> 
-            <a id="abrir_filtro" style="color:blue; cursor:pointer"> <h1> > Filtrar pesquisa  </h1  > </a>
-                <div id="Filtrar_pesquisa">
-                
-                Não sei como vai ficar o filtro de pesquisa aqui dentro, mas qualquer coisa, só colocar :D
-                
-                </div>      
+                    
             
-            <div id="resultados_monografias">
-                <h1> Resultados para "X" </h1>
-                    <h2> 1 a 15 - 500 </h2>
+            <div id="resultados_monografias" style="min-height: 500px;">
                 
                 <div id="lista_resultado">
-                    <div class="box_monografia" id="fav3">
-                        <div class="each_titulo_area">
-                            <div class="each_titulo"> <h1> Moudelle </h1> </div>
-                        </div>
-                        
-                        <div class="each_icon" id="imagem_fav3">
-                        </div>
-    
-                        <div class="each_resumo"> 
-                            <p> O objetivo deste sistema é agendar as consultas da clínica de forma rápida e prática e efetuar venda de produtos relacionados a tratamentos que a clínica oferece.
-                            </p>
-                        </div>
-                        
-                        <div class="each_autor_curso"> 
-                            <h1>                        
-                           
-                           <a href="#"> Informática para Internet </a>
-                            
-                            </h1>
-                        </div>
-                    </div>
-                    
-                  <div class="box_monografia" id="fav3">
-                    <div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> Moudelle </h1> </div>
-                    </div>
-                    
-                    <div class="each_icon" id="imagem_fav3">
-                    </div>
-
-                    <div class="each_resumo"> 
-                        <p> O objetivo deste sistema é agendar as consultas da clínica de forma rápida e prática e efetuar venda de produtos relacionados a tratamentos que a clínica oferece.
-                        </p>
-                    </div>
-                    
-                    <div class="each_autor_curso"> 
-                        <h1>                        
-                       
-                       <a href="#"> <h1> Informática para Internet </h1> </a>
-                        
-                        </h1>
-                    </div>
-                </div>
-                    
-                   <div class="box_monografia" id="fav3">
-                    <div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> Moudelle </h1> </div>
-                    </div>
-                    
-                    <div class="each_icon" id="imagem_fav3">
-                    </div>
-
-                    <div class="each_resumo"> 
-                        <p> O objetivo deste sistema é agendar as consultas da clínica de forma rápida e prática e efetuar venda de produtos relacionados a tratamentos que a clínica oferece.
-                        </p>
-                    </div>
-                    
-                    <div class="each_autor_curso"> 
-                        <h1>                        
-                       
-                       <a href="#"> Informática para Internet </a>
-                        
-                        </h1>
-                    </div>
-                </div>
-                    
-                   <div class="box_monografia" id="fav3">
-                    <div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> Moudelle </h1> </div>
-                    </div>
-                    
-                    <div class="each_icon" id="imagem_fav3">
-                    </div>
-
-                    <div class="each_resumo"> 
-                        <p> O objetivo deste sistema é agendar as consultas da clínica de forma rápida e prática e efetuar venda de produtos relacionados a tratamentos que a clínica oferece.
-                        </p>
-                    </div>
-                    
-                    <div class="each_autor_curso"> 
-                        <h1>                        
-                       
-                       <a href="#"> Informática para Internet </a>
-                        
-                        </h1>
-                    </div>
-                </div>
-                    
-                   <div class="box_monografia" id="fav3">
-                    <div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> Moudelle </h1> </div>
-                    </div>
-                    
-                    <div class="each_icon" id="imagem_fav3">
-                    </div>
-
-                    <div class="each_resumo"> 
-                        <p> O objetivo deste sistema é agendar as consultas da clínica de forma rápida e prática e efetuar venda de produtos relacionados a tratamentos que a clínica oferece.
-                        </p>
-                    </div>
-                    
-                    <div class="each_autor_curso"> 
-                        <h1>                        
-                       
-                       <a href="#"> Informática para Internet </a>
-                        
-                        </h1>
-                    </div>
-                </div>
-                    
-                   <div class="box_monografia" id="fav3">
-                    <div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> Moudelle </h1> </div>
-                    </div>
-                    
-                    <div class="each_icon" id="imagem_fav3">
-                    </div>
-
-                    <div class="each_resumo"> 
-                        <p> O objetivo deste sistema é agendar as consultas da clínica de forma rápida e prática e efetuar venda de produtos relacionados a tratamentos que a clínica oferece.
-                        </p>
-                    </div>
-                    
-                    <div class="each_autor_curso"> 
-                        <h1>                        
-                       
-                       <a href="#"> Informática para Internet </a>
-                        
-                        </h1>
-                    </div>
-                </div>
-                    
-                   <div class="box_monografia" id="fav3">
-                    <div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> Moudelle </h1> </div>
-                    </div>
-                    
-                    <div class="each_icon" id="imagem_fav3">
-                    </div>
-
-                    <div class="each_resumo"> 
-                        <p> O objetivo deste sistema é agendar as consultas da clínica de forma rápida e prática e efetuar venda de produtos relacionados a tratamentos que a clínica oferece.
-                        </p>
-                    </div>
-                    
-                    <div class="each_autor_curso"> 
-                        <h1>                        
-                       
-                       <a href="#"> Informática para Internet </a>
-                        
-                        </h1>
-                    </div>
-                </div>
-                    
-                   <div class="box_monografia" id="fav3">
-                    <div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> Moudelle </h1> </div>
-                    </div>
-                    
-                    <div class="each_icon" id="imagem_fav3">
-                    </div>
-
-                    <div class="each_resumo"> 
-                        <p> O objetivo deste sistema é agendar as consultas da clínica de forma rápida e prática e efetuar venda de produtos relacionados a tratamentos que a clínica oferece.
-                        </p>
-                    </div>
-                    
-                    <div class="each_autor_curso"> 
-                        <h1>                        
-                       
-                       <a href="#"> Informática para Internet </a>
-                        
-                        </h1>
-                    </div>
-                </div>
-                    
-                   <div class="box_monografia" id="fav3">
-                    <div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> Moudelle </h1> </div>
-                    </div>
-                    
-                    <div class="each_icon" id="imagem_fav3">
-                    </div>
-
-                    <div class="each_resumo"> 
-                        <p> O objetivo deste sistema é agendar as consultas da clínica de forma rápida e prática e efetuar venda de produtos relacionados a tratamentos que a clínica oferece.
-                        </p>
-                    </div>
-                    
-                    <div class="each_autor_curso"> 
-                        <h1>                        
-                       
-                       <a href="#"> Informática para Internet </a>
-                        
-                        </h1>
-                    </div>
-                </div>  
-                    
-                   <div class="box_monografia" id="fav3">
-                    <div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> Moudelle </h1> </div>
-                    </div>
-                    
-                    <div class="each_icon" id="imagem_fav3">
-                    </div>
-
-                    <div class="each_resumo"> 
-                        <p> O objetivo deste sistema é agendar as consultas da clínica de forma rápida e prática e efetuar venda de produtos relacionados a tratamentos que a clínica oferece.
-                        </p>
-                    </div>
-                    
-                    <div class="each_autor_curso"> 
-                        <h1>                        
-                       
-                       <a href="#"> Informática para Internet </a>
-                        
-                        </h1>
-                    </div>
-                </div>
-                    
-                   <div class="box_monografia" id="fav3">
-                    <div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> Moudelle </h1> </div>
-                    </div>
-                    
-                    <div class="each_icon" id="imagem_fav3">
-                    </div>
-
-                    <div class="each_resumo"> 
-                        <p> O objetivo deste sistema é agendar as consultas da clínica de forma rápida e prática e efetuar venda de produtos relacionados a tratamentos que a clínica oferece.
-                        </p>
-                    </div>
-                    
-                    <div class="each_autor_curso"> 
-                        <h1>                        
-                       
-                       <a href="#"> Informática para Internet </a>
-                        
-                        </h1>
-                    </div>
-                </div>
-                    
-                   <div class="box_monografia" id="fav3">
-                    <div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> Moudelle </h1> </div>
-                    </div>
-                    
-                    <div class="each_icon" id="imagem_fav3">
-                    </div>
-
-                    <div class="each_resumo"> 
-                        <p> O objetivo deste sistema é agendar as consultas da clínica de forma rápida e prática e efetuar venda de produtos relacionados a tratamentos que a clínica oferece.
-                        </p>
-                    </div>
-                    
-                    <div class="each_autor_curso"> 
-                        <h1>                        
-                       
-                       <a href="#"> Informática para Internet </a>
-                        
-                        </h1>
-                    </div>
-                </div>
-                    
-                   <div class="box_monografia" id="fav3">
-                    <div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> Moudelle </h1> </div>
-                    </div>
-                    
-                    <div class="each_icon" id="imagem_fav3">
-                    </div>
-
-                    <div class="each_resumo"> 
-                        <p> O objetivo deste sistema é agendar as consultas da clínica de forma rápida e prática e efetuar venda de produtos relacionados a tratamentos que a clínica oferece.
-                        </p>
-                    </div>
-                    
-                    <div class="each_autor_curso"> 
-                        <h1>                        
-                       
-                       <a href="#"> Informática para Internet </a>
-                        
-                        </h1>
-                    </div>
-                </div>
-                    
-                   <div class="box_monografia" id="fav3">
-                    <div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> Moudelle </h1> </div>
-                    </div>
-                    
-                    <div class="each_icon" id="imagem_fav3">
-                    </div>
-
-                    <div class="each_resumo"> 
-                        <p> O objetivo deste sistema é agendar as consultas da clínica de forma rápida e prática e efetuar venda de produtos relacionados a tratamentos que a clínica oferece.
-                        </p>
-                    </div>
-                    
-                    <div class="each_autor_curso"> 
-                        <h1>                        
-                       
-                       <a href="#"> Informática para Internet </a>
-                        
-                        </h1>
-                    </div>
-                </div>
-                     
-                   <div class="box_monografia" id="fav3">
-                    <div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> Moudelle </h1> </div>
-                    </div>
-                    
-                    <div class="each_icon" id="imagem_fav3">
-                    </div>
-
-                    <div class="each_resumo"> 
-                        <p> O objetivo deste sistema é agendar as consultas da clínica de forma rápida e prática e efetuar venda de produtos relacionados a tratamentos que a clínica oferece.
-                        </p>
-                    </div>
-                    
-                    <div class="each_autor_curso"> 
-                        <h1>                        
-                       
-                       <a href="#"> Informática para Internet </a>
-                        
-                        </h1>
-                    </div>
-                </div>  
+                    <section id="resultados">
+                    </section>
+                    <script src="js/explore.js"></script>
                 </div>
     <!-- Fim parte dois - trabalhos  -->
 </div>
@@ -566,43 +240,11 @@ $recente = $conexao->consultar(
                           <div class="latest_posts"> <h1>  Cursos oferecidos </h1> </div>
                 </header>
                 <table id="cursos_oferecidos_cor">
-                	<tr>
-                    	<td> <a href="#"> Agenciamento de viagem </a>  </td>
-                    </tr>
-                    <tr>
-                    	<td> <a href="#"> Desenho de construção civil </a> </td>
-                    </tr>
-                    <tr>
-                    	<td><a href="#">  Edificações </a> </td>
-                    </tr>
-                    <tr>
-                    	<td> <a href="#"> Eletrônica </a> </td>
-                    </tr>
-                    <tr>
-                    	<td> <a href="#"> Eletrotécnica </a> </td>
-                    </tr>
-                    <tr>
-                    	<td> <a href="#"> EM integrado com Informática</a> </td>
-                    </tr>
-                    <tr>
-                    	<td> <a href="#"> EM integrado com Eletronica</a> </td>
-                    </tr>
-                    <tr>
-                    	<td> <a href="#"> Eventos</a> </td>
-                    </tr>
-                    <tr>
-                    	<td> <a href="#"> Informática </a> </td>
-                    </tr>
-                    <tr>
-                    	<td> <a href="#"> Informática para Internet </a> </td>
-                    </tr>
-                    <tr>
-                    	<td> <a href="#"> Mecânica </a> </td>
-                    </tr>
-                    <tr>
-                    	<td> <a href="#"> Programação de Jogos Digitais </a> </td>
-                    </tr>
-                    
+                    <?php foreach($cursos as $curso) { ?>
+                    	<tr>
+                        	<td> <a href="explore.php?pesquisa=&amp;curso=<?php echo $curso["cd_curso"];?>"><?php echo $curso["nm_curso"]; ?></a>  </td>
+                        </tr>                  
+                    <?php } ?>
                 </table>
             </div>
     	</aside>
