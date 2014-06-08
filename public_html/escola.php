@@ -50,30 +50,30 @@ $conexao = new Conexao();
         </div>
         
         <div id="lado_right">
-          	  <div id="contato" style="width:80%; margin:auto;">
-                    <header class="UltimosTrabalhos"  style="background-color:white;">
-                              <div class="latest_posts">
-                                <Table>
-                                    <tr>
-                                        <Td>
-                                            <img src="images/tag_mapa.png" style="height:25px">
-                                        </Td>
-                                        <td >
-                                            <h1 style="margin-left:5px;">  Localização </h1> 
-                             
-                                        </td>
-                                    </tr>
-                               </Table>
-                               </div>
-                    </header>
-                   
-                   <div id="localizacao_instituicao"> </div>
-    
-                    <p>
-                     <?php if($escola[0]['tx_endereco'] == ''){ echo "Aqui vai o endereço";} 
-					 else { echo $escola[0]['tx_endereco'];}?>
-                    </p>
-                </div>
+      	  <div id="contato" style="width:80%; margin:auto;">
+            <header class="UltimosTrabalhos"  style="background-color:white;">
+              <div class="latest_posts">
+                <Table>
+                    <tr>
+                        <Td>
+                            <img src="images/tag_mapa.png" style="height:25px">
+                        </Td>
+                        <td >
+                            <h1 style="margin-left:5px;">  Localização </h1> 
+             
+                        </td>
+                    </tr>
+               </Table>
+               </div>
+            </header>
+               
+               <div id="localizacao_instituicao"> </div>
+
+                <p>
+                 <?php if($escola[0]['tx_endereco'] == ''){ echo "Aqui vai o endereço";} 
+				 else { echo $escola[0]['tx_endereco'];}?>
+                </p>
+            </div>
         </div>
      </div>
      
@@ -81,7 +81,7 @@ $conexao = new Conexao();
               
     <!-- Parte dois - trabalhos  -->
     <?php if(isset($_GET["ver"]) and $_GET["ver"] == "trabalhos") { ?>
-    
+    <div class="esquerda">
             <table style="width:auto;">
                 <tr>
                     <td> <img src="images/perfil_usuario/monografias_.png" width="35px"> </td>
@@ -445,7 +445,7 @@ $conexao = new Conexao();
                 </div>  
                 </div>
     <!-- Fim parte dois - trabalhos  -->
-
+</div>
      <!-- Parte um - Sobre mim -->
      <?php } else { ?>
      	<div class="esquerda">
