@@ -195,7 +195,7 @@
 						
 						#relacionada_2
 						{
-							background-image:url(../images/imagens_monografias/img_vis.jpg.png);
+							background-image:url(../images/imagens_monografias/img_vis.jpg);
 							background-position:center;
 							background-repeat:no-repeat;
 						}
@@ -352,7 +352,7 @@
 		#img_cada_trabalho {
 			width:100%;
 			height:230px;
-			background-image:url(../images/imagens_monografias/img_vis.jpg.png);
+			background-image:url(../images/imagens_monografias/img_vis.jpg);
 			background-position:center;
 			background-repeat:no-repeat;
 			}
@@ -360,12 +360,12 @@
 		#img_cada_trabalho1 {
 			width:100%;
 			height:230px;
-			background-image:url(../images/imagens_monografias/img_vis.jpg.png);
+			background-image:url(../images/imagens_monografias/img_vis.jpg);
 			background-position:center;
 			background-repeat:no-repeat;
 			}
 			
-			.fav_usuario {background-image:url(../images/imagens_monografias/img_vis.jpg.png);}
+			.fav_usuario {background-image:url(../images/imagens_monografias/img_vis.jpg);}
 		
 	.trabalho_direita {
 		width:66%;

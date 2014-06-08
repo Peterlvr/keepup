@@ -160,7 +160,7 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
                         </div>
                     
                         <div class="each_icon">
-                            <img src="images/<?php if(isset($trabalho["url_imagem"]) and strlen($trabalho["url_imagem"]) > 3) echo $trabalho["url_imagem"]; else echo "imagens_monografias/img_vis.jpg.png"; ?>" class="imagens_index">
+                            <img src="images/<?php if(isset($trabalho["url_imagem"]) and strlen($trabalho["url_imagem"]) > 3) echo $trabalho["url_imagem"]; else echo "imagens_monografias/img_vis.jpg"; ?>" class="imagens_index">
                         </div>
 
                         <div class="each_resumo"> 
@@ -201,7 +201,7 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
                     </div>
                 
                     <div class="each_icon">
-                        <img src="images/<?php if(isset($trabaho["url_imagem"]) and strlen($trabaho["url_imagem"]) > 3) echo $trabaho["url_imagem"]; else echo "imagens_monografias/img_vis.jpg.png"; ?>" class="imagens_index">
+                        <img src="images/<?php if(isset($trabaho["url_imagem"]) and strlen($trabaho["url_imagem"]) > 3) echo $trabaho["url_imagem"]; else echo "imagens_monografias/img_vis.jpg"; ?>" class="imagens_index">
                     </div>
 
                     <div class="each_resumo"> 
@@ -237,7 +237,7 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
                     </div>
                 
                 	<div class="each_icon">
-                    	<img src="images/<?php if(isset($trabalho["url_imagem"]) and strlen($trabalho["url_imagem"]) > 3) echo $trabalho["url_imagem"]; else echo "imagens_monografias/img_vis.jpg.png"; ?>" class="imagens_index">
+                    	<img src="images/<?php if(isset($trabalho["url_imagem"]) and strlen($trabalho["url_imagem"]) > 3) echo $trabalho["url_imagem"]; else echo "imagens_monografias/img_vis.jpg"; ?>" class="imagens_index">
                     </div>
                     
                     <div class="each_resumo"> 
