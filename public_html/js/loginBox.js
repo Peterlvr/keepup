@@ -1,13 +1,13 @@
 $(document).ready(function loginBox() {
 	function loginBoxPop() {
 		console.log("boxpop hey");
-		if($("#bg_login").css("display") != "block") {
+		if($("#area_logar").css("display") != "block") {
 
-			$("#bg_login").fadeIn();
+			$("#area_logar").fadeIn();
 			
 		}
 		else {
-			$("#bg_login").css({
+			$("#area_login").css({
 				"display": "none",
 				"opacity": "0"
 			});
