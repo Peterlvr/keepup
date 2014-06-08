@@ -4,7 +4,7 @@ $(document).ready(function() {
 		select.setAttribute("class", "cdAluno");
 		select.setAttribute("id", "cdAluno" + ($(".cdAluno").length + 1));
 		select.setAttribute("name", "cdAluno" + ($(".cdAluno").length + 1));
-		$("#cdAluno").append("<br>").append(select);
+		$("#cdAluno").append(select).append("<br>");
 		var options = $(".cdAluno:first-child option").each(function() {
 			$(this).clone().appendTo("#cdAluno" + ($(".cdAluno").length));
 		});
