@@ -158,6 +158,10 @@
 				margin-top:30px;
 				}
 				
+				#monografias_relacionadas h1 {
+					font-size:.9em;
+					}
+				
 				#mono_recente {
 					width:100%;
 					height:175px;
@@ -398,7 +402,7 @@
 		#table_curso p {
 			margin:0;
 			text-align:left;
-			width:100%; margin-left:-40px; text-align:justify
+			width:100%; margin-left:-40px;
 			}
 		
 /*Se ele não possuir monografia*/
