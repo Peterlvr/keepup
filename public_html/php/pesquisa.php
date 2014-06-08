@@ -90,23 +90,12 @@ if(isset($_GET['pesquisa']))
                 <div id="img_cada_monografia"> </div>
                 
                 <div id="cada_resumo">
-                    <p><?php echo $row["resumo"]; ?></p>
+                    <p><?php echo substr($row["resumo"], 0, 300) . "..."; ?></p>
                 </div>
                 <!-- <?php echo $row["curso"]; ?>, <?php echo $row["publicado_em"]; ?> -->
             </div>
 		</a>
 	<?php } ?>
-	<!--section id="filtros">
-		<h1>Filtrar por:</h1>
-		<h2>Curso</h2>
-		<ul>
-			<?php foreach($cursos as $curso) { ?>
-				<li>
-					<p><?php echo "{$curso[0]} ({$curso[1]})"; ?></p>
-				</li>
-			<?php } ?>
-		</ul>
-	</section-->
 <?php } else { ?>
 	<p>Sem resultados</p>
 <?php } ?>

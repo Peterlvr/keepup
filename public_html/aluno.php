@@ -27,6 +27,7 @@ $conexao = new Conexao();
 	//seleciona todos os trabalhos de autoria do aluno
 	$consulta = "SELECT t.* FROM autoria a, trabalho t WHERE a.cd_aluno = $cd_aluno and t.cd_trabalho = a.cd_trabalho";
 	$trabalhosAluno = $conexao->consultar($consulta);
+
     $consultaFav = "SELECT t.* FROM favorito f, trabalho t WHERE f.cd_aluno = $cd_aluno and t.cd_trabalho = f.cd_trabalho";
     $favoritosAluno = $conexao->consultar($consultaFav);
 	//determina qual o trabalho de sua autoria com maior pontos de avaliação 	
@@ -155,7 +156,8 @@ $conexao = new Conexao();
                         
                         <div class="trabalho_direita">
                             <h1><?php echo $trabalho["nm_titulo"]; ?></h1>
-                            <p><?php echo $trabalho["ds_resumo"]; ?></p>
+                            <p><?php echo substr($trabalho["ds_resumo"], 0, 200) . "...";
+ ?></p>
                         </div>
                         </a>
                     </div>
@@ -181,7 +183,7 @@ $conexao = new Conexao();
                         
                         <div class="trabalho_direita">
                             <h1><?php echo $trabalho["nm_titulo"]; ?></h1>
-                            <p><?php echo $trabalho["ds_resumo"]; ?> </p>
+                            <p><?php echo substr($trabalho["ds_resumo"], 0, 200) . "..."; ?> </p>
                         </div>
                         </a>
                     </div>
