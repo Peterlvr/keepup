@@ -216,7 +216,7 @@ Interaja com o meio acadêmico
             
             <div style="width:100%; clear:both;"> </div>
         </article>
-    
+    </Section>
     <?php include_once("footer.php"); ?>
 </body>
 </html>
