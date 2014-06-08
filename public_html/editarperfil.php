@@ -20,9 +20,24 @@ $dt_nascimento = $dados_aluno[0]['dt_nascimento'];
 $sessao["escolas"] = $con->consultar("SELECT nm_escola, cd_escola FROM escola");
 
 if($sessao["tipoConta"] == "A") {
-$aluno_matriculado = $con->consultar("SELECT e.nm_escola 
+    $aluno_matriculado = $con->consultar("SELECT e.nm_escola 
 		FROM escola e, matricula m, aluno al 
 		WHERE al.cd_aluno = m.cd_aluno AND e.cd_escola = m.cd_escola AND al.cd_aluno = {$_SESSION['cd_aluno']}");
+    $aluno_cursos = $con->consultar("SELECT c.*
+        FROM curso c, aluno a, cursando cu 
+        WHERE c.cd_curso = cu.cd_curso and a.cd_aluno = cu.cd_aluno and
+        a.cd_aluno = {$sessao["cd"]}");
+    $favoritos = $con->consultar("SELECT t.*
+        FROM trabalho t, favorito f, aluno a
+        WHERE t.cd_trabalho = f.cd_trabalho and
+        a.cd_aluno = f.cd_aluno and
+        f.cd_aluno = {$sessao["cd"]} ORDER BY f.dt_favoritado");
+}
+if($sessao["tipoConta"] == "E") {
+    $escola_cursos = $con->consultar(
+        "SELECT c.* FROM curso c, escola e, curso_oferecido co
+        WHERE c.cd_curso = co.cd_curso and e.cd_escola = co.cd_escola
+        and cd_escola = {$sessao["cd"]}");
 }
 ?>
 <!doctype html>
@@ -86,19 +101,19 @@ $aluno_matriculado = $con->consultar("SELECT e.nm_escola
                 </header>
                 <table style="background-color:white">
                 	<tr>
-                    	<td> <img src="../images/face.png" width="30"></td>
+                    	<td> <img src="images/face.png" width="30"></td>
                         <td style="text-align:left;"><?php if($dados_aluno[0]['nm_fb'] <> '') { echo $dados_aluno[0]['nm_fb']; }
                         else { echo 'Campo não preenchido.';} ?>
                         </td>
                     </tr>
                     <tr>
-                    	<td> <img src="../images/twitter.png" width="30"> </td>
+                    	<td> <img src="images/twitter.png" width="30"> </td>
                         <td style="text-align:left;"> <?php if($dados_aluno[0]['tx_url_linkedin'] <> '') { echo $dados_aluno[0]['tx_url_linkedin']; } 
                         else { echo 'Campo não preenchido.';} ?> 
                         </td>
                     </tr>
                     <tr>
-                    	<td> <img src="../images/skype.png" width="30"> </td>
+                    	<td> <img src="images/skype.png" width="30"> </td>
                         <td style="text-align:left;"><?php if($dados_aluno[0]['tx_url_externo'] <> '') { ?>
                        		<a href="http://<?php echo $dados_aluno[0]['tx_url_externo']; ?>" target="_blank"> <?php echo $dados_aluno[0]['tx_url_externo']; ?> </a>
                             <?php } else { ?>  Campo não preenchido.  <?php } ?>
@@ -149,42 +164,42 @@ $aluno_matriculado = $con->consultar("SELECT e.nm_escola
                 </header>
         
                 
-            <form action="php/editarperfil.php" method="POST" id="editarPerfilForm"> 
-                <section id="painelUsuario">
-                    <table id="table_form">
-                        <tr>
-                            <td class="td_left"> <h1> Nome de aluno:: </h1> </td>
-                            <td colspan="2"> <input placeholder="Nome de Aluno" type="text" name="nmAluno" value="<?php echo $_SESSION["nome"]; ?>" required> </td>
-                        </tr>
-                        <tr>
-                            <td class="td_left"> <h1> Data de nascimento: </h1> </td>
-                            <td colspan="2"> <input type="date" name="dtNascimento" value="<?php echo $dt_nascimento; ?>"> </td>
-                        </tr>
-                        <tr>
-                            <td class="td_left"> <h1> Sobre mim: </h1> </td>
-                            <td colspan="2"> <textarea  rows="5" cols='45' placeholder="Sobre mim..." name="sobreMim" ><?php echo $dados_aluno[0]['tx_bio']; ?></textarea></td>
-                        </tr>
-                        <tr>
-                            <td class="td_left"> <h1> Profissão: </h1> </td>
-                            <td colspan="2"> <input placeholder="Profissao" type="text" name="nmProfissao" value="<?php echo $dados_aluno[0]['nm_profissao'];?>" > </td>
-                        </tr>
-                        <tr>
-                            <td class="td_left"> <h1> Facebook: </h1> </td>
-                            <td colspan="2"> <input placeholder="Endereco de Facebook" type="text" name="nmFB" value="<?php echo $dados_aluno[0]['nm_fb']; ?>" > </td>
-                        </tr>
-                         <tr>
-                            <td class="td_left"> <h1> Linkedin: </h1> </td>
-                            <td colspan="2"> <input placeholder="Url para linkedin" type="text" name="nmLinkedin" value="<?php echo $dados_aluno[0]['tx_url_linkedin']; ?>" > </td>
-                        </tr>
-                        <tr>
-                        	<td class="td_left"> <h1> Link externo </h1></td>
-                            <td colspan="2"> <input placeholder="Url para site externo" type="text" name="nmUrlExterno" value="<?php echo $dados_aluno[0]['tx_url_externo']; ?>" ></td>
-                        </tr>
-                 </table>
-			</section>
-            		
-			<input id="envia" type="submit" value="Alterar dados pessoais" >
-		</form>
+        <form action="php/editarperfil.php" method="POST" id="editarPerfilForm"> 
+            <section id="painelUsuario">
+                <table id="table_form">
+                    <tr>
+                        <td class="td_left"> <h1> Nome de aluno:: </h1> </td>
+                        <td colspan="2"> <input placeholder="Nome de Aluno" type="text" name="nmAluno" value="<?php echo $_SESSION["nome"]; ?>" required> </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left"> <h1> Data de nascimento: </h1> </td>
+                        <td colspan="2"> <input type="date" name="dtNascimento" value="<?php echo $dt_nascimento; ?>"> </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left"> <h1> Sobre mim: </h1> </td>
+                        <td colspan="2"> <textarea  rows="5" cols='45' placeholder="Sobre mim..." name="sobreMim" ><?php echo $dados_aluno[0]['tx_bio']; ?></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="td_left"> <h1> Profissão: </h1> </td>
+                        <td colspan="2"> <input placeholder="Profissao" type="text" name="nmProfissao" value="<?php echo $dados_aluno[0]['nm_profissao'];?>" > </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left"> <h1> Facebook: </h1> </td>
+                        <td colspan="2"> <input placeholder="Endereco de Facebook" type="text" name="nmFB" value="<?php echo $dados_aluno[0]['nm_fb']; ?>" > </td>
+                    </tr>
+                     <tr>
+                        <td class="td_left"> <h1> Linkedin: </h1> </td>
+                        <td colspan="2"> <input placeholder="Url para linkedin" type="text" name="nmLinkedin" value="<?php echo $dados_aluno[0]['tx_url_linkedin']; ?>" > </td>
+                    </tr>
+                    <tr>
+                    	<td class="td_left"> <h1> Link externo </h1></td>
+                        <td colspan="2"> <input placeholder="Url para site externo" type="text" name="nmUrlExterno" value="<?php echo $dados_aluno[0]['tx_url_externo']; ?>" ></td>
+                    </tr>
+             </table>
+		</section>
+        		
+		<input id="envia" type="submit" value="Alterar dados pessoais" >
+	</form>
         
         
         
@@ -322,31 +337,18 @@ $aluno_matriculado = $con->consultar("SELECT e.nm_escola
                 
                 
                 
-                <div id="form_favoritos"> 
-                	<div class="form_cada_favorito">
-                    	<a href="#"> 
-                        	<img src="images/close.png" style="float:right; margin:-10px -10px 0 0">
-                        </a>
-                    	<div class="form_imagem_favorito"> </div>
-                    </div>
-                    
-                    <div class="form_cada_monografia">
-                    	<a href="#"> 
-                        	<img src="images/close.png" style="float:right; margin:-10px -10px 0 0">
-                        </a>
-                    	<div class="form_imagem_monografia"> </div>
-                    </div>
-                    
-                    <div class="form_cada_monografia">
-                    	<a href="#"> 
-                        	<img src="images/close.png" style="float:right; margin:-10px -10px 0 0">
-                        </a>
-                    	<div class="form_imagem_monografia"> </div>
-                    </div>
-                    
-                    
+            <?php if(isset($favoritos) && sizeof($favoritos) > 0) { ?>
+                <div id="form_favoritos">
+                    <?php foreach($favoritos as $trabalho) { ?> 
+                        <div class="form_cada_favorito"> 
+                            <img src="images/close.png" style="float:right; margin:-10px -10px 0 0">
+                        	<div class="form_imagem_favorito"> </div>
+                            <h1> <?php echo $trabalho["nm_titulo"]; ?></h1>
+                        </div>
+                    <?php } ?>
                     <div style="width:100%; clear:both;"></div>
                 </div>
+            <?php } ?>
 </div>  
                 </div>
             </div>
@@ -354,31 +356,30 @@ $aluno_matriculado = $con->consultar("SELECT e.nm_escola
         
         
         <aside class="direita">
-        
-        	
-            
+           <?php if(sizeof($relacionados) > 0) { ?> 
             <div id="monografias_relacionadas">
-            	<header class="UltimosTrabalhos">
-                          <div class="latest_posts"> <h1> Monografias relacionadas </h1> </div>
-                </header>
-                
-                <div id="mono_recente">
-                	<div class="imagem_monografia_relacionada" id="relacionada_1"> </div>
-                    <footer class="titulo_relacionada"> <h1> Checkpoint Social </h1>  </footer>
+                    <header class="UltimosTrabalhos">
+                          <div class="latest_posts"> 
+                              <table>
+                                <tr>
+                                    <td> <img src="images/perfil_usuario/monografias.png" width="30"> </td>
+                                    <td> <h1> Monografias relacionadas </h1> </td>
+                                </tr>
+                              </table>
+                          </div>
+                    </header>
+                    <?php foreach ($relacionados as $trabalhoRelacionado) {
+                    if($trabalhoRelacionado['cd_trabalho'] <> $cd_trabalho){   ?>
+                    <a href="trabalho.php?t=<?php echo $trabalhoRelacionado['cd_trabalho'];?>">
+                         <div id="mono_recente">
+                            <div class="imagem_monografia_relacionada"  style="background-image: url(images/imagens_monografias/img_vis.jpg)" id="relacionada_1"> </div>
+                            <footer class="titulo_relacionada"> <h1> <?php echo substr($trabalhoRelacionado['nm_titulo'], 0, 20) . "...";?> </h1> </footer>
+                        </div>
+                    </a>
+                    <?php }}?>
                 </div>
-                
-                <div id="mono_recente">
-                	<div class="imagem_monografia_relacionada" id="relacionada_2"> </div>
-                    <footer class="titulo_relacionada"> <h1> Keep Up </h1> </footer>
-                </div>
-                
-                <div id="mono_recente">
-                	<div class="imagem_monografia_relacionada" id="relacionada_3"> </div>
-                    <footer class="titulo_relacionada"> <h1> Moudelle </h1>  </footer>
-                </div>
-            
-            </div>
-            
+            </div>  
+           <?php } ?>
         </aside>
      </section>
      <?php include "footer.php"; ?>

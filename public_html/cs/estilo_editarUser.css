@@ -84,11 +84,16 @@
 		float:left;
 		margin:1.5%
 		}
+		.form_cada_favorito h1 {
+			font-size: 0.8em;
+		}
 		
 		.form_imagem_favorito {
 			height:225px;
 			width:100%;
-			background-color:pink;
+			background-image:url(../images/imagens_monografias/img_vis.jpg);
+			background-size:cover;
+			background-position:center;
 			}
 			
 			
