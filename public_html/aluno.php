@@ -115,9 +115,9 @@ $relacionados = $conexao->consultar($relacionadas);
                 </div>
                 
                 <div id="icones_dados"> 
-                <a href="?ver=perfil&u=<?php echo $nm_login; ?>">	<div class="bot_perfil" id="profile" <?php if(!isset($_GET["ver"]) or $_GET["ver"] == "perfil"){ ?>style="border-bottom:5px solid #2c87af" <?php } ?>> </div> </a>
-                <a href="?ver=trabalhos&u=<?php echo $nm_login; ?>">    <div class="bot_perfil" id="monografias" <?php if(isset($_GET["ver"]) and $_GET["ver"] == "trabalhos"){ ?>style="border-bottom:5px solid #2c87af" <?php } ?>> </div> </a>
-                <a href="?ver=favoritos&u=<?php echo $nm_login; ?>" >    <div class="bot_perfil" id="favoritos" <?php if(isset($_GET["ver"]) and $_GET["ver"] == "favoritos"){ ?>style="border-bottom:5px solid #2c87af" <?php } ?>> </div> </a>
+                <a href="?ver=perfil&amp;u=<?php echo $nm_login; ?>">	<div class="bot_perfil" id="profile" <?php if(!isset($_GET["ver"]) or $_GET["ver"] == "perfil"){ ?>style="border-bottom:5px solid #2c87af" <?php } ?>> </div> </a>
+                <a href="?ver=trabalhos&amp;u=<?php echo $nm_login; ?>">    <div class="bot_perfil" id="monografias" <?php if(isset($_GET["ver"]) and $_GET["ver"] == "trabalhos"){ ?>style="border-bottom:5px solid #2c87af" <?php } ?>> </div> </a>
+                <a href="?ver=favoritos&amp;u=<?php echo $nm_login; ?>" >    <div class="bot_perfil" id="favoritos" <?php if(isset($_GET["ver"]) and $_GET["ver"] == "favoritos"){ ?>style="border-bottom:5px solid #2c87af" <?php } ?>> </div> </a>
                 </div>
             </div>
 		</div>
