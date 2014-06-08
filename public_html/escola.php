@@ -15,7 +15,8 @@ $conexao = new Conexao();
 
 $recente = $conexao->consultar(
     "SELECT t.*, c.nm_curso from trabalho t, curso c
-    WHERE c.cd_curso = t.cd_curso and t.cd_escola = {$escola[0]["cd_escola"]}");
+    WHERE c.cd_curso = t.cd_curso and t.cd_escola = {$escola[0]["cd_escola"]}
+    ORDER BY t.dt_publicado LIMIT 3");
 
 ?>
 <!doctype html>
