@@ -65,8 +65,8 @@ $aluno_matriculado = $con->consultar("SELECT e.nm_escola
             
             <div id="dados_usuario">
                 <div id="texto_dados">
-                    <h3> Estudante </h3>
-                    <h1> Thiago Limeres </h1>
+                    <h3> <?php echo $dados_aluno[0]['nm_profissao'];?> </h3>
+                    <h1> <?php echo $_SESSION["nome"]; ?> </h1>
                     <h2> ETEC Aristóteles Ferreira </h2>
                 </div>
                 
@@ -87,16 +87,21 @@ $aluno_matriculado = $con->consultar("SELECT e.nm_escola
                 <table style="background-color:white">
                 	<tr>
                     	<td> <img src="../images/face.png" width="30"></td>
-                        <td style="text-align:left;"> fb/ThiagoLimeres </td>
+                        <td style="text-align:left;"><?php if($dados_aluno[0]['nm_fb'] <> '') { echo $dados_aluno[0]['nm_fb']; }
+                        else { echo 'Campo não preenchido.';} ?>
+                        </td>
                     </tr>
                     <tr>
                     	<td> <img src="../images/twitter.png" width="30"> </td>
-                        <td style="text-align:left;"> @ThiagoLimeres </td>
+                        <td style="text-align:left;"> <?php if($dados_aluno[0]['tx_url_linkedin'] <> '') { echo $dados_aluno[0]['tx_url_linkedin']; } 
+                        else { echo 'Campo não preenchido.';} ?> 
+                        </td>
                     </tr>
                     <tr>
                     	<td> <img src="../images/skype.png" width="30"> </td>
-                        <td style="text-align:left;">
-                       		<A href="http://www.tradeshop.com.br" target="_blank"> http://www.tradeshop.com.br </A>
+                        <td style="text-align:left;"><?php if($dados_aluno[0]['tx_url_externo'] <> '') { ?>
+                       		<a href="http://<?php echo $dados_aluno[0]['tx_url_externo']; ?>" target="_blank"> <?php echo $dados_aluno[0]['tx_url_externo']; ?> </a>
+                            <?php } else { ?>  Campo não preenchido.  <?php } ?>
                         </td>
                     </tr>
                 </table>
@@ -132,7 +137,7 @@ $aluno_matriculado = $con->consultar("SELECT e.nm_escola
                 </Tr>
              </table>
 			</section>
-			<input id="envia" type="submit" value="Alterar dados pessoais" >
+			<input id="envia" type="submit" value="Alterar e-mail" style="position:relative; left:50%;">
     	</form>
         
 <div id="formulario_editar_dados">        
@@ -157,7 +162,7 @@ $aluno_matriculado = $con->consultar("SELECT e.nm_escola
                         </tr>
                         <tr>
                             <td class="td_left"> <h1> Sobre mim: </h1> </td>
-                            <td colspan="2"> <textarea  rows="5" placeholder="Sobre mim..." name="sobreMim" ><?php echo $dados_aluno[0]['tx_bio']; ?></textarea></td>
+                            <td colspan="2"> <textarea  rows="5" cols='45' placeholder="Sobre mim..." name="sobreMim" ><?php echo $dados_aluno[0]['tx_bio']; ?></textarea></td>
                         </tr>
                         <tr>
                             <td class="td_left"> <h1> Profissão: </h1> </td>
@@ -376,5 +381,6 @@ $aluno_matriculado = $con->consultar("SELECT e.nm_escola
             
         </aside>
      </section>
+     <?php include "footer.php"; ?>
 </body>
 </html>

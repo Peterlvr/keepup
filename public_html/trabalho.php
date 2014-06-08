@@ -317,15 +317,17 @@ require("php/mediaAvaliacao.php");
                                   </table>
                               </div>
                         </header>
-                        
-                    <a href="#">
+                    <?php foreach ($relacionados as $trabalhoRelacionado) {
+                    if($trabalhoRelacionado['cd_trabalho'] <> $cd_trabalho){   ?>
+                    <a href="trabalho.php?t=<?php echo $trabalhoRelacionado['cd_trabalho'];?>">
                         <div id="cada_monografia_relacionada">
                             <div class="imagem_monografia_relacionada"> 
                                 <img src="../../images/imagens_monografias/logo5.png" class="imagem_relacionada">
                             </div>
-                            <footer class="titulo_relacionada"> <h1> Checkpoint Social </h1>  </footer>
+                            <footer class="titulo_relacionada"> <h1> <?php echo substr($trabalhoRelacionado['nm_titulo'], 0, 75);?></h1>  </footer>
                         </div>
                     </a>
+                    <?php }}?>
                 </div>
             </div>	
            <?php } ?>
