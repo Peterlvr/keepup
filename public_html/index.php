@@ -197,7 +197,7 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
             <a href="trabalho.php?t=<?php echo $trabaho["cd_trabalho"]; ?>">
                 <div class="box_monografia" id="fav1">
                      <div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> <?php echo $trabalho["nm_titulo"]; ?> </h1> </div>
+                        <div class="each_titulo"> <h1> <?php echo $trabaho["nm_titulo"]; ?> </h1> </div>
                     </div>
                 
                     <div class="each_icon">

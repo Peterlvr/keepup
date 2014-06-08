@@ -266,10 +266,10 @@ $sessao["estados"] = $conexao->consultar("SELECT * FROM estado");
         <article>
         	<div id="area__monografias">
             	<div id="div_monografias">
-                    <div id="resultado_para">
+                    <!--div id="resultado_para">
 		                        <table class="resultado_para_table">
                                 	<tr>
-                                    	<td> <h1> Resultados<!-- para "Informática para Internet" --> </h1> </td>
+                                    	<td> <h1> Resultados<!-- para "Informática para Internet" -> </h1> </td>
                                         <td style="text-align:right"> 
                                         	<select>
                                               <option value="">Ordenar</option>
@@ -282,7 +282,7 @@ $sessao["estados"] = $conexao->consultar("SELECT * FROM estado");
                                      
                                     </tr>
                         		</table>                           
-                    </div>
+                    </div-->
                     
                     <div id="monografias"> 
                     

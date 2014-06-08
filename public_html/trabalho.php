@@ -2,7 +2,7 @@
 require("../sessao.php");
 require("../conexao.class.php");
 $conexao = new Conexao();	
-
+ini_set("display_errors", "On");
 $cd_trabalho = $_GET['t'];
 
 $comando = "SELECT * FROM trabalho WHERE cd_trabalho = $cd_trabalho";
@@ -60,6 +60,13 @@ if($logado and $sessao["tipoConta"] == "A") {
         if($favorito["cd_trabalho"] == $trabalho[0]["cd_trabalho"])
             $jaEhFavorito = true;
     }
+}
+
+$pchaves = explode(".", $trabalho[0]["tx_pchave"]);
+$i = 0;
+foreach($pchaves as $pchave) {
+    $pchaves[$i] = trim($pchave);
+    $i++; 
 }
 
 require("php/mediaAvaliacao.php");
@@ -284,9 +291,7 @@ require("php/mediaAvaliacao.php");
                           </div>
                     </header>
             	<p> 
-                	troca - 
-					mercadorias -
-                    consumo consciente
+                    <?php foreach($pchaves as $pchave) { echo "<a href='explore.php?pesquisa=$pchave'>$pchave</a>, ";} ?>
                </p>
             </div>
             <div id="bloco3_autores">

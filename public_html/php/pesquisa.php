@@ -80,6 +80,7 @@ if(isset($_GET['pesquisa']))
 
 
 ?>
+<h1> Resultados para <?php echo $_GET["pesquisa"]; ?></h1>
 <?php if(isset($pesquisando[0])) { ?>
 	<?php foreach($pesquisando as $row)	{ ?>
         <a href="trabalho.php?t=<?php echo $row["cd"]; ?>">
