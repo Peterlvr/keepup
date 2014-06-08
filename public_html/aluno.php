@@ -294,8 +294,9 @@ $relacionados = $conexao->consultar($relacionadas);
                               </table>
                           </div>
                     </header>
-            				CURSOS LISTADOS DE MANEIRA BONITINHA 
-                              <p><?php foreach($cursosAluno as $curso) echo $curso["nm_curso"]; ?></p> 
+            		<ul>
+                        <?php foreach($cursosAluno as $curso) echo "<li><a href='explore.php?pesquisa=&amp;curso={$curso["cd_curso"]}'>{$curso["nm_curso"]}</a></li>"; ?>
+                    </ul> 
                 </div>
             </div>  
            
