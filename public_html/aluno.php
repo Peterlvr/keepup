@@ -4,92 +4,99 @@ require("../sessao.php");
 require("../conexao.class.php");
 $conexao = new Conexao();
 	
-
+if(isset($_GET["u"])) {
 	//através do GET, tira da url o nm-login
 	$nm_login = $_GET['u'];
 	$usuario = "SELECT cd_usuario FROM usuario WHERE nm_login = '$nm_login'";
 	$pageuser = $conexao->consultar($usuario);
-	//seleciona dados da tabela aluno pelo codigo de usuario
-	$comando = "SELECT * FROM aluno WHERE cd_usuario = {$pageuser[0]['cd_usuario']}";
-	$aluno = $conexao->consultar($comando);
-	//cria variavel contendo o codigo do aluno
-	$cd_aluno = $aluno[0]["cd_aluno"];
-	//seleciona o nome do curso da tabela curso caso o aluno tenha um curso registrado
-	$curso = "SELECT c.nm_curso
+    if(sizeof($pageuser) != 0) { 
+    	//seleciona dados da tabela aluno pelo codigo de usuario
+    	$comando = "SELECT * FROM aluno WHERE cd_usuario = {$pageuser[0]['cd_usuario']}";
+    	$aluno = $conexao->consultar($comando);
+    	//cria variavel contendo o codigo do aluno
+    	$cd_aluno = $aluno[0]["cd_aluno"];
+    	//seleciona o nome do curso da tabela curso caso o aluno tenha um curso registrado
+    	$curso = "SELECT c.nm_curso
+            FROM curso c, cursando cu
+            WHERE cu.cd_curso = c.cd_curso and cu.cd_aluno = $cd_aluno";
+    	$cursoaluno = $conexao->consultar($curso);
+
+    	$profissao = $aluno[0]['nm_profissao'];
+
+    	$matricula = $conexao->consultar("SELECT e.nm_escola FROM escola e, matricula m, aluno al 
+    		WHERE al.cd_aluno = m.cd_aluno AND e.cd_escola = m.cd_escola AND al.cd_aluno = $cd_aluno");
+    	//seleciona todos os trabalhos de autoria do aluno
+    	$consulta = "SELECT t.* FROM autoria a, trabalho t WHERE a.cd_aluno = $cd_aluno and t.cd_trabalho = a.cd_trabalho";
+    	$trabalhosAluno = $conexao->consultar($consulta);
+
+        $consultaFav = "SELECT t.* FROM favorito f, trabalho t WHERE f.cd_aluno = $cd_aluno and t.cd_trabalho = f.cd_trabalho";
+        $favoritosAluno = $conexao->consultar($consultaFav);
+    	//determina qual o trabalho de sua autoria com maior pontos de avaliação 	
+    	$cont = 0;
+    	foreach ($trabalhosAluno as $cadatrabalho) {
+    		$cont = $cont + 1;
+    		$comando = "SELECT SUM(vl_voto) AS soma FROM voto WHERE cd_trabalho = {$cadatrabalho["cd_trabalho"]}";
+    		$notatrabalho = $conexao->consultar($comando);
+    		if($cont == 1)	{
+    				$maiornota = $notatrabalho;
+    				$trabalhodestaque = $cadatrabalho['cd_trabalho'];
+    		}
+    		else {
+    			if ($notatrabalho > $maiornota)	{
+    					$maiornota = $notatrabalho;
+    					$trabalhodestaque = $cadatrabalho['cd_trabalho'];
+    			}
+    		}
+    	}
+    	//havendo um trabalho em destaque são selecionados seus dados
+    	if(isset($trabalhodestaque))
+    	{
+    	$consulta =
+    			"SELECT * FROM trabalho 
+    			WHERE cd_trabalho = $trabalhodestaque";
+
+    	$trabalhoTop = $conexao->consultar($consulta);
+     $nomeCurso = $conexao->consultar("SELECT c.nm_curso 
+            FROM trabalho t, curso c WHERE t.cd_trabalho = {$trabalhoTop[0]['cd_trabalho']} 
+            AND t.cd_curso = c.cd_curso");
+      $nomeInstituicao = $conexao->consultar("SELECT nm_escola 
+        FROM escola WHERE cd_escola = {$trabalhoTop[0]['cd_escola']}");
+
+    	}
+
+      $cursosquery = 
+        "SELECT c.*
         FROM curso c, cursando cu
-        WHERE cu.cd_curso = c.cd_curso and cu.cd_aluno = $cd_aluno";
-	$cursoaluno = $conexao->consultar($curso);
+        WHERE
+            cu.cd_curso = c.cd_curso and
+            cu.cd_aluno = {$aluno[0]["cd_aluno"]}";
+      $cursosAluno = $conexao->consultar($cursosquery);
 
-	$profissao = $aluno[0]['nm_profissao'];
-
-	$matricula = $conexao->consultar("SELECT e.nm_escola FROM escola e, matricula m, aluno al 
-		WHERE al.cd_aluno = m.cd_aluno AND e.cd_escola = m.cd_escola AND al.cd_aluno = $cd_aluno");
-	//seleciona todos os trabalhos de autoria do aluno
-	$consulta = "SELECT t.* FROM autoria a, trabalho t WHERE a.cd_aluno = $cd_aluno and t.cd_trabalho = a.cd_trabalho";
-	$trabalhosAluno = $conexao->consultar($consulta);
-
-    $consultaFav = "SELECT t.* FROM favorito f, trabalho t WHERE f.cd_aluno = $cd_aluno and t.cd_trabalho = f.cd_trabalho";
-    $favoritosAluno = $conexao->consultar($consultaFav);
-	//determina qual o trabalho de sua autoria com maior pontos de avaliação 	
-	$cont = 0;
-	foreach ($trabalhosAluno as $cadatrabalho) {
-		$cont = $cont + 1;
-		$comando = "SELECT SUM(vl_voto) AS soma FROM voto WHERE cd_trabalho = {$cadatrabalho["cd_trabalho"]}";
-		$notatrabalho = $conexao->consultar($comando);
-		if($cont == 1)	{
-				$maiornota = $notatrabalho;
-				$trabalhodestaque = $cadatrabalho['cd_trabalho'];
-		}
-		else {
-			if ($notatrabalho > $maiornota)	{
-					$maiornota = $notatrabalho;
-					$trabalhodestaque = $cadatrabalho['cd_trabalho'];
-			}
-		}
-	}
-	//havendo um trabalho em destaque são selecionados seus dados
-	if(isset($trabalhodestaque))
-	{
-	$consulta =
-			"SELECT * FROM trabalho 
-			WHERE cd_trabalho = $trabalhodestaque";
-
-	$trabalhoTop = $conexao->consultar($consulta);
- $nomeCurso = $conexao->consultar("SELECT c.nm_curso 
-        FROM trabalho t, curso c WHERE t.cd_trabalho = {$trabalhoTop[0]['cd_trabalho']} 
-        AND t.cd_curso = c.cd_curso");
-  $nomeInstituicao = $conexao->consultar("SELECT nm_escola 
-    FROM escola WHERE cd_escola = {$trabalhoTop[0]['cd_escola']}");
-
-	}
-
-  $cursosquery = 
-    "SELECT c.*
-    FROM curso c, cursando cu
-    WHERE
-        cu.cd_curso = c.cd_curso and
-        cu.cd_aluno = {$aluno[0]["cd_aluno"]}";
-  $cursosAluno = $conexao->consultar($cursosquery);
-
-$relacionadas = "SELECT t.* FROM trabalho t, curso c WHERE t.cd_curso = c.cd_curso and (";
-$i = 1;
-$ncursos = sizeof($cursosAluno);
-foreach($cursosAluno as $curso) {
-    $relacionadas .= "t.cd_curso = {$curso["cd_curso"]}";
-    if($i< $ncursos) {
-        $relacionadas .= " OR ";
+    $relacionadas = "SELECT t.* FROM trabalho t, curso c WHERE t.cd_curso = c.cd_curso and (";
+    $i = 1;
+    $ncursos = sizeof($cursosAluno);
+    foreach($cursosAluno as $curso) {
+        $relacionadas .= "t.cd_curso = {$curso["cd_curso"]}";
+        if($i< $ncursos) {
+            $relacionadas .= " OR ";
+        }
+        $i++;
     }
-    $i++;
+    $relacionadas .= ") ORDER BY rand() LIMIT 3";
+    $relacionados = $conexao->consultar($relacionadas);
 }
-$relacionadas .= ") ORDER BY rand() LIMIT 3";
-$relacionados = $conexao->consultar($relacionadas);
+else {
+    $inexistente = true;
+}
+}
+else $inexistente = true;
    ?>
 
 <!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
-<title><?php echo  $aluno[0]["nm_aluno"]; ?> - Keep Up</title>
+<title><?php if(isset($aluno[0]["nm_aluno"])) echo "{$aluno[0]["nm_aluno"]} - "; ?>Keep Up</title>
 <link href="cs/global.css" type="text/css" rel="stylesheet">
 <link href="cs/estilo_user.css" rel="stylesheet" type="text/css">
 <script src="js/jquery.js" type="text/javascript"> </script>	
@@ -98,7 +105,10 @@ $relacionados = $conexao->consultar($relacionadas);
 
 <body>
 <?php include "header.php"; ?>
-     
+     <?php if(isset($inexistente)) { ?>
+        <h1>Conta não encontrada!</h1>
+
+     <?php die(); } ?>
      <div id="usuario"> 
     	 <div id="lado_left"> 
             <div id="foto_perfil_usuario" style="background-image:url(<?php if($aluno[0]['nm_url_avatar'] <> '')
