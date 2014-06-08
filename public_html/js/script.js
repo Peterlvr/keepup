@@ -136,6 +136,11 @@ $(document).ready(function(e) {
 				});
 
 
+				/*Dentro da instituição, filtro de pesquisa */
+				$("#abrir_filtro").click(function(e) {
+                    $("#Filtrar_pesquisa").slideToggle();
+                });
+
 			});
 			
 		
