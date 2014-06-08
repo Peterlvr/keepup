@@ -326,17 +326,11 @@ if($sessao["tipoConta"] == "E") {
                     
                     <div style="width:100%; clear:both;"></div>
                 </div>
-                
-                
-                
                 <header class="UltimosTrabalhos">
                 	<div class="latest_posts"> 
                     	<h1><img src="images/perfil_usuario/favoritos.png" width="20px"> Meus favoritos </h1>
                     </div>   	
                 </header>
-                
-                
-                
             <?php if(isset($favoritos) && sizeof($favoritos) > 0) { ?>
                 <div id="form_favoritos">
                     <?php foreach($favoritos as $trabalho) { ?> 

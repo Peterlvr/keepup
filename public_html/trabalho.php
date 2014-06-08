@@ -52,6 +52,16 @@ $relacionados = $conexao->consultar(
     order by rand() limit 3;"
 );
 
+$jaEhFavorito = false;
+if($logado and $sessao["tipoConta"] == "A") {
+    $favoritos = $conexao->consultar("SELECT * FROM favorito WHERE
+        cd_aluno = {$sessao["cd"]}");
+    foreach($favoritos as $favorito) {
+        if($favorito["cd_trabalho"] == $trabalho[0]["cd_trabalho"])
+            $jaEhFavorito = true;
+    }
+}
+
 require("php/mediaAvaliacao.php");
 ?>
 
@@ -111,17 +121,28 @@ require("php/mediaAvaliacao.php");
                 </div>
                 
                 	<a href="#"> 
-                <div id="bloco1_esquerda_favorito" <?php if($autorDoTrabalho) { ?>style="background-image:url(images/pencil.png)" <?php } ?>> <?php if (!$autorDoTrabalho) { ?><script> 
-                    $("#bloco1_esquerda_favorito").on("click", function() {
-                        console.log("clicado");
-                        $.post("php/favoritar.php", {trabalho: <?php echo $cd_trabalho; ?>})
-                            .done(function(data) {
-                                if(data == 1) {
-                                    $("#bloco1_esquerda_favorito").css("background-color", "#1f4350");
-                                }
-                            });
-                    });
-            </script> <?php } ?></div>
+                <div id="bloco1_esquerda_favorito"
+                        style="<?php if($autorDoTrabalho) { ?>background-image:url(images/pencil.png);<?php } if($jaEhFavorito) { ?>background-color: #1f4350;<?php } ?>">
+                    <?php if (!$autorDoTrabalho) { ?>
+                    <script> 
+                        $("#bloco1_esquerda_favorito").on("click", function() {
+                            console.log("clicado");
+                            $.post("php/favoritar.php", {trabalho: <?php echo $cd_trabalho; ?>})
+                                .done(function(data) {
+                                    if(data == "1") {
+                                        $("#bloco1_esquerda_favorito").css("background-color", "#1f4350");
+                                    }
+                                    else if(data == "0") {
+                                        $("#bloco1_esquerda_favorito").css("background-color", "");
+                                    }
+                                    else {
+                                        console.log(data);
+                                    }
+                                });
+                        });
+                    </script>
+                    <?php } ?>
+                </div>
                 	</a>
                 
                 	<a href="docs/<?php echo $cd_trabalho; ?>/main.pdf" target="_blank">
