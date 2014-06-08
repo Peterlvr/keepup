@@ -54,11 +54,11 @@
 			<?php if($logado) { ?>
 
 					<a href="publicar.php"><div class="bot_nav"> Publicar </div></a>
-
+                <?php if($sessao["tipoConta"] == "A") { ?>
 					<a href="favoritos.php"><div class="bot_nav"> Favoritos </div></a>
-
+                <?php } ?>
 			<?php } ?>
-            <a href="ajuda.php"> <div class="bot_nav"> Ajuda </div> </a>
+            <a href="guias.php"> <div class="bot_nav"> Ajuda </div> </a>
 
         </div>
     <?php if($logado) { echo "<a href='usuario.php?u={$sessao["cd_usuario"]}'>"; } ?>
