@@ -34,6 +34,7 @@ $(document).ready(function(e) {
 					alogin = true;
 					$("#area_logar").animate({width:"20%"});
 					$("#login_box").fadeIn("slow");
+					$("#nomeLogin").focus();
 					}
 				else 
 				{

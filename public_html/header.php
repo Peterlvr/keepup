@@ -12,7 +12,7 @@
                             <td colspan="2"> <p> Nome de usuário: </p> </td>
                         </tr>
                         <tr>
-                            <td colspan="2"> <input class="alogin_width" name="nmLogin" type="text" placeholder="Nome de usuário" required> 
+                            <td colspan="2"> <input  id="nomeLogin" class="alogin_width" name="nmLogin" type="text" placeholder="Nome de usuário" required> 
                             </td>
                         </tr>
                         <tr>
