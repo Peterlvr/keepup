@@ -1,3 +1,6 @@
+<?php
+require "../sessao.php";
+?>
 <!doctype html>
 <html>
 <head>

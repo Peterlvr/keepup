@@ -160,7 +160,7 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
                         </div>
                     
                         <div class="each_icon">
-                            <img src="images/<?php echo $trabalho["url_imagem"]; ?>" class="imagens_index">
+                            <img src="images/<?php if(isset($trabalho["url_imagem"]) and strlen($trabalho["url_imagem"]) > 3) echo $trabalho["url_imagem"]; else echo "imagens_monografias/logo3.png"; ?>" class="imagens_index">
                         </div>
 
                         <div class="each_resumo"> 
@@ -193,31 +193,31 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
             
             <article class="links_trabalhos">
                    
-							<?php foreach($sessao["favoritos"] as $trabaho) { ?>
-                            <a href="trabalho.php?t=<?php echo $trabaho["cd_trabalho"]; ?>">
-                                <div class="box_monografia" id="fav1">
-                                     <div class="each_titulo_area">
-                                        <div class="each_titulo"> <h1> <?php echo $trabalho["nm_titulo"]; ?> </h1> </div>
-                                    </div>
-                                
-                                    <div class="each_icon">
-                                        <img src="images/<?php echo $trabaho["url_imagem"]; ?>" class="imagens_index">
-                                    </div>
+			<?php foreach($sessao["favoritos"] as $trabaho) { ?>
+            <a href="trabalho.php?t=<?php echo $trabaho["cd_trabalho"]; ?>">
+                <div class="box_monografia" id="fav1">
+                     <div class="each_titulo_area">
+                        <div class="each_titulo"> <h1> <?php echo $trabalho["nm_titulo"]; ?> </h1> </div>
+                    </div>
                 
-                                    <div class="each_resumo"> 
-                                        <p> <?php echo $trabaho["ds_resumo"]; ?></p>
-                                    </div>
-                                    
-                                    <div class="each_autor_curso"> 
-                                        <h1>                        
-                                       
-                                        Informática para Internet 
-                                        
-                                        </h1>
-                                    </div>
-                                    
-                                </div>
-                                </a>
+                    <div class="each_icon">
+                        <img src="images/<?php if(isset($trabaho["url_imagem"]) and strlen($trabaho["url_imagem"]) > 3) echo $trabaho["url_imagem"]; else echo "imagens_monografias/logo3.png"; ?>" class="imagens_index">
+                    </div>
+
+                    <div class="each_resumo"> 
+                        <p> <?php echo $trabaho["ds_resumo"]; ?></p>
+                    </div>
+                    
+                    <div class="each_autor_curso"> 
+                        <h1>                        
+                       
+                        Informática para Internet 
+                        
+                        </h1>
+                    </div>
+                    
+                </div>
+                </a>
              <?php  } ?> 
             </article>
       	</div>
@@ -237,7 +237,7 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
                     </div>
                 
                 	<div class="each_icon">
-                    	<img src="images/<?php echo $trabalho["url_imagem"]; ?>" class="imagens_index">
+                    	<img src="images/<?php if(isset($trabalho["url_imagem"]) and strlen($trabalho["url_imagem"]) > 3) echo $trabalho["url_imagem"]; else echo "imagens_monografias/logo3.png"; ?>" class="imagens_index">
                     </div>
                     
                     <div class="each_resumo"> 
