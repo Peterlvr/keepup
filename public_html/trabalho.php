@@ -48,7 +48,7 @@ $comentariosTrabalho = $conexao->consultar(
 );
 
 $relacionados = $conexao->consultar(
-	"    SELECT * FROM trabalho t where cd_curso = {$trabalho[0]["cd_curso"]}
+	"SELECT * FROM trabalho t where cd_curso = {$trabalho[0]["cd_curso"]}
     order by rand() limit 3;"
 );
 
@@ -111,7 +111,7 @@ require("php/mediaAvaliacao.php");
                 </div>
                 
                 	<a href="#"> 
-                <div id="bloco1_esquerda_favorito"> <script> 
+                <div id="bloco1_esquerda_favorito" <?php if($autorDoTrabalho) { ?>style="background-image:url(images/pencil.png)" <?php } ?>> <?php if (!$autorDoTrabalho) { ?><script> 
                     $("#bloco1_esquerda_favorito").on("click", function() {
                         console.log("clicado");
                         $.post("php/favoritar.php", {trabalho: <?php echo $cd_trabalho; ?>})
@@ -121,7 +121,7 @@ require("php/mediaAvaliacao.php");
                                 }
                             });
                     });
-            </script></div>
+            </script> <?php } ?></div>
                 	</a>
                 
                 	<a href="docs/<?php echo $cd_trabalho; ?>/main.pdf" target="_blank">

@@ -3,36 +3,36 @@
         
     
     <div id="area_logar">
-            <div id="login_box">
-                    <section id="login">
-                    <form action="php/login.php" method="POST">
-                        <input type="hidden" name="de" value="javascript:location.href">
-                            <table id="table_loginn">
-                                <tr>
-                                    <td colspan="2"> <p> Nome de usuário: </p> </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"> <input class="alogin_width" name="nmLogin" type="text" placeholder="Nome de usuário" required> 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"> <p> Senha: </p> </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"> <input class="alogin_width" name="nmSenha" type="password" placeholder="Senha" required> </td>
-                                </tr>
-                                <Tr>
-                                    <Td colspan="2" style="text-align:center;"> <input type="submit" /></Td>
-                                </Tr>
-                                <tr>
-                                    <td colspan="2" style="text-align:center;"> 
-                                    	<a href="#"> <p style="color:#1f4350"> Esqueceu sua senha? </p> </a>
-                                    </td>
-                                </tr>
-                            </table>
-                    </form>
-                    </section>
-                </div>
+        <div id="login_box">
+                <section id="login">
+                <form action="php/login.php" method="POST">
+                    <input type="hidden" name="de" value="javascript:location.href">
+                        <table id="table_loginn">
+                            <tr>
+                                <td colspan="2"> <p> Nome de usuário: </p> </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"> <input class="alogin_width" name="nmLogin" type="text" placeholder="Nome de usuário" required> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"> <p> Senha: </p> </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"> <input class="alogin_width" name="nmSenha" type="password" placeholder="Senha" required> </td>
+                            </tr>
+                            <Tr>
+                                <Td colspan="2" style="text-align:center;"> <input type="submit" /></Td>
+                            </Tr>
+                            <tr>
+                                <td colspan="2" style="text-align:center;"> 
+                                	<a href="#"> <p style="color:#1f4350"> Esqueceu sua senha? </p> </a>
+                                </td>
+                            </tr>
+                        </table>
+                </form>
+            </section>
+        </div>
     </div>
     
 <?php } ?>
@@ -54,9 +54,8 @@
 			<?php if($logado) { ?>
 
 					<a href="publicar.php"><div class="bot_nav"> Publicar </div></a>
-                <?php if($sessao["tipoConta"] == "A") { ?>
-					<a href="favoritos.php"><div class="bot_nav"> Favoritos </div></a>
-                <?php } ?>
+					<a href="usuario.php?u=<?php echo $sessao["cd_usuario"]; ?>"><div class="bot_nav">Meu perfil</div></a>
+
 			<?php } ?>
             <a href="guias.php"> <div class="bot_nav"> Ajuda </div> </a>
 
