@@ -238,25 +238,11 @@
 					height:160px;
 					background-color:white;
 					text-align:center;
+					background-image:url(../images/imagens_monografias/img_vis.jpg);
+					background-position:center;
+					background-repeat: no-repeat;	
+					background-size: cover;
 				}
-
-					#imagem_fav1 {
-					background-image:url(../images/imagens_monografias/logo5.png);
-					background-position:center;
-					background-repeat: no-repeat;
-					}
-
-					#imagem_fav2 {
-					background-image:url(../images/imagens_monografias/logo2.png);
-					background-position:center;
-					background-repeat: no-repeat;	
-					}
-
-					#imagem_fav3 {
-					background-image:url(../images/imagens_monografias/logo1.png);
-					background-position:center;
-					background-repeat: no-repeat;	
-					}
 					
 				.each_titulo_area
 				{

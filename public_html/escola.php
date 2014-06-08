@@ -13,6 +13,10 @@ $conexao = new Conexao();
     $comando = "SELECT nm_cidade FROM cidade WHERE cd_cidade = {$escola[0]["cd_cidade"]}";
     $cidade = $conexao->consultar($comando);
 
+$recente = $conexao->consultar(
+    "SELECT t.*, c.nm_curso from trabalho t, curso c
+    WHERE c.cd_curso = t.cd_curso and t.cd_escola = {$escola[0]["cd_escola"]}");
+
 ?>
 <!doctype html>
 <html>
@@ -458,8 +462,7 @@ $conexao = new Conexao();
         
         	<p> 
             
-            <?php if($escola[0]['tx_info'] == '') { echo "Aqui vao informacoes sobre a instituicao";} 
-			else { echo $escola[0]['tx_info'];}?>
+            <?php echo $escola[0]['tx_info']; ?>
             
             </p>
 
@@ -478,146 +481,27 @@ $conexao = new Conexao();
                     
             <article class="links_trabalhos">      
               
-                	<div class="box_monografia" id="fav1">
+              <?php foreach($recente as $trabalho) { ?>
+            	<div class="box_monografia" id="fav1">
                     	
-                        <div class="each_titulo_area">
-                            <div class="each_titulo"> <h1> Checkpoint Social </h1> </div>
-                        </div>
-                    	
-                        <div class="each_icon" id="imagem_fav1"></div>
- 
-                        <div class="each_resumo"> 
-                            <p> Tem como foco principal atender as necessidades dos gamers, melhorando a integração do usuário com grupos de interesses em comum de forma rápida, simples e atraente, tendo como base os estudos e pesquisas da problemática principal.</p>
-                        </div>
-                        
-                        <div class="each_autor_curso"> 
-                            <h1>                        
-                             <a href="#"> Informática para Internet </a>
-                            </h1>
-                        </div>
-                </div>   
-                  
-                
-                <div class="box_monografia" id="fav2">
-                
-                	<div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> Tradeshop.com </h1> </div>
-                    </div>
-                    
-                	<div class="each_icon" id="imagem_fav2">
-                    </div>
-                    
-                    
-                    
-                    <div class="each_resumo"> 
-                    	<p> O projeto visa a criação de uma ferramenta que auxilie na interação entre usuários da Baixada Santista interessados em efetuar trocas de objetos de forma rápida, segura e eficiente.
-                        </p>
-                    </div>
-                    
-                    <div class="each_autor_curso"> 
-                    	<h1>                        
-                       
-                       <a href="#"> Informática para Internet </a>
-                        
-                        </h1>
-                    </div>
-                    
-                </div>
-                
-                <div class="box_monografia" id="fav3">
-                	
                     <div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> Moudelle </h1> </div>
-                    </div>
-                    
-                	<div class="each_icon" id="imagem_fav3">
-                    </div>
-                    
-                    
-                    
-                    <div class="each_resumo"> 
-                    	<p> O objetivo deste sistema é agendar as consultas da clínica de forma rápida e prática e efetuar venda de produtos relacionados a tratamentos que a clínica oferece.
-                        </p>
-                    </div>
-                    
-                    <div class="each_autor_curso"> 
-                    	<h1>                        
-                       
-                       <a href="#"> Informática para Internet </a>
-                        
-                        </h1>
-                    </div>
-                    
-                </div>
-                
-                <div class="box_monografia" id="fav1">
-                		 <div class="each_titulo_area">
-                            <div class="each_titulo"> <h1> Checkpoint Social </h1> </div>
-                        </div>
-                		
-                        <div class="each_icon" id="imagem_fav1"></div>
-                        
-                        <div class="each_resumo"> 
-                            <p> Tem como foco principal atender as necessidades dos gamers, melhorando a integração do usuário com grupos de interesses em comum de forma rápida, simples e atraente, tendo como base os estudos e pesquisas da problemática principal.</p>
-                        </div>
-                        
-                        <div class="each_autor_curso"> 
-                            <h1>                        
-                           
-                           <a href="#"> Informática para Internet </a>
-                            
-                            </h1>
-                        </div>
-                </div>   
-                  
-                
-                <div class="box_monografia" id="fav2">
-                
-                	<div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> Tradeshop.com </h1> </div>
-                    </div>
-                    
-                	<div class="each_icon" id="imagem_fav2">
-                    </div>
-                    
-                    
-                    
-                    <div class="each_resumo"> 
-                    	<p> O projeto visa a criação de uma ferramenta que auxilie na interação entre usuários da Baixada Santista interessados em efetuar trocas de objetos de forma rápida, segura e eficiente.
-                        </p>
-                    </div>
-                    
-                    <div class="each_autor_curso"> 
-                    	<h1>                        
-                       
-                       <a href="#"> Informática para Internet </a>
-                        
-                        </h1>
-                    </div>
-                    
-                </div>
-                
-                <div class="box_monografia" id="fav3">
-                	<div class="each_titulo_area">
-                        <div class="each_titulo"> <h1> Moudelle </h1> </div>
+                        <div class="each_titulo"> <h1><?php echo $trabalho["nm_titulo"]; ?></h1> </div>
                     </div>
                 	
-                	<div class="each_icon" id="imagem_fav3">
-                    </div>
+                    <div class="each_icon"></div>
 
                     <div class="each_resumo"> 
-                    	<p> O objetivo deste sistema é agendar as consultas da clínica de forma rápida e prática e efetuar venda de produtos relacionados a tratamentos que a clínica oferece.
-                        </p>
+                        <p><?php echo $trabalho["ds_resumo"]; ?></p>
                     </div>
                     
                     <div class="each_autor_curso"> 
-                    	<h1>                        
-                       
-                       <a href="#"> Informática para Internet </a>
-                        
+                        <h1>                        
+                         <a href="#"><?php echo $trabalho["nm_curso"]; ?></a>
                         </h1>
                     </div>
-                </div>
+                </div>   
+            <?php } ?>
+                  
                 
                 <?php } ?>
 	<!-- Fim parte um - sobre mim -->                
