@@ -87,7 +87,7 @@ if(isset($_GET['pesquisa']))
         <a href="trabalho.php?t=<?php echo $row["cd"]; ?>">
             <div id="cada_monografia">
                 <div id="cada_titulo_monografia"> 
-                    <h1><?php echo $row["titulo"]; ?></h1>
+                    <h1><?php echo substr($row["titulo"], 0, 50) . "..."; ?></h1>
                 </div>
                 <div id="img_cada_monografia"> </div>
                 
