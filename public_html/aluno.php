@@ -70,7 +70,21 @@ $conexao = new Conexao();
         cu.cd_curso = c.cd_curso and
         cu.cd_aluno = {$aluno[0]["cd_aluno"]}";
   $cursosAluno = $conexao->consultar($cursosquery);
+
+$relacionadas = "SELECT t.* FROM trabalho t, curso c WHERE t.cd_curso = c.cd_curso and (";
+$i = 1;
+$ncursos = sizeof($cursosAluno);
+foreach($cursosAluno as $curso) {
+    $relacionadas .= "t.cd_curso = {$curso["cd_curso"]}";
+    if($i< $ncursos) {
+        $relacionadas .= " OR ";
+    }
+    $i++;
+}
+$relacionadas .= ") ORDER BY rand() LIMIT 3";
+$relacionados = $conexao->consultar($relacionadas);
    ?>
+
 <!doctype html>
 <html>
 <head>
@@ -270,26 +284,30 @@ $conexao = new Conexao();
         </div></div>
         <aside class="direita">
             
+           <?php if(sizeof($relacionados) > 0) { ?> 
             <div id="monografias_relacionadas">
-                <header class="UltimosTrabalhos"  style="background-color:white;">
-                          <div class="latest_posts"> <h1> Monografias relacionadas </h1> </div>
-                </header>
-                
-                <div id="mono_recente">
-                    <div class="imagem_monografia_relacionada" id="relacionada_1"> </div>
-                    <footer class="titulo_relacionada"> <h1> Checkpoint Social </h1>  </footer>
+                    <header class="UltimosTrabalhos">
+                          <div class="latest_posts"> 
+                              <table>
+                                <tr>
+                                    <td> <img src="images/perfil_usuario/monografias.png" width="30"> </td>
+                                    <td> <h1> Monografias relacionadas </h1> </td>
+                                </tr>
+                              </table>
+                          </div>
+                    </header>
+                    <?php foreach ($relacionados as $trabalhoRelacionado) {
+                    if($trabalhoRelacionado['cd_trabalho'] <> $cd_trabalho){   ?>
+                    <a href="trabalho.php?t=<?php echo $trabalhoRelacionado['cd_trabalho'];?>">
+                         <div id="mono_recente">
+                            <div class="imagem_monografia_relacionada"  style="background-image: url(images/imagens_monografias/img_vis.jpg)" id="relacionada_1"> </div>
+                            <footer class="titulo_relacionada"> <h1> <?php echo substr($trabalhoRelacionado['nm_titulo'], 0, 20) . "...";?> </h1> </footer>
+                        </div>
+                    </a>
+                    <?php }}?>
                 </div>
-                
-                <div id="mono_recente">
-                    <div class="imagem_monografia_relacionada" id="relacionada_2"> </div>
-                    <footer class="titulo_relacionada"> <h1> Keep Up </h1> </footer>
-                </div>
-                
-                <div id="mono_recente">
-                    <div class="imagem_monografia_relacionada" id="relacionada_3"> </div>
-                    <footer class="titulo_relacionada"> <h1> tradeshop.com </h1>  </footer>
-                </div>
-            </div>
+            </div>  
+           <?php } ?>
         </aside>
      </section>
     	<?php include 'footer.php'; ?>

@@ -308,21 +308,21 @@ require("php/mediaAvaliacao.php");
            <?php if(sizeof($relacionados) > 0) { ?> 
             <div id="bloco4_monografia_relacionada">
                     <header class="UltimosTrabalhos">
-                              <div class="latest_posts"> 
-                                  <table>
-                                    <tr>
-                                        <td> <img src="images/perfil_usuario/monografias.png" width="30"> </td>
-                                        <td> <h1> Monografias relacionadas </h1> </td>
-                                    </tr>
-                                  </table>
-                              </div>
-                        </header>
+                          <div class="latest_posts"> 
+                              <table>
+                                <tr>
+                                    <td> <img src="images/perfil_usuario/monografias.png" width="30"> </td>
+                                    <td> <h1> Monografias relacionadas </h1> </td>
+                                </tr>
+                              </table>
+                          </div>
+                    </header>
                     <?php foreach ($relacionados as $trabalhoRelacionado) {
                     if($trabalhoRelacionado['cd_trabalho'] <> $cd_trabalho){   ?>
                     <a href="trabalho.php?t=<?php echo $trabalhoRelacionado['cd_trabalho'];?>">
                         <div id="cada_monografia_relacionada">
                             <div class="imagem_monografia_relacionada"> 
-                                <img src="../../images/imagens_monografias/logo5.png" class="imagem_relacionada">
+                                <img src="images/imagens_monografias/img_vis.jpg" class="imagem_relacionada">
                             </div>
                             <footer class="titulo_relacionada"> <h1> <?php echo substr($trabalhoRelacionado['nm_titulo'], 0, 75);?></h1>  </footer>
                         </div>
