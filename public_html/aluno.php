@@ -219,7 +219,7 @@ $relacionados = $conexao->consultar($relacionadas);
         
             <p><?php echo  $aluno[0]["tx_bio"];?></p>
 
-            <p><?php foreach($cursosAluno as $curso) echo $curso["nm_curso"]; ?></p>
+          
 
              <div id="monografias_do_usuario"> 
                 <div id="trabalhos">
@@ -283,6 +283,23 @@ $relacionados = $conexao->consultar($relacionadas);
         <?php } ?>
         </div></div>
         <aside class="direita">
+            
+        	<div id="monografias_relacionadas" style="margin-top:-40px">
+                    <header class="UltimosTrabalhos">
+                          <div class="latest_posts"> 
+                              <table>
+                                <tr>
+                                    <td> <h1> Meus cursos</h1> </td>
+                                </tr>
+                              </table>
+                          </div>
+                    </header>
+            				CURSOS LISTADOS DE MANEIRA BONITINHA 
+                              <p><?php foreach($cursosAluno as $curso) echo $curso["nm_curso"]; ?></p> 
+                </div>
+            </div>  
+           
+            
             
            <?php if(sizeof($relacionados) > 0) { ?> 
             <div id="monografias_relacionadas">
