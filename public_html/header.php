@@ -1,38 +1,43 @@
 <?php if(!$logado) { ?>
 	<script src="js/loginBox.js"></script>
-    <div id="bg_login">
-        <div id="login_box">
-    		<section id="login">
-    			<aside>
-    				<p>
-    					<a href="#" class="login_link">[x]</a>
-    				</p>
-    			</aside>
-    		<form action="php/login.php" method="POST">
-            	<input type="hidden" name="prev" id='login_form_prev'>
-                <script>
-                    $("#login_form_prev").attr("value", location.href);
-                </script>
-                    <table>
-                        <tr>
-                        	<td> <label for="nmLogin">Nome de usuário:</label> </td>
-                            <td> <input name="nmLogin" type="text" placeholder="Nome de usuário" required> </td>
-                        </tr>
-                        <tr>
-                        	<td> <label for="nmSenha">Senha:</label> </td>
-                            <td> <input name="nmSenha" type="password" placeholder="Senha" required> </td>
-                        </tr>
-                        <Tr>
-                        	<Td colspan="2"> <input type="submit" /></Td>
-                        </Tr>
-                    </table>
-    		</form>
-    		</section>
-    	</div>
+        
+    
+    <div id="area_logar">
+            <div id="login_box">
+                    <section id="login">
+                    <form action="php/login.php" method="POST">
+                        <input type="hidden" name="de" value="javascript:location.href">
+                            <table id="table_loginn">
+                                <tr>
+                                    <td colspan="2"> <p> Nome de usuário: </p> </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"> <input class="alogin_width" name="nmLogin" type="text" placeholder="Nome de usuário" required> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"> <p> Senha: </p> </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"> <input class="alogin_width" name="nmSenha" type="password" placeholder="Senha" required> </td>
+                                </tr>
+                                <Tr>
+                                    <Td colspan="2" style="text-align:center;"> <input type="submit" /></Td>
+                                </Tr>
+                                <tr>
+                                    <td colspan="2" style="text-align:center;"> 
+                                    	<a href="#"> <p style="color:#1f4350"> Esqueceu sua senha? </p> </a>
+                                    </td>
+                                </tr>
+                            </table>
+                    </form>
+                    </section>
+                </div>
     </div>
+    
 <?php } ?>
 	<header>
-   		<a href="Index.html"> <div id="logo"> </div>  </a>
+   		<a href="index.php"> <div id="logo"> </div>  </a>
         
         <div class="nav"> 
             
@@ -56,7 +61,7 @@
             <a href="ajuda.php"> <div class="bot_nav"> Ajuda </div> </a>
 
         </div>
-    <?php if($logado) { echo "<a href='usuario.php?u={$sessao["cd_usuario"]}'>"; } ?>
+    <?php if($logado) { echo "<a href='usuario.php?u={$sessao["cd"]}'>"; } ?>
     	<div id="foto_usuario_menu">
           		
                        
@@ -64,7 +69,7 @@
                         <div id="quadrado_foto_usuario_menu">
                         <?php
 			if($_SESSION['url_avatar'] <> '') {
-				echo "<img src='images/upload/{$sessao["cd_aluno"]}/{$_SESSION['url_avatar']}' style='width:50px; height:50px' >";
+				echo "<img src='images/upload/{$sessao["cd_aluno"]}/{$_SESSION['url_avatar']}' style='width:40px; height:40px' >";
 			}
 			else {
 				echo "<img src='images/default/usericon.png' width='40px' alt=''>";
@@ -75,7 +80,9 @@
 		<?php if(!$logado) { ?>
 			
 				<a href="#" class="login_link">
+                
                 	<div class="bot_nav" id="alogin">Login</div></a>
+                    
 			
 		<?php } ?>
         </div>
@@ -83,10 +90,10 @@
         	<?php if($logado) { ?>
     		<div id="configuracoes_menu"> </div>
             	<div id="configuracoes_aberto"> 
-                	<table>
+                	<table id="table_aberto">
                     	<tr>
                         	<a href="editarUser/editarUser.html">
-                            <td class="conf_aberto_classe" style="cursor:pointer" onClick="location.href='editarperfil.php'"> <p> Editar perfil </p> </td>
+                            <td class="conf_aberto_classe" style="cursor:pointer" onClick="location.href='editperfil.php'"> <p> Editar perfil </p> </td>
                             </a>
                         </tr>
                          <tr>             

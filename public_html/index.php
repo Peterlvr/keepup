@@ -4,53 +4,36 @@ require("../conexao.class.php");
 $conexao = new Conexao();
 if($logado) {
 	$cdUsuario = $sessao["cd_usuario"];
-    if($sessao["tipoConta"] == "A") {
-    	$codigoPerfil = $_SESSION["cd_aluno"];
-    	$consulta =
-    		"SELECT
-    			t.nm_titulo 'titulo',
-    			t.ds_resumo 'resumo',
-    			t.cd_trabalho 'cd'
-    		FROM
-    			trabalho t, autoria a
-    		WHERE
-    			t.cd_trabalho = a.cd_trabalho and 
-    			a.cd_aluno = $codigoPerfil
-    		ORDER BY
-    			t.dt_publicado DESC
-    		LIMIT 3";
-    }
-    else if($sessao["tipoConta"] == "E") {
-        $codigoPerfil = $_SESSION["cd_escola"];
-        $consulta =
-            "SELECT
-                t.nm_titulo 'titulo',
-                t.ds_resumo 'resumo',
-                t.cd_trabalho 'cd'
-            FROM
-                trabalho t
-            WHERE
-                t.cd_escola = $codigoPerfil
-            ORDER BY
-                t.dt_publicado DESC
-            LIMIT 3";
-    }
+	$codigoPerfil = $_SESSION["cd_aluno"];
+	$consulta =
+		"SELECT
+			t.nm_titulo 'titulo',
+			t.ds_resumo 'resumo',
+			t.cd_trabalho 'cd'
+		FROM
+			trabalho t, autoria a
+		WHERE
+			t.cd_trabalho = a.cd_trabalho and 
+			a.cd_aluno = $codigoPerfil
+		ORDER BY
+			t.dt_publicado DESC
+		LIMIT 3";
 	$sessao["trabalhosUsuario"] = $conexao->consultar($consulta);
 
-    if($sessao["tipoConta"] == "A") {
-    	$favsql = 
-    		"SELECT
-    			t.*
-    		FROM
-    			trabalho t, favorito f
-    		WHERE
-    			t.cd_trabalho = f.cd_trabalho and
-    			f.cd_aluno = {$sessao["cd_aluno"]}
-    		ORDER BY
-    			f.dt_favoritado DESC
-    		LIMIT 3";
-    	$sessao["favoritos"] = $conexao->consultar($favsql);
-    }
+	$favsql = 
+		"SELECT
+			t.nm_titulo 'nm_titulo',
+			t.ds_resumo 'ds_resumo',
+			t.cd_trabalho 'cd'
+		FROM
+			trabalho t, favorito f
+		WHERE
+			t.cd_trabalho = f.cd_trabalho and
+			f.cd_aluno = {$sessao["cd_aluno"]}
+		ORDER BY
+			f.dt_favoritado DESC
+		LIMIT 3";
+	$sessao["favoritos"] = $conexao->consultar($favsql);
 }
 $consulta =
 	"SELECT 
@@ -88,22 +71,17 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
     
     				<div id='video_background'>
                     	<div class="slide" id="slide1">
-						   <h1> e1 </h1>
-                       </div>
+                       	</div>
+                        
                         <div class="slide" id="slide2">
-                          </div>
+                        </div>
+                        
                         <div class="slide" id="slide3">
-                           <h1> 3</h1>
-                       </div>
-                        <div class="slide" id="slide4">
-                           <h1> 4</h1>
-                       </div>
-                        <div class="slide" id="slide5">
-                           <h1> 5 </h1>
-                       </div>
+    	                </div>
+                    </div>
                        <script>
 					   $().ready(function() {
-						   $.slides("slide", 5);
+						   $.slides("slide", 3);
 					   });
 					   </script>
                     </div>
@@ -269,7 +247,17 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
       	</div>
     </Section>
     
-<?php include "footer.php"; ?>
+    <footer>
+            <div id="footer_centralizado">
+                <p> 
+                <a href="#"> Mapa do site </a> |
+                <a href="#"> Termos de uso </a> | 
+                <a href="#"> Política de privacidade </a> | 
+                <a href="#"> Desenvolvedores  </a>
+                </p>
+            		<h5> © 2014 Keep Up - Todos os direitos reservados. </h5>
+            </div>   
+        </footer>
 
 </body>
 </html>

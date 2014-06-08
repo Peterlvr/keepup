@@ -1,3 +1,24 @@
+#slide1 {
+	background-image:url(../images/slide3_1.jpg);
+	background-repeat:no-repeat;
+	background-position: right right;
+	background-size:cover;
+	}
+
+#slide2 {
+	background-image:url(../images/slide1.jpg);
+	background-repeat:no-repeat;
+	background-position: right right;
+	background-size:cover;
+	}
+	
+#slide3 {
+	background-image:url(../images/slide2.jpg);
+	background-repeat:no-repeat;
+	background-position: right right;
+	background-size:cover;
+	}
+
 	section {
 		width:95%;height:auto; margin:auto;
 		}

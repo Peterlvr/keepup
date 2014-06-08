@@ -250,14 +250,13 @@ require("php/mediaAvaliacao.php");
                 
         </div>
         
-        <div id="direita" style="height:auto">
-            <!--            
+        <div id="direita" style="height:auto">     
             <div id="bloco2_palavra_chave">
             	<header class="UltimosTrabalhos">
                           <div class="latest_posts"> 
 		                          <table>
                                   	<tr>
-                                    	<td> <img src="../../images/index_icons/chave.png" style="margin-top:-20px" > </td>
+                                    	<td> <img src="images/index_icons/chave.png" style="margin-top:-20px" > </td>
                                   		<td> <h1> Palavras-Chave </h1> </td>
                                     </tr>
                                   </table>
@@ -269,13 +268,12 @@ require("php/mediaAvaliacao.php");
                     consumo consciente
                </p>
             </div>
-            -->
             <div id="bloco3_autores">
             	<header class="UltimosTrabalhos">
                           <div class="latest_posts"> 
 		                          <table>
                                   	<tr>
-                                    	<td> <img src="../../images/index_icons/autores.png"> </td>
+                                    	<td> <img src="images/index_icons/autores.png"> </td>
                                   		<td> <h1> Autores </h1> </td>
                                     </tr>
                                   </table>
