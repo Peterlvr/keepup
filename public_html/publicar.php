@@ -59,8 +59,8 @@ require("../conexao.class.php");
                     </table>
                     
                     <p style=" color:#333; text-align:center;">
-                     Ao clicar em "Publicar minha monografia", você aceita os 
-                     <a href="#" style="color:#2c87af;">Termos de Uso e Privacidade </a>
+                     Ao clicar em "Publicar minha monografia", você aceita a nossa 
+                     <a href="pp.php" style="color:#2c87af;">Política de Privacidade </a>
                     </p>
                    
                    	<div id="btnPublicar">
