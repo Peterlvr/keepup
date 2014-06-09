@@ -2,7 +2,7 @@
 
 # Funções para retorno em caso de erros
 function volta($e) {
-	header("location:../publicar.php?e=" . $e);
+	header("location:../publicartrabalho.php?e=" . $e);
 	die();
 }
 

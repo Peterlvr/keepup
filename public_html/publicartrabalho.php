@@ -28,8 +28,8 @@ if(isset($_GET["e"])) {
     }
 }
 
-if(isset($_GET["status"]) && $_GET["status"] == "sucesso") {
-    $msg = "Publicação realizada com sucesso!";
+if(isset($_GET["e"]) && $_GET["e"] == "7") {
+    $msg = "Insira um arquivo PDF.";
 }
 ?>
 <!doctype html>
@@ -143,19 +143,19 @@ if(isset($_GET["status"]) && $_GET["status"] == "sucesso") {
                     <label for="dsResumo">Faça um resumo do seu trabalho acadêmico para fácil visualização <small>(a Introdução do trabalho pode servir)</small>:</label>
                 </p>
                 <p>
-                    <textarea name="dsResumo"></textarea>
+                    <textarea name="dsResumo" required></textarea>
                 </p>
                 <p>
-                    <label for="tx_pchaves">Palavras-chave:</label>
+                    <label for="tx_pchaves">Palavras-chave <small>(mínimo 3; separadas por ponto)</small>:</label>
                 </p>
                 <p>
-                    <input type="text" name="tx_pchaves">
+                    <input type="text" name="tx_pchaves" required pattern="^[^\.]+\.[^\.]+\.[^\.]+$" title="Digite no mínimo 3 palavras-chave, separadas por pontos finais.">
                 </p>
                 <p>
                     <label for="arquivoPrincipal">Insira o documento principal do trabalho (em PDF):</label>
                 </p>
                 <p>
-                    <input type="file" name="arquivoPrincipal">
+                    <input type="file" required name="arquivoPrincipal">
                 </p>
                 <p>
                     <input type="submit" value="Publicar">
