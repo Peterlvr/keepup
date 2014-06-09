@@ -124,7 +124,7 @@ else $inexistente = true;
                 <div id="texto_dados">
                     <h3> Estudante </h3>
                     <h1><?php echo  $aluno[0]["nm_aluno"]; ?></h1>
-                    <h2><?php print_r($matricula); ?></h2>
+                    <h2><?php foreach($matricula as $matriculado) echo "{$matriculado["nm_escola"]}<br>"; ?></h2>
                 </div>
                 
                 <div id="icones_dados"> 
