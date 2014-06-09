@@ -10,7 +10,7 @@ $trabalho = $conexao->consultar($comando);
 
 $cd_escola = $trabalho[0]['cd_escola'];
 
-$comando = "SELECT nm_escola FROM escola WHERE cd_escola = $cd_escola";
+$comando = "SELECT * FROM escola WHERE cd_escola = $cd_escola";
 $escola = $conexao->consultar($comando);
 
 if($logado and isset($_SESSION["cd_aluno"])) {
@@ -197,7 +197,7 @@ require("php/mediaAvaliacao.php");
                             <tr>   
                             <td> 
                             	<h1> Instituição de ensino </h1>
-                                <p> <?php echo $escola[0]['nm_escola'];?> </p>
+                                <p><a href="usuario.php?u=<?php echo $escola[0]["cd_usuario"]; ?>"><?php echo $escola[0]['nm_escola'];?></a></p>
                             </td>
                             	<td> <h1> Curso: </h1> <p><?php echo $autores[0]['nmCurso'];?></p> </td>
                                

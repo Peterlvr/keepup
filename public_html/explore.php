@@ -15,6 +15,7 @@ $sessao["estados"] = $conexao->consultar("SELECT * FROM estado");
 <title>Explorar</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
 	<link href="cs/estilo_explorar.css" type="text/css" rel="stylesheet">
+    <link href="cs/pesquisa.css" type="text/css" rel="stylesheet">
     <link href="cs/global.css" rel="stylesheet" type="text/css">
     <script src="js/jquery.js" type="text/javascript"></script>
 	<script src="js/script.js" type="text/javascript"></script>

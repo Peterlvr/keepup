@@ -32,7 +32,9 @@ else $inexistente = true;
     <head>
         <meta charset="UTF-8">
         <title>Pagina de Escola</title>
-        
+    <?php if(isset($_GET["ver"]) && $_GET["ver"] == "trabalhos") { ?> 
+    <link href="cs/pesquisa.css" type="text/css" rel="stylesheet">
+    <?php } ?>    
         <link href="cs/global.css" type="text/css" rel="stylesheet">
         <link href="cs/estilo_escola.css" type="text/css" rel="stylesheet">
         <script src="js/jquery.js" type="text/javascript"></script>	
@@ -118,8 +120,8 @@ else $inexistente = true;
             </div> 
             <div id="resultados_monografias" style="min-height: 500px;">
                 <div id="lista_resultado">
-                    <section id="resultados">
-                    </section>
+                    <div id="resultados">
+                    </div>
                     <script src="js/explore.js"></script>
                 </div>
 </div>

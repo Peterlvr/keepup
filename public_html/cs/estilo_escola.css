@@ -143,7 +143,7 @@
 					width:97%;
 					background-color:white;
 					margin:auto;
-					MARGIN-TOP:10%;
+					margin-top:10%;
 					}
 					
 				.latest_posts
@@ -258,7 +258,6 @@
 					.each_area {
 						width:15%;
 						height:50px;
-						background-color:green;
 						float:left;
 						}
 					.each_titulo
@@ -370,7 +369,6 @@
 		#lista_resultado {
 			width:100%;
 			height:auto;
-			background-color:green;
 			}
 			
 			#lista_resultado h1 {
