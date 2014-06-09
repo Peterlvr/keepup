@@ -116,7 +116,7 @@ $relacionados = $conexao->consultar(
                 
                     
                 <div id="bloco1_esquerda_parte_escrita"> 
-                   <form>
+                   <form action="php/editartrabalho.php" method="POST">
                    		<table id="table_publicar_1" style="width:100%">
                       		<Tr>
                             	<td> 
@@ -172,11 +172,7 @@ $relacionados = $conexao->consultar(
                                 </Td>
                             </tr>                        
                         </table>
-                        
                    </form>
-                    
-                
-                    
                 </div>
 
                 
