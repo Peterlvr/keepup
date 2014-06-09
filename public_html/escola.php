@@ -3,10 +3,9 @@ require("../sessao.php");
 require("../conexao.class.php");
 $conexao = new Conexao();
 
-$inexistente = false;
 if(isset($_GET["u"])) {
     $nm_login = $_GET['u'];
-    $usuario = "SELECT cd_usuario, CONVERT(ic_desativado, SIGNED) FROM usuario WHERE nm_login = '$nm_login'";
+    $usuario = "SELECT cd_usuario, CONVERT(ic_desativado, SIGNED) 'ic_desativado' FROM usuario WHERE nm_login = '$nm_login'";
     $pageuser = $conexao->consultar($usuario);
     if(sizeof($pageuser) != 0 and $pageuser[0]["ic_desativado"] != 1) { 
         //seleciona dados da tabela escola pelo codigo de usuario
@@ -173,7 +172,7 @@ else $inexistente = true;
                     <div class="each_icon"></div>
 
                     <div class="each_resumo"> 
-                        <p><?php echo $trabalho["ds_resumo"]; ?></p>
+                        <p><?php echo substr($trabalho["ds_resumo"],0,200)."..."; ?></p>
                     </div>
                     
                     <div class="each_autor_curso"> 
@@ -183,18 +182,11 @@ else $inexistente = true;
                     </div>
                 </div>   
             <?php } ?>
-                  
-                
-                <?php } ?>             
-                
-                
-     
+                <?php } ?>
             </article>
     
                 </div>
             </div>
-        
-        
         <aside class="direita">
         
             <div id="contato">
@@ -258,6 +250,4 @@ else $inexistente = true;
        
 <?php include "footer.php"; ?> 
     </body>
-
-
 </html>
