@@ -125,9 +125,9 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
 
                 <div class="vantagens">
                     <div class="icones" id="i3"> </div>
-                    <h1> Responsivo </h1>
+                    <h1> Pesquise </h1>
                         <p>
-                        Visualize seu perfil, dados e projetos em qualquer resolução ou periférico
+                       Encontre trabalhos do seu interesse, comente e mantenha-os como favoritos
                         </p>
                 </div>
                 
