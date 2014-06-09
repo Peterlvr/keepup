@@ -145,7 +145,7 @@ else $inexistente = true;
                 <table style="background-color:white; margin:auto;">
                 	<tr>
                     	<td> <img src="images/face.png" width="30"></td>
-                        <td style="text-align:left;"> <?php if($aluno[0]['nm_fb'] != "") {echo "www.facebook.com/".$aluno[0]['nm_fb'];} 
+                        <td style="text-align:left;"> <?php if($aluno[0]['nm_fb'] != "") {echo "/".$aluno[0]['nm_fb'];} 
     	else { echo "Preencha esse campo";} ?> </td>
                     </tr>
                     <tr>
