@@ -268,89 +268,30 @@
 						background-image:url(../images/index_icons/i1.png);
 						background-position:center;
 						background-repeat:no-repeat;
-						
-						-webkit-transition-property: background-color;
-						-webkit-transition-duration: 0.1s;
-						-webkit-transition-timing-function: linear;
-						
-						-moz-transition-property: background-color;
-						-moz-transition-duration: 0.1s;
-						-moz-transition-timing-function: linear;
-						
-						transition-property: background-color;
-						transition-duration: 0.1s;
-						transition-timing-function: linear;
 					}
 					
-							#i1:hover {
-								background-color:#1f4350
-								}
 					
 						#i2 
 					{
 						background-image:url(../images/index_icons/i2.png);
 						background-position:center;
 						background-repeat:no-repeat;
-						-webkit-transition-property: background-color;
-						-webkit-transition-duration: 0.1s;
-						-webkit-transition-timing-function: linear;
-						
-						-moz-transition-property: background-color;
-						-moz-transition-duration: 0.1s;
-						-moz-transition-timing-function: linear;
-						
-						transition-property: background-color;
-						transition-duration: 0.1s;
-						transition-timing-function: linear;
 					}
-					
-							#i2:hover {
-								background-color:#1f4350
-								}
 					
 						#i3 
 					{
 						background-image:url(../images/index_icons/i3.png);
 						background-position:center;
 						background-repeat:no-repeat;
-						-webkit-transition-property: background-color;
-						-webkit-transition-duration: 0.1s;
-						-webkit-transition-timing-function: linear;
-						
-						-moz-transition-property: background-color;
-						-moz-transition-duration: 0.1s;
-						-moz-transition-timing-function: linear;
-						
-						transition-property: background-color;
-						transition-duration: 0.1s;
-						transition-timing-function: linear;
 					}
 					
-							#i3:hover {
-								background-color:#1f4350
-								}
 					
 						#i4 
 					{
 						background-image:url(../images/index_icons/i4.png);
 						background-position:center;
 						background-repeat:no-repeat;
-						-webkit-transition-property: background-color;
-						-webkit-transition-duration: 0.1s;
-						-webkit-transition-timing-function: linear;
-						
-						-moz-transition-property: background-color;
-						-moz-transition-duration: 0.1s;
-						-moz-transition-timing-function: linear;
-						
-						transition-property: background-color;
-						transition-duration: 0.1s;
-						transition-timing-function: linear;
 					}
-					
-							#i4:hover {
-								background-color:#1f4350;
-								}
-		
+
 
 
