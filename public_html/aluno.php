@@ -7,9 +7,9 @@ $conexao = new Conexao();
 if(isset($_GET["u"])) {
 	//através do GET, tira da url o nm-login
 	$nm_login = $_GET['u'];
-	$usuario = "SELECT cd_usuario FROM usuario WHERE nm_login = '$nm_login'";
+	$usuario = "SELECT cd_usuario, CONVERT(ic_desativado, SIGNED) 'ic_desativado' FROM usuario WHERE nm_login = '$nm_login'";
 	$pageuser = $conexao->consultar($usuario);
-    if(sizeof($pageuser) != 0) { 
+    if(sizeof($pageuser) != 0 and $pageuser[0]["ic_desativado"] != 1) { 
     	//seleciona dados da tabela aluno pelo codigo de usuario
     	$comando = "SELECT * FROM aluno WHERE cd_usuario = {$pageuser[0]['cd_usuario']}";
     	$aluno = $conexao->consultar($comando);
@@ -56,38 +56,38 @@ if(isset($_GET["u"])) {
     			WHERE cd_trabalho = $trabalhodestaque";
 
     	$trabalhoTop = $conexao->consultar($consulta);
-     $nomeCurso = $conexao->consultar("SELECT c.nm_curso 
-            FROM trabalho t, curso c WHERE t.cd_trabalho = {$trabalhoTop[0]['cd_trabalho']} 
-            AND t.cd_curso = c.cd_curso");
-      $nomeInstituicao = $conexao->consultar("SELECT nm_escola 
-        FROM escola WHERE cd_escola = {$trabalhoTop[0]['cd_escola']}");
+         $nomeCurso = $conexao->consultar("SELECT c.nm_curso 
+                FROM trabalho t, curso c WHERE t.cd_trabalho = {$trabalhoTop[0]['cd_trabalho']} 
+                AND t.cd_curso = c.cd_curso");
+          $nomeInstituicao = $conexao->consultar("SELECT nm_escola 
+            FROM escola WHERE cd_escola = {$trabalhoTop[0]['cd_escola']}");
 
-    	}
+        	}
 
-      $cursosquery = 
-        "SELECT c.*
-        FROM curso c, cursando cu
-        WHERE
-            cu.cd_curso = c.cd_curso and
-            cu.cd_aluno = {$aluno[0]["cd_aluno"]}";
-      $cursosAluno = $conexao->consultar($cursosquery);
+          $cursosquery = 
+            "SELECT c.*
+            FROM curso c, cursando cu
+            WHERE
+                cu.cd_curso = c.cd_curso and
+                cu.cd_aluno = {$aluno[0]["cd_aluno"]}";
+          $cursosAluno = $conexao->consultar($cursosquery);
 
-    $relacionadas = "SELECT t.* FROM trabalho t, curso c WHERE t.cd_curso = c.cd_curso and (";
-    $i = 1;
-    $ncursos = sizeof($cursosAluno);
-    foreach($cursosAluno as $curso) {
-        $relacionadas .= "t.cd_curso = {$curso["cd_curso"]}";
-        if($i< $ncursos) {
-            $relacionadas .= " OR ";
+        $relacionadas = "SELECT t.* FROM trabalho t, curso c WHERE t.cd_curso = c.cd_curso and (";
+        $i = 1;
+        $ncursos = sizeof($cursosAluno);
+        foreach($cursosAluno as $curso) {
+            $relacionadas .= "t.cd_curso = {$curso["cd_curso"]}";
+            if($i< $ncursos) {
+                $relacionadas .= " OR ";
+            }
+            $i++;
         }
-        $i++;
+        $relacionadas .= ") ORDER BY rand() LIMIT 3";
+        $relacionados = $conexao->consultar($relacionadas);
     }
-    $relacionadas .= ") ORDER BY rand() LIMIT 3";
-    $relacionados = $conexao->consultar($relacionadas);
-}
-else {
-    $inexistente = true;
-}
+    else {
+        $inexistente = true;
+    }
 }
 else $inexistente = true;
    ?>
@@ -107,7 +107,6 @@ else $inexistente = true;
 <?php include "header.php"; ?>
      <?php if(isset($inexistente)) { ?>
         <h1>Conta não encontrada!</h1>
-
      <?php die(); } ?>
      <div id="usuario"> 
     	 <div id="lado_left"> 
