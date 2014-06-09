@@ -23,8 +23,12 @@ if(isset($_GET["u"])) {
 
     	$profissao = $aluno[0]['nm_profissao'];
 
-    	$matricula = $conexao->consultar("SELECT e.nm_escola FROM escola e, matricula m, aluno al 
-    		WHERE al.cd_aluno = m.cd_aluno AND e.cd_escola = m.cd_escola AND al.cd_aluno = $cd_aluno");
+    	$matricula = $conexao->consultar(
+            "SELECT e.nm_escola 
+            FROM escola e, matricula m 
+    		WHERE
+                e.cd_escola = m.cd_escola AND
+                m.cd_aluno = $cd_aluno");
     	//seleciona todos os trabalhos de autoria do aluno
     	$consulta = "SELECT t.* FROM autoria a, trabalho t WHERE a.cd_aluno = $cd_aluno and t.cd_trabalho = a.cd_trabalho";
     	$trabalhosAluno = $conexao->consultar($consulta);
@@ -120,7 +124,7 @@ else $inexistente = true;
                 <div id="texto_dados">
                     <h3> Estudante </h3>
                     <h1><?php echo  $aluno[0]["nm_aluno"]; ?></h1>
-                    <h2><?php if($matricula != false) { echo $matricula[0]['nm_escola'];}?></h2>
+                    <h2><?php print_r($matricula); ?></h2>
                 </div>
                 
                 <div id="icones_dados"> 

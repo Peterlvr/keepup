@@ -61,10 +61,8 @@ else $inexistente = true;
                         <div class="bot_perfil" id="monografias"> </div> 
                     </a>
                 </div>
-                
             </div>
         </div>
-        
         <div id="lado_right">
       	  <div id="contato" style="width:80%; margin:auto;">
             <header class="UltimosTrabalhos"  style="background-color:white;">
@@ -82,7 +80,6 @@ else $inexistente = true;
                </Table>
                </div>
             </header>
-               
                <div id="localizacao_instituicao"> 
 <iframe style="width:100%;height:100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=pt-BR&amp;geocode=&amp;q=<?php echo $escola[0]["tx_endereco"]; ?>&amp;aq=t&amp;sll=37.0625,-95.677068&amp;sspn=40.324283,56.513672&amp;ie=UTF8&amp;hq=&amp;hnear=Pra%C3%A7a+Vinte+e+Dois+de+Janeiro+-+Centro,+S%C3%A3o+Paulo,+11310-090,+Brasil&amp;ll=-23.969883,-46.387468&amp;spn=0.011392,0.013797&amp;t=m&amp;z=14&amp;output=embed"></iframe>
                </div>
@@ -115,17 +112,11 @@ else $inexistente = true;
                             <td>
                                 <input type="hidden" value="<?php echo $escola[0]["cd_escola"]; ?>" name="escola"> 
                                 <input type="submit" style="width:100%" id="btnPesquisaEscola" value="Pesquisar"> </td>
-
                         </tr>
                     </table>
                 </form>
-                
-                
             </div> 
-                    
-            
             <div id="resultados_monografias" style="min-height: 500px;">
-                
                 <div id="lista_resultado">
                     <section id="resultados">
                     </section>
