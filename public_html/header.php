@@ -26,7 +26,7 @@
                         </Tr>
                         <tr>
                             <td colspan="2" style="text-align:center;"> 
-                            	<a href="#"> <p style="color:#1f4350"> Esqueceu sua senha? </p> </a>
+                            	<a href="esqueci.php"> <p style="color:#1f4350"> Esqueceu sua senha? </p> </a>
                             </td>
                         </tr>
                     </table>

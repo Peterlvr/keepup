@@ -239,56 +239,56 @@ else $inexistente = true;
                 
                 <!-- se ele não tiver monografia -->
     <?php if(isset($trabalhoTop)) { ?>
-                    <header class="UltimosTrabalhos">
-                          <div class="latest_posts"> <h1>  Monografia em destaque </h1> </div>
-                    </header>
-                    
-                    <a href="trabalho.php?t=<?php echo $trabalhoTop[0]["cd_trabalho"]; ?>"> 
-                    <div id="monografia_destaque">
-                    
-                        <div id="foto_monografia_destaque"> 
-                            <!--img src="images/imagens_monografias/logo_tradeshop.jpg" class="img_destaque"-->
-                        </div>
-                        
-                        <div id="titulo_monografia_destaque">
-                            <h1><?php echo $trabalhoTop[0]['nm_titulo']; ?></h1>
-                            <p><?php echo /*$resumo = substr(*/$trabalhoTop[0]['ds_resumo']/*, 0, 450);
+        <header class="UltimosTrabalhos">
+              <div class="latest_posts"> <h1>Trabalho em destaque </h1> </div>
+        </header>
+        
+        <a href="trabalho.php?t=<?php echo $trabalhoTop[0]["cd_trabalho"]; ?>"> 
+        <div id="monografia_destaque">
+        
+            <div id="foto_monografia_destaque"> 
+                <!--img src="images/imagens_monografias/logo_tradeshop.jpg" class="img_destaque"-->
+            </div>
+            
+            <div id="titulo_monografia_destaque">
+                <h1><?php echo $trabalhoTop[0]['nm_titulo']; ?></h1>
+                <p><?php echo /*$resumo = substr(*/$trabalhoTop[0]['ds_resumo']/*, 0, 450);
 
-        echo $resumo."..."; */;?>
- </p>    
-                        </div>
-                    </div>
-                    </a>
+echo $resumo."..."; */;?>
+</p>    
+            </div>
+        </div>
+        </a>
                     
-                    <footer class="rodape_mono">
-                        <table>
-                            <tr>
-                                <td><?php $cd_trabalho = $trabalhoTop[0]['cd_trabalho'];
-                                require("php/mediaAvaliacao.php"); 
-                                if(isset($media)) { switch($media) {
-                                    case 1:
-                                        echo  "<img src='images/index_icons/umaestrela.png'>";
-                                        break;
-                                    case 2:
-                                        echo  "<img src='images/index_icons/duasestrelas.png'>";
-                                        break;
-                                    case 3:
-                                        echo  "<img src='images/index_icons/tresestrelas.png'>";
-                                        break;
-                                    case 4:
-                                        echo "<img src='images/index_icons/quatroestrelas.png'>";
-                                        break;
-                                    case 5:
-                                        echo "<img src='images/index_icons/cincoestrelas.png'>";  
-                                        break; }  }?>
-                              </td>
-                                <td> <!-- linkar com page monografia da escola x -->
-                                <a href="../escola/Escola_monos.html"><?php echo $nomeCurso[0]['nm_curso'];?></a> </td>
-                                <td> <a href="../escola/Escola.html"><?php echo $nomeInstituicao[0]['nm_escola']; ?></a> </td> 
-                                <td><?php echo $trabalhoTop[0]["aa_publicacao"]; ?></td>
-                            </tr>
-                        </table>
-                 </footer>
+            <footer class="rodape_mono">
+                <table>
+                    <tr>
+                        <td><?php $cd_trabalho = $trabalhoTop[0]['cd_trabalho'];
+                        require("php/mediaAvaliacao.php"); 
+                        if(isset($media)) { switch($media) {
+                            case 1:
+                                echo  "<img src='images/index_icons/umaestrela.png'>";
+                                break;
+                            case 2:
+                                echo  "<img src='images/index_icons/duasestrelas.png'>";
+                                break;
+                            case 3:
+                                echo  "<img src='images/index_icons/tresestrelas.png'>";
+                                break;
+                            case 4:
+                                echo "<img src='images/index_icons/quatroestrelas.png'>";
+                                break;
+                            case 5:
+                                echo "<img src='images/index_icons/cincoestrelas.png'>";  
+                                break; }  }?>
+                      </td>
+                        <td> <!-- linkar com page monografia da escola x -->
+                        <a href="explore.php?pesquisa=&amp;curso=<?php echo $trabalhoTop[0]["cd_curso"]; ?>"><?php echo $nomeCurso[0]['nm_curso'];?></a> </td>
+                        <td> <a href="explore.php?pesquisa=&amp;escola=<?php echo $trabalhoTop[0]["cd_escola"]; ?>"><?php echo $nomeInstituicao[0]['nm_escola']; ?></a> </td> 
+                        <td><?php echo $trabalhoTop[0]["aa_publicacao"]; ?></td>
+                    </tr>
+                </table>
+         </footer>
                     <?php } ?>
                     </div>
                 </div>
