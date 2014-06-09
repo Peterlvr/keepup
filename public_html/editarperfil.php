@@ -87,15 +87,27 @@ if($sessao["tipoConta"] == "E") {
                 <?php if($sessao["tipoConta"] == "A" and $dados_aluno[0]['nm_url_avatar'] == '') { ?>
                 <img id="fotoUser" src='images/default/usericon.png'>  
                 <?php } if($sessao["tipoConta"] == "A" and $dados_aluno[0]['nm_url_avatar'] <> '') { ?> 
-                <img id="fotoUser" src="images/upload/<?php echo $sessao['cd_usuario']; ?>/<?php echo $dados_aluno[0]['nm_url_avatar']; ?>" style="width: 200px; height:200px;">  <?php } ?>  
+                <img id="fotoUser" src="images/upload/<?php echo $sessao['cd_usuario']; ?>/<?php echo $dados_aluno[0]['nm_url_avatar']; ?>" style="width: 200px; height:200px;">  
+                <?php } if($sessao['tipoConta'] == "E" and $dados_escola[0]['tx_url_avatar'] == '') { ?>
+                 <img id="fotoUser" onclick="$('#file').click();" src='images/default/usericon.png'>  
+                 <?php } if($sessao['tipoConta'] == "E" and $dados_escola[0]['tx_url_avatar'] <> '') { ?>
+                 <img id="fotoUser" onclick="$('#file').click();" src="images/upload/<?php echo $sessao['cd_usuario']; ?>/<?php echo $dados_escola[0]['tx_url_avatar']; ?>" style="width: 200px; height:200px;">
+                 <?php } ?>
                 <div id="alterar_foto" style='position:absolute; top:9%; width:11%;'> 
 
                     <table style="width:100%; text-align:left;">
                         <tr><button onclick="$('#file').click();"> Atualizar foto de perfil </button>
+                        <?php if($sessao['tipoConta'] == "A") { ?>
                         <form action="php/upload_file.php" method="post" enctype="multipart/form-data" id='form_upload' >
                             <input type="file" name="file" id="file" style="display: none;" />
                             <button type="submit" name="submit" id='btn'></button>
                         </form>
+                        <?php } if($sessao['tipoConta'] == 'E') { ?>
+                        <form action="php/upload_file_escola.php" method="post" enctype="multipart/form-data" id='form_upload' >
+                            <input type="file" name="file" id="file" style="display: none;" />
+                            <button type="submit" name="submit" id='btn'></button>
+                        </form>
+                        <?php } ?>
                         </tr>
                     </table>
                 </div>

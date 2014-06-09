@@ -69,7 +69,7 @@
                         <div id="quadrado_foto_usuario_menu">
                         <?php
 			if($_SESSION['url_avatar'] <> '') {
-				echo "<img src='images/upload/{$sessao["cd_aluno"]}/{$_SESSION['url_avatar']}' style='width:40px; height:40px' >";
+				echo "<img src='images/upload/{$sessao["cd_usuario"]}/{$_SESSION['url_avatar']}' style='width:40px; height:40px' >";
 			}
 			else {
 				echo "<img src='images/default/usericon.png' width='40px' alt=''>";
