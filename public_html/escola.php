@@ -3,18 +3,18 @@ require("../sessao.php");
 require("../conexao.class.php");
 $conexao = new Conexao();
 
-    $nm_login = $_GET['u'];
-    $usuario = "SELECT cd_usuario FROM usuario WHERE nm_login = '$nm_login'";
-    $pageuser = $conexao->consultar($usuario);
-    //seleciona dados da tabela escola pelo codigo de usuario
-    $comando = "SELECT * FROM escola WHERE cd_usuario = {$pageuser[0]['cd_usuario']}";
-    $escola = $conexao->consultar($comando);
-    //busca o nome da cidade pelo codigo da cidade  
-    $comando = "SELECT nm_cidade FROM cidade WHERE cd_cidade = {$escola[0]["cd_cidade"]}";
-    $cidade = $conexao->consultar($comando);
+$nm_login = $_GET['u'];
+$usuario = "SELECT cd_usuario FROM usuario WHERE nm_login = '$nm_login'";
+$pageuser = $conexao->consultar($usuario);
+//seleciona dados da tabela escola pelo codigo de usuario
+$comando = "SELECT * FROM escola WHERE cd_usuario = {$pageuser[0]['cd_usuario']}";
+$escola = $conexao->consultar($comando);
+//busca o nome da cidade pelo codigo da cidade  
+$comando = "SELECT nm_cidade FROM cidade WHERE cd_cidade = {$escola[0]["cd_cidade"]}";
+$cidade = $conexao->consultar($comando);
 
-    $cursos = $conexao->consultar(
-        "SELECT c.* FROM curso c, curso_oferecido co WHERE co.cd_curso = c.cd_curso and co.cd_escola = {$escola[0]["cd_escola"]}");
+$cursos = $conexao->consultar(
+    "SELECT c.* FROM curso c, curso_oferecido co WHERE co.cd_curso = c.cd_curso and co.cd_escola = {$escola[0]["cd_escola"]}");
 
 $recente = $conexao->consultar(
     "SELECT t.*, c.nm_curso from trabalho t, curso c
@@ -30,8 +30,8 @@ $recente = $conexao->consultar(
         
         <link href="cs/global.css" type="text/css" rel="stylesheet">
         <link href="cs/estilo_escola.css" type="text/css" rel="stylesheet">
-        <script src="js/jquery.js" type="text/javascript"> </script>	
-        <script src="js/script.js" type="text/javascript"> </script>	
+        <script src="js/jquery.js" type="text/javascript"></script>	
+        <script src="js/script.js" type="text/javascript"></script>	
         
    </head>
     <body>
@@ -88,7 +88,6 @@ $recente = $conexao->consultar(
      
       <section id="descricao_escola"> 
               
-    <!-- Parte dois - trabalhos  -->
     <?php if(isset($_GET["ver"]) and $_GET["ver"] == "trabalhos") { ?>
     <div class="esquerda">
             <table style="width:auto;">
@@ -124,9 +123,7 @@ $recente = $conexao->consultar(
                     </section>
                     <script src="js/explore.js"></script>
                 </div>
-    <!-- Fim parte dois - trabalhos  -->
 </div>
-     <!-- Parte um - Sobre mim -->
      <?php } else { ?>
      	<div class="esquerda">
         	<table style="width:auto;">
@@ -179,8 +176,7 @@ $recente = $conexao->consultar(
             <?php } ?>
                   
                 
-                <?php } ?>
-	<!-- Fim parte um - sobre mim -->                
+                <?php } ?>             
                 
                 
      
