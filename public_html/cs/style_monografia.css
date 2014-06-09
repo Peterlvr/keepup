@@ -196,7 +196,31 @@ section {
 					-webkit-transition-duration:0.1s ;
 					-webkit-transition-timing-function:ease-in;
 						}
+						
+						
 				#table_autores tr:hover {background-color:rgba(204,204,204,.3);}				
+				
+				
+				#txtTituloMonografia {
+					width:100%;
+					}
+					
+						#inputFile { 
+					width: 100%;
+					height:200px;
+					position: relative; 
+					overflow: hidden;}
+					
+					#inputFile span { display: block; position: absolute; }
+					
+					#inputFile input { 
+					position: absolute;
+					right: 0;
+					z-index: 2;
+					font-size: 100px;
+					opacity: 0;
+					filter: alpha(opacity=0);
+			height:200px; }
 				
 		#bloco4_monografia_relacionada {
 			width:86%;
