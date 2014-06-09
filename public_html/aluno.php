@@ -24,9 +24,10 @@ if(isset($_GET["u"])) {
     	$profissao = $aluno[0]['nm_profissao'];
 
     	$matricula = $conexao->consultar(
-            "SELECT e.nm_escola 
-            FROM escola e, matricula m 
+            "SELECT e.nm_escola , u.nm_login 'login_escola'
+            FROM escola e, matricula m , usuario u
     		WHERE
+                u.cd_usuario = e.cd_usuario and
                 e.cd_escola = m.cd_escola AND
                 m.cd_aluno = $cd_aluno");
     	//seleciona todos os trabalhos de autoria do aluno
@@ -124,7 +125,7 @@ else $inexistente = true;
                 <div id="texto_dados">
                     <h3> Estudante </h3>
                     <h1><?php echo  $aluno[0]["nm_aluno"]; ?></h1>
-                    <h2><?php foreach($matricula as $matriculado) echo "{$matriculado["nm_escola"]}<br>"; ?></h2>
+                    <h2><?php foreach($matricula as $matriculado) echo "<a href=\"escola.php?u={$matriculado["login_escola"]}\">{$matriculado["nm_escola"]}</a><br>"; ?></h2>
                 </div>
                 
                 <div id="icones_dados"> 

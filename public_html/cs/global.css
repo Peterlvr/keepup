@@ -14,9 +14,11 @@
 	}
 
 a {
-	color: inherit;
+	color: gray;
+	text-decoration: none;
 	transition: color .5s;
 }
+
 a:hover {
 	color: #1f4350;
 }
