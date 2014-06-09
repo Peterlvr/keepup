@@ -56,7 +56,6 @@ if($sessao["tipoConta"] == "E") {
         <title>Editar Perfil - Keep Up</title>
         <script type="text/javascript" src="js/jquery.js"></script>
     	<script type="text/javascript" src="js/carregaCidade.js"></script>
-
         <script type='text/javascript' src="js/toggleFields.js"></script>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
         <link href="cs/global.css" rel="stylesheet" type="text/css" />
@@ -64,7 +63,6 @@ if($sessao["tipoConta"] == "E") {
     	<link href="cs/estilo_editarUser.css" rel="stylesheet" type="text/css">
         <script src="js/slides.js" type="text/javascript"></script>
         <script src="js/script.js" type="text/javascript"></script>
-    
         <script>
             function rmFavorito(t, self) {
                 $.post("php/favoritar.php", {trabalho: t})
@@ -79,21 +77,26 @@ if($sessao["tipoConta"] == "E") {
             }
         </script>
     </head>
-    
 <body>
 <?php include_once("header.php"); ?>
 
 
 <div id="usuario"> 
     	 <div id="lado_left"> 
-            <div id="foto_perfil_usuario">
-            	                 
-                <div id="alterar_foto"> 
-                	<table style="width:100%; text-align:left;">
-                    	<tr>
-                        	<td style="width:40px;"> <img src="images/photo.png" width="30">  </td>
-                    		<td> <h1> Atualizar foto de perfil </h1></td>
-                    	</tr>
+            <div id="foto_perfil_usuario"> 
+                <?php if($sessao["tipoConta"] == "A" and $dados_aluno[0]['nm_url_avatar'] == '') { ?>
+                <img id="fotoUser" src='images/default/usericon.png'>  
+                <?php } if($sessao["tipoConta"] == "A" and $dados_aluno[0]['nm_url_avatar'] <> '') { ?> 
+                <img id="fotoUser" src="images/upload/<?php echo $sessao['cd_usuario']; ?>/<?php echo $dados_aluno[0]['nm_url_avatar']; ?>" style="width: 200px; height:200px;">  <?php } ?>  
+                <div id="alterar_foto" style='position:absolute; top:9%; width:11%;'> 
+
+                    <table style="width:100%; text-align:left;">
+                        <tr><h1 onclick="$('#file').click();"> Alterar imagem de capa </h1>
+                        <form action="php/upload_file.php" method="post" enctype="multipart/form-data" id='form_upload' >
+                            <input type="file" name="file" id="file" style="display: none;" />
+                            <button type="submit" name="submit" id='btn'></button>
+                        </form>
+                        </tr>
                     </table>
                 </div>
             
@@ -103,13 +106,9 @@ if($sessao["tipoConta"] == "E") {
                 <div id="texto_dados">
                     <h3> <?php if($sessao["tipoConta"] == "A") { echo $dados_aluno[0]['nm_profissao']; } ?> </h3>
                     <h1> <?php echo $_SESSION["nome"]; ?> </h1>
-                    <h2> ETEC Aristóteles Ferreira </h2>
-                </div>
-                
-                <div id="icones_dados"> 
-                <a href="User.html">	<div class="bot_perfil" id="profile" style="border-bottom:5px solid #2c87af"> </div> </a>
-                <a href="User_trabalhos.html">    <div class="bot_perfil" id="monografias"> </div> </a>
-                <a href="User_favoritos.html">    <div class="bot_perfil" id="favoritos"> </div> </a>
+                    <?php foreach ($aluno_matriculado as $matriculado) { ?> 
+                        <h2> <?php echo $matriculado['nm_escola'];?> </h2>
+                    <?php }?>
                 </div>
             </div>
 		</div>
@@ -129,13 +128,13 @@ if($sessao["tipoConta"] == "E") {
                         </td>
                     </tr>
                     <tr>
-                    	<td> <img src="images/twitter.png" width="30"> </td>
+                    	<td> <img src="images/linkedin.png" width="30"> </td>
                         <td style="text-align:left;"> <?php if($dados_aluno[0]['tx_url_linkedin'] <> '') { echo $dados_aluno[0]['tx_url_linkedin']; } 
                         else { echo 'Campo não preenchido.';} ?> 
                         </td>
                     </tr>
                     <tr>
-                    	<td> <img src="images/skype.png" width="30"> </td>
+                    	<td> <img src="images/url.png" width="30"> </td>
                         <td style="text-align:left;"><?php if($dados_aluno[0]['tx_url_externo'] <> '') { ?>
                        		<a href="http://<?php echo $dados_aluno[0]['tx_url_externo']; ?>" target="_blank"> <?php echo $dados_aluno[0]['tx_url_externo']; ?> </a>
                             <?php } else { ?>  Campo não preenchido.  <?php } ?>
@@ -395,5 +394,7 @@ if($sessao["tipoConta"] == "E") {
 
      </section>
      <?php include "footer.php"; ?>
+     <script type="text/javascript" src="js/jquery-ui-1.10.4.min.js"></script>
+     <script src='js/mudaFoto.js'></script>
 </body>
 </html>
