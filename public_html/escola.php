@@ -3,24 +3,30 @@ require("../sessao.php");
 require("../conexao.class.php");
 $conexao = new Conexao();
 
-$nm_login = $_GET['u'];
-$usuario = "SELECT cd_usuario FROM usuario WHERE nm_login = '$nm_login'";
-$pageuser = $conexao->consultar($usuario);
-//seleciona dados da tabela escola pelo codigo de usuario
-$comando = "SELECT * FROM escola WHERE cd_usuario = {$pageuser[0]['cd_usuario']}";
-$escola = $conexao->consultar($comando);
-//busca o nome da cidade pelo codigo da cidade  
-$comando = "SELECT nm_cidade FROM cidade WHERE cd_cidade = {$escola[0]["cd_cidade"]}";
-$cidade = $conexao->consultar($comando);
+$inexistente = false;
+if(isset($_GET["u"])) {
+    $nm_login = $_GET['u'];
+    $usuario = "SELECT cd_usuario, CONVERT(ic_desativado, SIGNED) FROM usuario WHERE nm_login = '$nm_login'";
+    $pageuser = $conexao->consultar($usuario);
+    if(sizeof($pageuser) != 0 and $pageuser[0]["ic_desativado"] != 1) { 
+        //seleciona dados da tabela escola pelo codigo de usuario
+        $comando = "SELECT * FROM escola WHERE cd_usuario = {$pageuser[0]['cd_usuario']}";
+        $escola = $conexao->consultar($comando);
+        //busca o nome da cidade pelo codigo da cidade  
+        $comando = "SELECT nm_cidade FROM cidade WHERE cd_cidade = {$escola[0]["cd_cidade"]}";
+        $cidade = $conexao->consultar($comando);
 
-$cursos = $conexao->consultar(
-    "SELECT c.* FROM curso c, curso_oferecido co WHERE co.cd_curso = c.cd_curso and co.cd_escola = {$escola[0]["cd_escola"]}");
+        $cursos = $conexao->consultar(
+            "SELECT c.* FROM curso c, curso_oferecido co WHERE co.cd_curso = c.cd_curso and co.cd_escola = {$escola[0]["cd_escola"]}");
 
-$recente = $conexao->consultar(
-    "SELECT t.*, c.nm_curso from trabalho t, curso c
-    WHERE c.cd_curso = t.cd_curso and t.cd_escola = {$escola[0]["cd_escola"]}
-    ORDER BY t.dt_publicado LIMIT 6");
-
+        $recente = $conexao->consultar(
+            "SELECT t.*, c.nm_curso from trabalho t, curso c
+            WHERE c.cd_curso = t.cd_curso and t.cd_escola = {$escola[0]["cd_escola"]}
+            ORDER BY t.dt_publicado LIMIT 6");
+    }
+    else $inexistente = true;
+}
+else $inexistente = true;
 ?>
 <!doctype html>
 <html>
@@ -36,6 +42,9 @@ $recente = $conexao->consultar(
    </head>
     <body>
         <?php include("header.php"); ?>
+     <?php if(isset($inexistente)) { ?>
+        <h1>Conta não encontrada!</h1>
+     <?php die(); } ?>
        <div id="escola"> 
       	<div id="lado_left">
             <div id="foto_perfil_escola"> </div>
