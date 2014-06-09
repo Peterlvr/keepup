@@ -6,7 +6,8 @@
         <div id="login_box">
                 <section id="login">
                 <form action="php/login.php" method="POST">
-                    <input type="hidden" name="de" value="javascript:location.href">
+                    <input type="hidden" name="de" id="de">
+                    <script>$("#de").attr("value",location.href);</script>
                     <table id="table_loginn">
                         <tr>
                             <td colspan="2"> <p> Nome de usuário: </p> </td>

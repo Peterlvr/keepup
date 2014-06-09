@@ -1,5 +1,5 @@
 <?php # Script de login
-$ultimaPag = $_POST["prev"] || "";
+$ultimaPag = $_POST["de"];
 # Funções de retorno
 function volta($e) {
 	#header("location:../?e=" . $e);
@@ -60,7 +60,7 @@ if(compararSenhas($nmSenha, $dbSenha)) {
 		$_SESSION["nome"] = $aluno[0]["nm_escola"];
 		
 	}
-	header("location:posLogin.php");
+	header("location:posLogin.php?de=$ultimaPag");
 }
 else {
 	volta(3);
