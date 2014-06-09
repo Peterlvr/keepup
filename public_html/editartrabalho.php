@@ -117,15 +117,16 @@ $relacionados = $conexao->consultar(
                     
                 <div id="bloco1_esquerda_parte_escrita"> 
                    <form action="php/editartrabalho.php" method="POST">
+                        <input type="hidden" name="cdTrabalho" value="<?php echo $trabalho[0]["cd_trabalho"]; ?>">
                    		<table id="table_publicar_1" style="width:100%">
-                      		<Tr>
+                      		<!--Tr>
                             	<td> 
                                 	<h1> Alterar imagem de capa </h1>
                                 	<div id="inputFile"  class="imagem_monografia"
                                     style="background-image:url(images/imagens_monografias/logo_tradeshop.jpg); background-position:center; border:1px solid rgba(51,51,51,.2); background-repeat:no-repeat;">                                    	
                                     	<input type="file" name="arquivo" id="arquivo" /> 
                                     </div>                                </td>
-                            </Tr>
+                            </Tr-->
                         	<tr>
                             	<td>
                               		<h1>Título</h1>
@@ -159,12 +160,14 @@ $relacionados = $conexao->consultar(
                                     <input required class="txtTituloMonografia" type="text" value="<?php echo $trabalho[0]["tx_pchave"]; ?>" name="tx_pchaves" pattern="^[^\.]+\.[^\.]+\.[^\.]+$">
                                 </Td>
                             </Tr>
-                            <!--Tr>
-                            	<td> 
-                                	<h1>Instituição de ensino</h1>
-                                    <input type="text" id="txtTituloMonografia"> 
-                                </td>
-                            </Tr-->
+                            <Tr>
+                                <Td>
+                                    <h1>
+                                        <label for="aaPublicacaoReal">Ano de publicação:</label>
+                                    </h1>
+                                    <input required class="txtTituloMonografia" type="text" value="<?php echo $trabalho[0]["aa_publicacao"]; ?>" name="aaPublicacaoReal" pattern="[0-9]{4}" title="AAAA">
+                                </Td>
+                            </Tr>
                         	<tr>
                             	<Td colspan="2" style="text-align:center;">
                                 	  <input id="btnSalvar" type="submit" value="Salvar alterações">
