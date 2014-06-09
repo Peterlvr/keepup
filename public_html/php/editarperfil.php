@@ -22,7 +22,7 @@ $tipoConta = $_SESSION["tipoConta"];
 if($tipoConta == "A") { # A = aluno
 	require_once("../../aluno.class.php");
 	$nmAluno = $_POST["nmAluno"] or volta(1);
-	$dtNascimento = $_POST["dtNascimento"] or volta(1);
+	$dtNascimento = $_POST["dtNascimento"] or volta(2);
 	$txBio = $_POST["sobreMim"] or '';
 	$nmProfissao = $_POST["nmProfissao"] or '';
 	$nmFB = $_POST["nmFB"] or ''; 
@@ -38,6 +38,22 @@ if($tipoConta == "A") { # A = aluno
 	$_SESSION['nome'] = $nmAluno;
 	
 }
+
+if ($tipoConta == "E") { # E = escola
+	$nmEscola = $_POST["nmEscola"] or volta(3);
+	$sobreEscola = $_POST["sobreEscola"] or '';
+	$Contato = $_POST["Contato"] or '';
+	$Url = $_POST["Url"] or '';
+	$Localizacao = $_POST['Localizacao'] or '';
+
+	$con = new Conexao();
+	$con->executar("UPDATE escola
+					SET nm_escola = '$nmEscola', tx_info = '$sobreEscola', tx_contato = '$Contato', 
+					tx_url_externo = '$Url', tx_endereco = '$Localizacao'
+					WHERE cd_escola = {$_SESSION['cd_escola']} ");
+	$_SESSION['nome'] = $nmEscola;
+}
+
 if(isset($_POST['cdCidade']))
 {
 	$cdCidade = $_POST["cdCidade"];
@@ -45,10 +61,7 @@ if(isset($_POST['cdCidade']))
 	$con->executar("UPDATE aluno 
 					SET cd_cidade = $cdCidade WHERE cd_aluno = {$_SESSION['cd_aluno']}");
 }
-else 
-{
-	volta(1);	
-}
+
 header("location:../editarperfil.php?e=sucesso");
 
 

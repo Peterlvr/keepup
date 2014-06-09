@@ -7,19 +7,17 @@ $con  = new Conexao();
 $sessao["estados"] = $con->consultar("SELECT * FROM estado");
 $_SESSION["login"]; //nm_login
 $_SESSION["cd_usuario"];
-$_SESSION["cd_aluno"];
 $_SESSION["nome"];
 $sessao["tipoConta"];
 
 $email_usuario = $con->consultar("SELECT nm_email FROM usuario WHERE cd_usuario = {$_SESSION['cd_usuario']}");
 
-$dados_aluno = $con->consultar("SELECT * FROM aluno WHERE cd_aluno = {$_SESSION["cd_aluno"]}; ");
-
-$dt_nascimento = $dados_aluno[0]['dt_nascimento'];
-
-$sessao["escolas"] = $con->consultar("SELECT nm_escola, cd_escola FROM escola");
-
 if($sessao["tipoConta"] == "A") {
+    $dados_aluno = $con->consultar("SELECT * 
+        FROM aluno 
+        WHERE cd_aluno = {$_SESSION["cd_aluno"]}; ");
+    $dt_nascimento = $dados_aluno[0]['dt_nascimento'];
+    $sessao["escolas"] = $con->consultar("SELECT nm_escola, cd_escola FROM escola");
     $aluno_matriculado = $con->consultar("SELECT e.nm_escola 
 		FROM escola e, matricula m, aluno al 
 		WHERE al.cd_aluno = m.cd_aluno AND e.cd_escola = m.cd_escola AND al.cd_aluno = {$_SESSION['cd_aluno']}");
@@ -38,10 +36,13 @@ if($sessao["tipoConta"] == "A") {
         ORDER BY t.dt_publicado LIMIT 3");
 }
 if($sessao["tipoConta"] == "E") {
+    $dados_escola = $con->consultar("SELECT * 
+        FROM escola 
+        WHERE cd_escola = {$_SESSION["cd_escola"]}; ");
     $escola_cursos = $con->consultar(
         "SELECT c.* FROM curso c, escola e, curso_oferecido co
         WHERE c.cd_curso = co.cd_curso and e.cd_escola = co.cd_escola
-        and cd_escola = {$sessao["cd"]}");
+        and e.cd_escola = {$sessao["cd"]}");
     $trabalhos = $con->consultar("SELECT *
         FROM trabalho
         WHERE cd_escola = {$sessao["cd"]}
@@ -100,7 +101,7 @@ if($sessao["tipoConta"] == "E") {
             
             <div id="dados_usuario">
                 <div id="texto_dados">
-                    <h3> <?php echo $dados_aluno[0]['nm_profissao'];?> </h3>
+                    <h3> <?php if($sessao["tipoConta"] == "A") { echo $dados_aluno[0]['nm_profissao']; } ?> </h3>
                     <h1> <?php echo $_SESSION["nome"]; ?> </h1>
                     <h2> ETEC Aristóteles Ferreira </h2>
                 </div>
@@ -113,8 +114,9 @@ if($sessao["tipoConta"] == "E") {
             </div>
 		</div>
         
-        
-        <div id="lado_right">
+       
+        <div id="lado_right"> 
+            <?php if($sessao["tipoConta"] == "A") { ?>
         	<div id="contato">
             	<header class="UltimosTrabalhos" style="background-color:white;">
                           <div class="latest_posts" style="margin:-10px auto auto 5%;"> <h1>  Contato </h1> </div>
@@ -141,7 +143,9 @@ if($sessao["tipoConta"] == "E") {
                     </tr>
                 </table>
             </div>
+            <?php }?>
         </div>
+
    </div>
    
      <section id="descricao_usuario"> 
@@ -164,11 +168,11 @@ if($sessao["tipoConta"] == "E") {
                 </tr>
                 <Tr>
                 	<td clas="td_left"> <h1> Senha: </h1></td>
-                    <td><input type="text" name="senhaConta" required> </td>
+                    <td><input type="password" name="senhaConta" required> </td>
                 </Tr>
                 <Tr>
                 	<td clas="td_left"> <h1> Confirmar senha: </h1></td>
-                    <td><input type="text" name="confirmaSenhaConta" required> </td>
+                    <td><input type="password" name="confirmaSenhaConta" required> </td>
                 </Tr>
              </table>
 			</section>
@@ -183,12 +187,12 @@ if($sessao["tipoConta"] == "E") {
                     </div>   	
                 </header>
         
-                
+        <?php if($sessao["tipoConta"] == "A") { ?>        
         <form action="php/editarperfil.php" method="POST" id="editarPerfilForm"> 
             <section id="painelUsuario">
                 <table id="table_form">
                     <tr>
-                        <td class="td_left"> <h1> Nome de aluno:: </h1> </td>
+                        <td class="td_left"> <h1> Nome de aluno: </h1> </td>
                         <td colspan="2"> <input placeholder="Nome de Aluno" type="text" name="nmAluno" value="<?php echo $_SESSION["nome"]; ?>" required> </td>
                     </tr>
                     <tr>
@@ -215,33 +219,59 @@ if($sessao["tipoConta"] == "E") {
                     	<td class="td_left"> <h1> Link externo </h1></td>
                         <td colspan="2"> <input placeholder="Url para site externo" type="text" name="nmUrlExterno" value="<?php echo $dados_aluno[0]['tx_url_externo']; ?>" ></td>
                     </tr>
-             </table>
-		</section>
-        		
-		<input id="envia" type="submit" value="Alterar dados pessoais" >
-	</form>
-        
-        
-        
+                </table>
+		    </section>
+            <input id="envia" type="submit" value="Alterar dados pessoais">
+	    </form>
+        <?php } else { ?>
+        <form action="php/editarperfil.php" method="POST" id="editarPerfilForm"> 
+            <section id="painelUsuario">
+                <table id="table_form">
+                    <tr>
+                        <td class="td_left"> <h1> Nome da instituição: </h1> </td>
+                        <td colspan="2"> <input placeholder="Nome da Instituição" type="text" name="nmEscola" value="<?php echo $_SESSION["nome"]; ?>" required> </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left"> <h1> Sobre a instituição: </h1> <cite> (informações) </cite> </td>
+                        <td colspan="2"> <textarea  rows="5" cols='45' placeholder="Sobre a instituição..." name="sobreEscola"><?php echo $dados_escola[0]['tx_info'];?></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="td_left"> <h1> Contato: </h1> <cite> (telefones - separados por vírgula) </cite>  </td>
+                        <td colspan="2"> <input placeholder="Telefones para contato" type="text" name="Contato" value="<?php echo $dados_escola[0]['tx_contato'];?>" > </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left"> <h1> Site da instituição: </h1> </td>
+                        <td colspan="2"> <input placeholder="Site da instituição" type="text" name="Url" value="<?php echo $dados_escola[0]['tx_url_externo'];?>" > </td>
+                    </tr>
+                     <tr>
+                        <td class="td_left"> <h1> Localização: </h1> <cite> (endereço completo) </cite> </td>
+                        <td colspan="2"> <input placeholder="Localização" type="text" name="Localizacao" value="<?php echo $dados_escola[0]['tx_endereco'];?>" > </td>
+                    </tr>
+                </table>
+            </section>
+            <input id="envia" type="submit" value="Alterar dados pessoais">
+        </form>
+        <?php }?>
+
+            <?php if($sessao["tipoConta"] == "A") { ?>    
          		<header class="UltimosTrabalhos">
                 	<div class="latest_posts"> 
                     	<h1><img src="images/perfil_usuario/profile.png" width="20px"> 
                         Localização e Instituição de ensino  </h1>
                     </div>   	
                 </header>
-		
-        <!-- daqui pra baixo tá foda -->
-        
+
+
 				<?php if(isset($dados_aluno[0]['cd_cidade'])) { 
 					$cidade_usuario = $con->consultar("SELECT e.sg_estado, c.nm_cidade 
 					FROM estado e, cidade c WHERE c.cd_estado = e.cd_estado AND c.cd_cidade = {$dados_aluno[0]['cd_cidade']};");?>
                 <form action="php/editarCidade.php" method="POST" name="editarCidadeForm" id="cidadesForm">
                         <table id="table_form">
                             <tr>
-                                <td class="td_left"> <h1>Estado </h1> </td>
-                                <td colspan="2">
-                                    <input type="checkbox" data-activates="estado">
-                                    <select name="estado" id="estado" disabled>
+                                <td class="td_left"> <h1>Estado:</h1> </td>
+                                <td colspan="2">   <?php echo $cidade_usuario[0]['sg_estado'];?> </td>
+                                <td colspan="2"> 
+                                    <select name="estado" id="estado">
                                         <?php foreach($sessao["estados"] as $estado) { ?>
                                             <option value="<?php echo $estado["cd_estado"]; ?>">
                                                 <?php echo "{$estado["sg_estado"]}"; ?>
@@ -252,15 +282,15 @@ if($sessao["tipoConta"] == "E") {
                             </tr>
                             <tr>
                                 <td class="td_left"> <h1>Cidade: </h1></td>
+                                <td colspan="2">   <?php echo $cidade_usuario[0]['nm_cidade'];?> </td>
                                 <td colspan="2">
-                                     <input type="checkbox" data-activates="cidade"> 
-                                    <select name="cidade" id="cidade" disabled>
+                                    <select name="cdCidade" id="cidade">
                                         <option value="">Selecione o estado</option>
                                     </select> 
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2"> <input id="envia" type="submit" value="Alterar cidade" > </td>
+                                <td colspan="2"> <input id="envia" type="submit" value="Alterar cidade" style="position:relative; left:70%;"> </td>
                             </tr>
                         </table> 
                     </form>
@@ -312,7 +342,7 @@ if($sessao["tipoConta"] == "E") {
 					<input id="envia" type="submit" value="Alterar Instituição" >
     				</form>
 				</div>
-                
+            <?php } ?>   
                 
                 
                <header class="UltimosTrabalhos">
@@ -340,12 +370,13 @@ if($sessao["tipoConta"] == "E") {
                     
                     <div style="width:100%; clear:both;"></div>
                 </div>
+                <?php if(isset($favoritos) && sizeof($favoritos) > 0) { ?>
                 <header class="UltimosTrabalhos">
                 	<div class="latest_posts"> 
                     	<h1><img src="images/perfil_usuario/favoritos.png" width="20px"> Meus favoritos </h1>
                     </div>   	
                 </header>
-            <?php if(isset($favoritos) && sizeof($favoritos) > 0) { ?>
+            
                 <div id="form_favoritos">
                     <?php foreach($favoritos as $trabalho) { ?> 
                         <div class="form_cada_favorito"> 
@@ -360,35 +391,8 @@ if($sessao["tipoConta"] == "E") {
 </div>  
                 </div>
             </div>
-        
-        
-        
-        <aside class="direita">
-           <?php if(sizeof($relacionados) > 0) { ?> 
-            <div id="monografias_relacionadas">
-                    <header class="UltimosTrabalhos">
-                          <div class="latest_posts"> 
-                              <table>
-                                <tr>
-                                    <td> <img src="images/perfil_usuario/monografias.png" width="30"> </td>
-                                    <td> <h1> Monografias relacionadas </h1> </td>
-                                </tr>
-                              </table>
-                          </div>
-                    </header>
-                    <?php foreach ($relacionados as $trabalhoRelacionado) {
-                    if($trabalhoRelacionado['cd_trabalho'] <> $cd_trabalho){   ?>
-                    <a href="trabalho.php?t=<?php echo $trabalhoRelacionado['cd_trabalho'];?>">
-                         <div id="mono_recente">
-                            <div class="imagem_monografia_relacionada"  style="background-image: url(images/imagens_monografias/img_vis.jpg)" id="relacionada_1"> </div>
-                            <footer class="titulo_relacionada"> <h1> <?php echo substr($trabalhoRelacionado['nm_titulo'], 0, 20) . "...";?> </h1> </footer>
-                        </div>
-                    </a>
-                    <?php }}?>
-                </div>
-            </div>  
-           <?php } ?>
-        </aside>
+       
+
      </section>
      <?php include "footer.php"; ?>
 </body>
