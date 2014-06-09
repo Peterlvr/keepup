@@ -1,14 +1,11 @@
 <?php # Visão 'cadastro'
 require("../sessao.php");
-if($logado) {
-
-}
 require "../conexao.class.php";
-
+$msg = "";
 $con = new Conexao();
-$sessao["estados"] = $con->consultar("SELECT * FROM estado");
-$sessao["cursos"] = $con->consultar("SELECT * FROM curso");
-$sessao["escolas"] = $con->consultar("SELECT * FROM escola");
+$sessao["estados"] = $con->consultar("SELECT * FROM estado ORDER BY sg_estado");
+$sessao["cursos"] = $con->consultar("SELECT * FROM curso ORDER BY nm_curso");
+$sessao["escolas"] = $con->consultar("SELECT * FROM escola ORDER BY nm_escola");
 ?>
 <!doctype html>
 <html>

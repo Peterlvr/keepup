@@ -170,7 +170,7 @@ else $inexistente = true;
                     
                     <div class="each_autor_curso"> 
                         <h1>                        
-                         <a href="#"><?php echo $trabalho["nm_curso"]; ?></a>
+                         <a href="explore.php?pesquisa=&amp;curso=<?php echo $trabalho["cd_curso"]; ?>"><?php echo $trabalho["nm_curso"]; ?></a>
                         </h1>
                     </div>
                 </div>   
@@ -216,11 +216,10 @@ else $inexistente = true;
                    	</tr>
                    
                 </table-->
-                <?php if($escola[0]['tx_contato'] == ''){ 
-                echo "Aqui vai o telefone, e-mail e site da instituicao";} 
-                    else { echo $escola[0]['tx_contato'] ;}
+                <?php if(!($escola[0]['tx_contato'] == '')){
+                    echo $escola[0]['tx_contato'] ;}
                 if ($escola[0]["tx_url_externo"] != '') {
-                    echo '</p><p><a href="http://'.$escola[0]["tx_url_externo"].'">Nossa pagina web</a>';
+                    echo '<br><a href="http://'.$escola[0]["tx_url_externo"].'">'.$escola[0]["tx_url_externo"].'</a>';
                 }
         ?>
                 

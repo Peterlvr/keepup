@@ -2,7 +2,7 @@
 
 # Funções para retorno em caso de erros
 function volta($e) {
-	header("location:../editarperfil.php?e=" . $e);
+	header("location:../editartrabalho.php?e=$e");
 	die();
 }
 
@@ -25,7 +25,7 @@ $autorDoTrabalho = false;
 
 if($sessao["tipoConta"] == "A") {
     foreach($autores as $autor) {
-        if($autor['cdUser'] == $sessao['cd'])
+        if($autor['cd_aluno'] == $sessao['cd'])
             $autorDoTrabalho = true;
     }
 }
@@ -34,7 +34,7 @@ else {
         $autorDoTrabalho = true;
 }
 
-$autorDoTrabalho or volta(8);
+$autorDoTrabalho or volta(37);
 
 $nmTitulo = $_POST["nmTitulo"] or volta(1);
 $cdCurso = $_POST["cdCurso"] or volta(2);
@@ -43,14 +43,17 @@ $dsResumo = $_POST["dsResumo"] or "";
 $pchave = $_POST["tx_pchaves"] or volta(6);
 
 
-if($con->executar(
-	"UPDATE escola
-	SET
-		nm_titulo = '$nmTitulo',
-		ds_resumo = '$dsResumo',
-		cd_curso = '$cdCurso', 
-		tx_pchave = '$pchave'
-	WHERE cd_trabalho = $cdTrabalho ")) {
+if(	$conexao->executar(
+		"UPDATE trabalho
+		SET
+			nm_titulo = '$nmTitulo',
+			ds_resumo = '$dsResumo',
+			cd_curso = '$cdCurso', 
+			tx_pchave = '$pchave'
+		WHERE cd_trabalho = $cdTrabalho ")) {
 
-	
+	header("location:../trabalho.php?t=$cdTrabalho");
+}
+else {
+	header("location:../editartrabalho.php?t=$cdTrabalho&e=".$conexao->erro);
 }

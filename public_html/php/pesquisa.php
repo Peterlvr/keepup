@@ -5,6 +5,7 @@ require "../../conexao.class.php";
 $conexao = new Conexao();
 
 $pesquisa = "";
+$em = "";
 //quando o campo pesquisa está preenchido ele executa o GET
 if(isset($_GET['pesquisa']))
 {
@@ -77,11 +78,40 @@ if(isset($_GET['pesquisa']))
 		if(!$jaFoi)
 			array_push($cursos, array($row["curso"], 1));
 	}
+
+	if(isset($_GET["curso"])) {
+		$curso = $conexao->consultar(
+			"SELECT nm_curso FROM curso WHERE cd_curso = {$_GET["curso"]}");
+
+		$em .= "em ".$curso[0]["nm_curso"];
+	}
+
+	if(isset($_GET["escola"])) {
+		$escola = $conexao->consultar(
+			"SELECT nm_escola FROM escola WHERE cd_escola = {$_GET["escola"]}");
+
+		if(isset($_GET["curso"]))
+			$em .= ", ";
+		else
+			$em .= "em ";
+		$em .= $escola[0]["nm_escola"];
+	}
+
+
+	if(isset($_GET["autor"])) {
+		$autor = $conexao->consultar(
+			"SELECT nm_aluno FROM aluno WHERE cd_aluno = {$_GET["autor"]}");
+
+		if(isset($_GET["curso"]) or isset($_GET["escola"]))
+			$em .= ", ";
+		else
+			$em .= "em ";
+		$em .= $autor[0]["nm_aluno"];
+	}
 }
 
-
 ?>
-<h1> Resultados para "<?php echo $pesquisa; ?>"</h1>
+<h1> Resultados para "<?php echo $pesquisa; ?>" <?php echo $em; ?></h1>
 <?php if(isset($pesquisando[0])) { ?>
 	<?php foreach($pesquisando as $row)	{ ?>
         <a href="trabalho.php?t=<?php echo $row["cd"]; ?>">

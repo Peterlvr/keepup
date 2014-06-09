@@ -300,7 +300,7 @@ $sessao["estados"] = $conexao->consultar("SELECT * FROM estado");
     </section>
     <script>
     $().ready(function() {
-       pesquisaAjax("<?php echo $_SERVER["QUERY_STRING"]; ?>"); 
+       pesquisaAjax("<?php if (isset($_GET['pesquisa'])) echo $_SERVER['QUERY_STRING']; else echo 'pesquisa='; ?>"); 
     });
     </script>
 </body>

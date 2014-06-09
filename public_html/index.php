@@ -10,12 +10,14 @@ if($logado) {
     		"SELECT
     			t.nm_titulo 'titulo',
     			t.ds_resumo 'resumo',
-    			t.cd_trabalho 'cd'
+    			t.cd_trabalho 'cd',
+                c.nm_curso 'nm_curso'
     		FROM
-    			trabalho t, autoria a
+    			trabalho t, autoria a, curso c
     		WHERE
     			t.cd_trabalho = a.cd_trabalho and 
-    			a.cd_aluno = $codigoPerfil
+    			a.cd_aluno = $codigoPerfil and
+                c.cd_curso = t.cd_curso
     		ORDER BY
     			t.dt_publicado DESC
     		LIMIT 3";
@@ -26,11 +28,13 @@ if($logado) {
             "SELECT
                 t.nm_titulo 'titulo',
                 t.ds_resumo 'resumo',
-                t.cd_trabalho 'cd'
+                t.cd_trabalho 'cd',
+                c.nm_curso 'nm_curso'
             FROM
-                trabalho t
+                trabalho t, curso c
             WHERE
-                t.cd_escola = $codigoPerfil
+                t.cd_escola = $codigoPerfil and
+                t.cd_curso = c.cd_curso
             ORDER BY
                 t.dt_publicado DESC
             LIMIT 3";
@@ -40,12 +44,14 @@ if($logado) {
     if($sessao["tipoConta"] == "A") {
     	$favsql = 
     		"SELECT
-    			t.*
+    			t.*,
+                c.nm_curso
     		FROM
-    			trabalho t, favorito f
+    			trabalho t, favorito f, curso c
     		WHERE
     			t.cd_trabalho = f.cd_trabalho and
-    			f.cd_aluno = {$sessao["cd_aluno"]}
+    			f.cd_aluno = {$sessao["cd_aluno"]} and
+                t.cd_curso = c.cd_curso
     		ORDER BY
     			f.dt_favoritado DESC
     		LIMIT 3";
@@ -67,6 +73,13 @@ $consulta =
 	LIMIT 3";
 
 $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
+
+$maisVotadosConsulta =
+    "SELECT avg(v.vl_voto), t.*, c.nm_curso FROM curso c, trabalho t, voto v WHERE
+    v.cd_trabalho = t.cd_trabalho and c.cd_curso = t.cd_curso GROUP BY t.cd_trabalho
+    LIMIT 3";
+
+$sessao["melhores"] = $conexao->consultar($maisVotadosConsulta);
 ?>
 
 <!doctype html>
@@ -140,6 +153,45 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
                 </div>
         </div>
         
+        <div id="trabalhos">
+            <div class="UltimosTrabalhos">
+                <div class="latest_posts"> <h1> Melhores trabalhos </h1> </div>
+            </div>
+            <?php if(isset($sessao["melhores"]) && sizeof($sessao["melhores"]) > 0) { ?>
+            <article class="links_trabalhos">
+                <?php foreach($sessao["melhores"] as $trabalho) { ?>
+                <a href="trabalho.php?t=<?php echo $trabalho["cd_trabalho"]; ?>">
+                <div class="box_monografia" id="ult1">
+                    <div class="each_titulo_area">
+                        <div class="each_titulo"> <h1><?php echo $trabalho["nm_titulo"]; ?></h1> </div>
+                    </div>
+                
+                    <div class="each_icon">
+                        <img src="images/<?php if(isset($trabalho["url_imagem"]) and strlen($trabalho["url_imagem"]) > 3) echo $trabalho["url_imagem"]; else echo "imagens_monografias/img_vis.jpg"; ?>" class="imagens_index">
+                    </div>
+                    
+                    <div class="each_resumo"> 
+                        <p><?php echo $trabalho["ds_resumo"]; ?>
+                        </p>
+                    </div>
+                    
+                    <div class="each_autor_curso"> 
+                        <h1>                        
+                       
+                       <?php echo $trabalho["nm_curso"]; ?> 
+                        
+                        </h1>
+                    </div>
+                    </div>
+                </a>
+                    <?php } ?>
+                </div>
+                <?php }
+                else { ?>
+                    <p>Nenhum trabalho recente</p>
+                <?php } ?>
+            </article>
+        </div>
 					<?php if(isset($sessao["trabalhosUsuario"]) && sizeof($sessao["trabalhosUsuario"]) > 0) { ?>
         
            <!-- Meus trabalhos -->
@@ -168,11 +220,7 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
                         </div>
                         
                         <div class="each_autor_curso"> 
-                            <h1>                        
-                           
-                            Informática para Internet 
-                            
-                            </h1>
+                            <h1><?php echo $trabalho["nm_curso"]; ?></h1>
                         </div>
                         
                     </div>
@@ -211,7 +259,7 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
                     <div class="each_autor_curso"> 
                         <h1>                        
                        
-                        Informática para Internet 
+                        <?php echo $trabaho["nm_curso"]; ?> 
                         
                         </h1>
                     </div>
@@ -248,7 +296,7 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
                     <div class="each_autor_curso"> 
                     	<h1>                        
                        
-                       <a href="#"> Informática para Internet </a>
+                       <?php echo $trabalho["nm_curso"]; ?> 
                         
                         </h1>
                     </div>
@@ -264,17 +312,7 @@ $sessao["trabalhosRecentes"] = $conexao->consultar($consulta);
       	</div>
     </Section>
     
-    <footer>
-            <div id="footer_centralizado">
-                <p> 
-                <a href="#"> Mapa do site </a> |
-                <a href="#"> Termos de uso </a> | 
-                <a href="#"> Política de privacidade </a> | 
-                <a href="#"> Desenvolvedores  </a>
-                </p>
-            		<h5> © 2014 Keep Up - Todos os direitos reservados. </h5>
-            </div>   
-        </footer>
+   <?php include_once("footer.php") ?>
 
 </body>
 </html>

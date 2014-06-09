@@ -309,12 +309,13 @@
 								font-size:0.8em;
 								font-weight:100;
 								}
+							
+							.each_autor_curso a{
+								color: #fff;
+							}
 								
-								a:link {color:white;
-								text-decoration:none
-								}
 
-#cursos_oferecidos_cor a:link {
+#cursos_oferecidos_cor a {
 	color:#039;
 	}
 	

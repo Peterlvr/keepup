@@ -14,7 +14,10 @@ if(!$logado) {
 # Coletar informações do formulário
 $nmTitulo = $_POST["nmTitulo"] or volta(1);
 $cdCurso = $_POST["cdCurso"] or volta(2);
-$cdEscola = $_POST["cdEscola"] or $sessao["cd_escola"] or volta(3);
+if($sessao["tipoConta"] == "A")
+	$cdEscola = $_POST["cdEscola"] or volta(3);
+else
+	$cdEscola = $sessao["cd_escola"] or volta(3);
 $aaPublicacaoReal = $_POST["aaPublicacaoReal"] or volta(4);
 $dsResumo = $_POST["dsResumo"] or "";
 $arquivoPrincipal = $_FILES["arquivoPrincipal"] or volta(5);

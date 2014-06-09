@@ -38,7 +38,7 @@ if($logado and isset($_SESSION["cd_aluno"])) {
 $comando =
     "SELECT
         al.nm_aluno 'nome', al.cd_usuario 'cdUser', al.cd_aluno 'cd', al.nm_url_avatar 'urlAvatar',
-        c.nm_curso 'nmCurso'
+        c.nm_curso 'nmCurso', c.cd_curso
     FROM
         autoria au, trabalho t, aluno al, curso c
     WHERE
@@ -99,7 +99,7 @@ require("php/mediaAvaliacao.php");
 	<script src="js/script.js" type="text/javascript"> </script> 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
     <script src="js/estrelaAvaliacao.js" type="text/javascript"></script>
-    <?php if($logado) { ?><script type='text/javascript'>
+    <?php if(($logado) and $sessao['tipoConta'] == "A") { ?><script type='text/javascript'>
             
             function votar(nota) {
                 var x = new XMLHttpRequest();
@@ -206,7 +206,7 @@ require("php/mediaAvaliacao.php");
                                     <script> EstrelaCor(<?php echo $media;?>) </script>
                                 <?php
                                     }
-                                    else {
+                                    else if($sessao['tipoConta'] == 'A') {
                                         echo "Seja o primeiro a votar neste trabalho.";
                                 } ?></div>
 
@@ -217,7 +217,7 @@ require("php/mediaAvaliacao.php");
                             	<h1> Instituição de ensino </h1>
                                 <p><a href="usuario.php?u=<?php echo $escola[0]["cd_usuario"]; ?>"><?php echo $escola[0]['nm_escola'];?></a></p>
                             </td>
-                            	<td> <h1> Curso: </h1> <p><?php echo $autores[0]['nmCurso'];?></p> </td>
+                            	<td> <h1> Curso: </h1> <p><a href="explore.php?pesquisa=&amp;curso=<?php echo $autores[0]["cd_curso"]; ?>"><?php echo $autores[0]['nmCurso'];?></a></p> </td>
                                
                                 <td style="text-align:right;"> <h1> Ano de Publicação </h1> <p><?php echo $trabalho[0]['aa_publicacao']; ?></p></td>
 

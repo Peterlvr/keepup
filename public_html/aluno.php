@@ -146,17 +146,17 @@ else $inexistente = true;
                 	<tr>
                     	<td> <img src="images/face.png" width="30"></td>
                         <td style="text-align:left;"> <?php if($aluno[0]['nm_fb'] != "") {echo "/".$aluno[0]['nm_fb'];} 
-    	else { echo "Preencha esse campo";} ?> </td>
+    	else { echo "Não informado.";} ?> </td>
                     </tr>
                     <tr>
                     	<td> <img src="images/linkedin.png" width="20"> </td>
                         <td style="text-align:left;"> <?php if($aluno[0]['tx_url_linkedin'] != "") {echo "".$aluno[0]['tx_url_linkedin'];} 
-    	else { echo "Preencha esse campo";} ?> </td>
+    	else { echo "Não informado.";} ?> </td>
                     </tr>
                     <tr>
                     	<td><img src="images/url.png" width="25"></td>
                         <td style="text-align:left;"> <?php if($aluno[0]['tx_url_externo'] != "" ) { echo "".$aluno[0]['tx_url_externo'];}
-    	else { echo "Preencha esse campo";} ?></td>
+    	else { echo "Não informado.";} ?></td>
                     </tr>
                 </table>
             </div>
@@ -322,7 +322,7 @@ echo $resumo."..."; */;?>
            
             
             
-           <?php if(sizeof($relacionados) > 0) { ?> 
+           <?php if(isset($trabalhoTop[0]) and sizeof($relacionados) > 0) { ?> 
             <div id="monografias_relacionadas">
                     <header class="UltimosTrabalhos">
                           <div class="latest_posts"> 

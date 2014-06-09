@@ -91,7 +91,7 @@ if($sessao["tipoConta"] == "E") {
                 <div id="alterar_foto" style='position:absolute; top:9%; width:11%;'> 
 
                     <table style="width:100%; text-align:left;">
-                        <tr><h1 onclick="$('#file').click();"> Alterar imagem de capa </h1>
+                        <tr><button onclick="$('#file').click();"> Atualizar foto de perfil </button>
                         <form action="php/upload_file.php" method="post" enctype="multipart/form-data" id='form_upload' >
                             <input type="file" name="file" id="file" style="display: none;" />
                             <button type="submit" name="submit" id='btn'></button>
@@ -106,7 +106,7 @@ if($sessao["tipoConta"] == "E") {
                 <div id="texto_dados">
                     <h3> <?php if($sessao["tipoConta"] == "A") { echo $dados_aluno[0]['nm_profissao']; } ?> </h3>
                     <h1> <?php echo $_SESSION["nome"]; ?> </h1>
-                    <?php foreach ($aluno_matriculado as $matriculado) { ?> 
+                    <?php if($sessao["tipoConta"] == "A") foreach ($aluno_matriculado as $matriculado) { ?> 
                         <h2> <?php echo $matriculado['nm_escola'];?> </h2>
                     <?php }?>
                 </div>
@@ -208,7 +208,7 @@ if($sessao["tipoConta"] == "E") {
                     </tr>
                     <tr>
                         <td class="td_left"> <h1> Facebook: </h1> </td>
-                        <td colspan="2"> <input placeholder="Endereco de Facebook" type="text" name="nmFB" value="<?php echo $dados_aluno[0]['nm_fb']; ?>" > </td>
+                        <td colspan="2">facebook.com/<input placeholder="Endereço de Facebook" type="text" name="nmFB" value="<?php echo $dados_aluno[0]['nm_fb']; ?>" > </td>
                     </tr>
                      <tr>
                         <td class="td_left"> <h1> Linkedin: </h1> </td>
@@ -220,7 +220,7 @@ if($sessao["tipoConta"] == "E") {
                     </tr>
                 </table>
 		    </section>
-            <input id="envia" type="submit" value="Alterar dados pessoais">
+            <input id="envia" type="submit" value="Salvar">
 	    </form>
         <?php } else { ?>
         <form action="php/editarperfil.php" method="POST" id="editarPerfilForm"> 
@@ -248,7 +248,7 @@ if($sessao["tipoConta"] == "E") {
                     </tr>
                 </table>
             </section>
-            <input id="envia" type="submit" value="Alterar dados pessoais">
+            <input id="envia" type="submit" value="Salvar">
         </form>
         <?php }?>
 

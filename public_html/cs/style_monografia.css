@@ -234,14 +234,14 @@ section {
 			
 			#cada_monografia_relacionada {
 				width:100%;
-				height:175px;
+				height:200px;
 				background-color:orange;
 				margin-bottom:10px;
 				}
 				
 				.imagem_monografia_relacionada {
 						width:100%;
-						height:125px;
+						height:150px;
 						background-color:white;
 						border:1px solid #1f4350;
 				}

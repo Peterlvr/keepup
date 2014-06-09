@@ -78,11 +78,12 @@ if(isset($_GET["e"]) && $_GET["e"] == "7") {
                         <!--option value="outro">Outro...</option-->
                     </select>
                 </p>
+                <?php if($sessao["tipoConta"] == "A") { ?>
                 <p>
                     <label for="cdEscola">Para qual instituição?</label>
                 </p>
                 <p>
-                    <?php if($sessao["tipoConta"] == "A") { ?>
+                    
                         <select name="cdEscola">
                             <?php foreach($sessao["escolas"] as $escola) { ?>
                                 <option value="<?php echo $escola["cd_escola"]; ?>">
@@ -91,15 +92,8 @@ if(isset($_GET["e"]) && $_GET["e"] == "7") {
                             <?php } ?>
                             <!--option value="outra">Outra...</option-->
                         </select>
-                    <?php } ?>
-                    <?php if($sessao["tipoConta"] == "E") { ?>
-                        <select name="cdEscola" disabled>
-                            <option value="<?php echo $sessao["cd_escola"]; ?>">
-                                <?php echo $escola["nome"]; ?>
-                            </option>
-                        </select>
-                    <?php } ?>
                 </p>
+                <?php } ?>
                 <p>
                     <label for="cdAluno">Cite os autores:</label>
                 </p>

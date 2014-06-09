@@ -130,13 +130,13 @@ $relacionados = $conexao->consultar(
                         	<tr>
                             	<td>
                               		<h1>Título</h1>
-                                    <input required id="nmTitulo" class="txtTituloMonografia" type="text" value="<?php echo $trabalho[0]["nm_titulo"]; ?>">
+                                    <input required id="nmTitulo" name="nmTitulo" class="txtTituloMonografia" type="text" value="<?php echo $trabalho[0]["nm_titulo"]; ?>">
                                 </td>
                             </tr>
                             <tr>
                             	<td>
                               		<h1>Resumo</h1>
-                                    <textarea rows="15" class="txtTituloMonografia" required id="dsResumo"><?php echo $trabalho[0]["ds_resumo"]; ?></textarea>
+                                    <textarea rows="15" class="txtTituloMonografia" name="dsResumo" required id="dsResumo"><?php echo $trabalho[0]["ds_resumo"]; ?></textarea>
                                 </td>
                             </tr>
                             <tr>

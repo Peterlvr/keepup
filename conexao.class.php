@@ -37,6 +37,7 @@ class Conexao {
 		}
 		else {
 			echo "conexao:39: ".mysql_error();
+			$this->erro = mysql_error();
 			$this->desconectar();
 			return false;
 		}
@@ -49,6 +50,7 @@ class Conexao {
 		}
 		else {
 			echo "conexao.class: ". mysql_error();
+			$this->erro = mysql_error();
 			$this->desconectar();
 			return false;
 		}
