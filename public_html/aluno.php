@@ -141,19 +141,19 @@ else $inexistente = true;
             	<header class="UltimosTrabalhos" style="background-color:white;">
                           <div class="latest_posts" style="margin:-10px auto auto 5%;"> <h1>  Contato </h1> </div>
                 </header>
-                <table style="background-color:white">
+                <table style="background-color:white; margin:auto;">
                 	<tr>
                     	<td> <img src="images/face.png" width="30"></td>
                         <td style="text-align:left;"> <?php if($aluno[0]['nm_fb'] != "") {echo "www.facebook.com/".$aluno[0]['nm_fb'];} 
     	else { echo "Preencha esse campo";} ?> </td>
                     </tr>
                     <tr>
-                    	<td> LinkedIn </td>
+                    	<td> <img src="images/linkedin.png" width="20"> </td>
                         <td style="text-align:left;"> <?php if($aluno[0]['tx_url_linkedin'] != "") {echo "".$aluno[0]['tx_url_linkedin'];} 
     	else { echo "Preencha esse campo";} ?> </td>
                     </tr>
                     <tr>
-                    	<td>URL</td>
+                    	<td><img src="images/url.png" width="25"></td>
                         <td style="text-align:left;"> <?php if($aluno[0]['tx_url_externo'] != "" ) { echo "".$aluno[0]['tx_url_externo'];}
     	else { echo "Preencha esse campo";} ?></td>
                     </tr>
