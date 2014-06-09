@@ -1,5 +1,20 @@
 <?php
 require("../sessao.php");
+
+if(!isset($_GET['t']) or !(int) $_GET["t"]) {
+    ?> 
+    <!doctype html>
+    <title>Keep Up</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet" type="text/css">
+    <link href="cs/global.css" rel="stylesheet" type="text/css" />
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script src="js/script.js" type="text/javascript"> </script>
+    <?php
+    include "header.php";
+    echo "<h1>Trabalho não encontrado!</h1>";
+    die();
+}
+
 require("../conexao.class.php");
 $conexao = new Conexao();
 

@@ -1,8 +1,5 @@
 <?php
 require "../sessao.php";
-require "../conexao.class.php";
-$conexao = new Conexao;
-
 if(!$logado) {
     header("location:./");
     die();
@@ -21,6 +18,9 @@ if(!isset($_GET['t']) or !(int) $_GET["t"]) {
     echo "<h1>Trabalho não encontrado!</h1>";
     die();
 }
+require "../conexao.class.php";
+$conexao = new Conexao;
+
 
 $cd_trabalho = $_GET['t'];
 
