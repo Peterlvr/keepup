@@ -154,10 +154,10 @@ else $inexistente = true;
             <article class="links_trabalhos">      
               
               <?php foreach($recente as $trabalho) { ?>
-            	<div class="box_monografia" id="fav1">
+            	<div class="box_monografia">
                     	
                     <div class="each_titulo_area">
-                        <div class="each_titulo"> <h1><?php echo $trabalho["nm_titulo"]; ?></h1> </div>
+                        <div class="each_titulo"> <h1 style="font-size:.9em"><?php echo $trabalho["nm_titulo"]; ?></h1> </div>
                     </div>
                 	
                     <div class="each_icon"></div>
