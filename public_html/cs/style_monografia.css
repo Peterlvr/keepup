@@ -201,7 +201,7 @@ section {
 				#table_autores tr:hover {background-color:rgba(204,204,204,.3);}				
 				
 				
-				#txtTituloMonografia {
+				.txtTituloMonografia {
 					width:100%;
 					}
 					

@@ -1,3 +1,94 @@
+<?php
+require "../sessao.php";
+require "../conexao.class.php";
+$conexao = new Conexao;
+
+if(!$logado) {
+    header("location:./");
+    die();
+}
+
+if(!isset($_GET['t']) or !(int) $_GET["t"]) {
+    ?> 
+    <!doctype html>
+    <title>Keep Up</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet" type="text/css">
+    <link href="cs/global.css" rel="stylesheet" type="text/css" />
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script src="js/script.js" type="text/javascript"> </script>
+    <?php
+    include "header.php";
+    echo "<h1>Trabalho não encontrado!</h1>";
+    die();
+}
+
+$cd_trabalho = $_GET['t'];
+
+$comando = "SELECT * FROM trabalho WHERE cd_trabalho = $cd_trabalho";
+$trabalho = $conexao->consultar($comando);
+
+$comando =
+    "SELECT
+        al.nm_aluno 'nome', al.cd_usuario 'cdUser', al.cd_aluno 'cd', al.nm_url_avatar 'urlAvatar',
+        c.nm_curso 'nmCurso'
+    FROM
+        autoria au, trabalho t, aluno al, curso c
+    WHERE
+        t.cd_trabalho = $cd_trabalho and
+        au.cd_trabalho = t.cd_trabalho and
+        au.cd_aluno = al.cd_aluno and
+        t.cd_curso = c.cd_curso";
+    
+$autores = $conexao->consultar($comando);
+$autorDoTrabalho = false;
+
+if($sessao["tipoConta"] == "A") {
+    foreach($autores as $autor) {
+        if($autor['cdUser'] == $sessao['cd'])
+            $autorDoTrabalho = true;
+    }
+}
+else {
+    if($trabalho["cd_escola"] == $sessao["cd"])
+        $autorDoTrabalho = true;
+}
+
+if(!$autorDoTrabalho) {
+    ?> 
+    <!doctype html>
+    <title>Keep Up</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700" rel="stylesheet" type="text/css">
+    <link href="cs/global.css" rel="stylesheet" type="text/css" />
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script src="js/script.js" type="text/javascript"> </script>
+    <?php
+    include "header.php";
+    echo "<h1>Você não pode editar este trabalho!</h1>";
+    die();
+}
+
+$comentariosTrabalho = $conexao->consultar(
+    "SELECT c.cd_autor, al.nm_aluno, al.nm_url_avatar, c.tx_comentario, c.dt_publicado, c.cd_comentario
+    FROM aluno al, comentario c
+    WHERE c.cd_autor = al.cd_aluno AND c.cd_trabalho = $cd_trabalho
+    ORDER BY c.dt_publicado DESC"
+);
+
+$sessao["cursos"] = $conexao->consultar(
+    "SELECT nm_curso, cd_curso
+    from curso");
+
+
+$sessao["escolas"] = $conexao->consultar(
+    "SELECT nm_escola, cd_escola
+    from escola");
+
+
+$relacionados = $conexao->consultar(
+    "SELECT * FROM trabalho t where cd_curso = {$trabalho[0]["cd_curso"]}
+    order by rand() limit 3;"
+);
+?>
 <!doctype html>
 <html>
 <head>
@@ -7,31 +98,26 @@
 	<link href="cs/style_monografia.css" type="text/css" rel="stylesheet">
     <link href="cs/global.css" rel="stylesheet" type="text/css" />
     <script src="js/jquery.js" type="text/javascript"></script>
-	<script src="script.js" type="text/javascript"> </script> 
+	<script src="js/script.js" type="text/javascript"> </script> 
 </head>
 
 <body>
-
+    <?php include "header.php"; ?>
 	<section> 
-    
-    
-    
     	<div id="bloco1_esquerda_resumo">
+                <div id="imagem_monografia"> 
+                    <?php if(isset($trabalho[0]["nm_img"])) { ?>
+                        <img src="images/imagens_monografias/<?php echo "{$trabalho[0]["cd_trabalho"]}/{$trabalho[0]["nm_img"]}"; ?>" class="imagem_monografia">
+                    <?php } ?>
+                </div>
         		<div id="bloco1_esquerda_titulo"> 
-                	<h1> TradeShop.com - Plataforma de Trocas na Baixada Santista </h1> 
+                	<h1><?php echo $trabalho[0]["nm_titulo"]; ?></h1> 
                 </div>
                 
-                	<a href="#">
-                <div id="bloco1_esquerda_favorito"> </div>
-                	</a>
-                
-                	<a href="monografias/tradeshop.pdf" target="_blank">
-                <div id="bloco1_esquerda_baixar"> </div>
-                	</a>
                     
                 <div id="bloco1_esquerda_parte_escrita"> 
                    <form>
-                   		<table id="table_publicar_1">
+                   		<table id="table_publicar_1" style="width:100%">
                       		<Tr>
                             	<td> 
                                 	<h1> Alterar imagem de capa </h1>
@@ -42,49 +128,47 @@
                             </Tr>
                         	<tr>
                             	<td>
-                              		<h1> Alterar título </h1>
-                                    <input required id="txtTituloMonografia" type="text">
+                              		<h1>Título</h1>
+                                    <input required id="nmTitulo" class="txtTituloMonografia" type="text" value="<?php echo $trabalho[0]["nm_titulo"]; ?>">
                                 </td>
                             </tr>
                             <tr>
                             	<td>
-                              		<h1> Alterar resumo</h1>
-                                    <textarea rows="15" required id="txtTituloMonografia"></textarea>
+                              		<h1>Resumo</h1>
+                                    <textarea rows="15" class="txtTituloMonografia" required id="dsResumo"><?php echo $trabalho[0]["ds_resumo"]; ?></textarea>
                                 </td>
                             </tr>
                             <tr>
                             	<td>
-                              		<h1> Alterar curso </h1>
-                                     <select required>
-                                    	<option> </option>
-                                        <option> </option>
-                                        <option> </option>
-                                        <option> </option>
-                                        <option> </option>
-                                        <option> </option>
-                                        <option> </option>
-                                    </select>	
+                              		<h1>Curso</h1>
+                                    <select name="cdCurso">
+                                        <?php foreach($sessao["cursos"] as $curso) { ?>
+                                            <option value="<?php echo $curso["cd_curso"]; ?>" <?php if($curso["cd_curso"] == $trabalho[0]["cd_curso"]) echo "selected"; ?>>
+                                                <?php echo $curso["nm_curso"]; ?>
+                                            </option>
+                                        <?php } ?>
+                                        <!--option value="outro">Outro...</option-->
+                                    </select>
                                 </td>
                             </tr>
                             <Tr>
                             	<Td>
-                                	<h1> Alterar palavras-chave</h1>
-                                    <input required id="txtTituloMonografia" type="text">
-                                    <input required id="txtTituloMonografia" type="text">
-                                    <input required id="txtTituloMonografia" type="text">
-                                    	<input type="button" value="+ Adicionar campo">
+                                    <h1>
+                                        <label for="tx_pchaves">Palavras-chave <small>(mínimo 3; separadas por ponto)</small>:</label>
+                                    </h1>
+                                    <input required class="txtTituloMonografia" type="text" value="<?php echo $trabalho[0]["tx_pchave"]; ?>" name="tx_pchaves" pattern="^[^\.]+\.[^\.]+\.[^\.]+$">
                                 </Td>
                             </Tr>
-                            <Tr>
+                            <!--Tr>
                             	<td> 
-                                	<h1> Alterar instituição </h1>
+                                	<h1>Instituição de ensino</h1>
                                     <input type="text" id="txtTituloMonografia"> 
                                 </td>
-                            </Tr>
+                            </Tr-->
                         	<tr>
                             	<Td colspan="2" style="text-align:center;">
                                 	  <input id="btnSalvar" type="submit" value="Salvar alterações">
-                                      <input id="btnCancelar" type="button" value="Cancelar" >
+                                      <input id="btnCancelar" type="button" value="Cancelar">
                                 </Td>
                             </tr>                        
                         </table>
@@ -97,133 +181,49 @@
 
                 
                 <div id="bloco1_esquerda_comentario">
-                	<table id="usuario_comentar">
-                		<tr>
-                        	
-                        	<td class="foto"> <div id="foto_usuario_pracomentar"> </div> </td>
-                            <td class="comentar">
-                            <h1> Escreva um comentário sobre o projeto: </h1>
-                            	<form>
-                                	<textarea required id="txtEnviarComentario" placeholder="Envie seu comentário..."></textarea>
-                                    <input id="btnEnviarComentario" type="submit" value="Enviar" />
-                            	</form>
-                            </td>
-                        </tr>
-                    </table>
+
                 </div>
                 
                 <div id="comentrarios_dos_outros">
-                	<div id="cada_comentario"> 
-                    	<table id="table_cada_comentario">
-                        	<tr>
-                            	<td>
-		                    		<div class="foto_cada_comentario">
-                                    	<img src="images/usuario_postou/2.jpg" style="width:150px; height:150px">
-                                    </div>
-                                </td>
-                                <td style="width:100%;">
-                                <h1> Felipe Simões	 </h1>
-                                <h2> 19 de Maio de 2014 - 23h06 </h2>
-                                	<div class="texto_cada_comentario">
-                                    	<p> 
-                                        	Aliquam vel porttitor odio. Fusce ac erat tellus. Vivamus lobortis rhoncus mauris nec convallis. Integer fringilla nibh ipsum, vel pellentesque leo tincidunt in. Pellentesque lacinia scelerisque libero, id imperdiet arcu varius a. Cras pharetra diam quis nisl condimentum feugiat. Nullam ultricies sodales nisl ac imperdiet. Maecenas sodales eu quam vitae suscipit. Etiam accumsan nisl quam, eget faucibus nisl commodo at.Lorem ipsum dolor sit amet, consectetur adipiscing elit. 	
-                                        </p>
-                                    </div>
-                                </td>
-                        	</tr>
-                        </table>
-                        
-                    </div>
-                    
+
+                <?php foreach($comentariosTrabalho as $comentario) { ?>
                     <div id="cada_comentario"> 
-                    	<table id="table_cada_comentario">
-                        	<tr>
-                            	<td>
-		                    		<div class="foto_cada_comentario">
-                                    	<img src="images/usuario_postou/4.jpg" style="width:150px; height:150px">
+                        <table id="table_cada_comentario">
+                            <tr>
+                                <td>
+                                    <div class="foto_cada_comentario">
+                                        <?php if(!$comentario['nm_url_avatar']) { ?>
+                                        <img src="images/default/usericon.png" style="width:150px; height:150px">
+                                        <?php } else { ?>
+                                        <img src="<?php echo "images/upload/{$comentario['cd_autor']}/{$comentario['nm_url_avatar']}"; ?>" style="width:150px;height:150px">
+                                        <?php } ?>
                                     </div>
                                 </td>
                                 <td style="width:100%;">
-                                <h1> Peterson Oliveira </h1>
-                                <h2> 16 de Maio de 2014 - 2h36 </h2>
-                                	<div class="texto_cada_comentario">
-                                    	<p> 
-                                        	Aenean a lorem magna. Suspendisse venenatis dolor a purus venenatis tincidunt. Donec sed urna porta, sagittis dui sit amet, posuere nunc. Fusce congue non neque eu lobortis. Fusce consequat eros vitae scelerisque vulputate. Nullam lobortis leo metus, ut placerat nisl facilisis vel. Sed viverra iaculis eros, vitae iaculis nibh dictum id. Quisque nec metus hendrerit, vehicula nisl id, aliquam nisi. 
-                                        </p>
+                                 <h1><?php echo $comentario['nm_aluno']; ?></h1>
+                                 <h2><?php echo $comentario['dt_publicado']; ?></h2>
+                                    <div class="texto_cada_comentario"> 
+                                       <?php if($logado and $autorDoTrabalho == true) { ?>
+                                            <div id='excluir_comentario'>
+                                            <form action='php/excluirComentario.php' method='POST' id='excluirComentarioForm'>
+                                                <input type='hidden' name='comentarioExcluido' value='<?php echo $comentario["cd_comentario"]; ?>'>
+                                                <input type='image' src='images/pencil.png'>
+                                            </form> </div>
+                                       <?php }  ?> 
+                                       <p><?php echo $comentario['tx_comentario']; 
+                                        ?></p>
                                     </div>
                                 </td>
-                        	</tr>
+                            </tr>
                         </table>
                     </div>
-                    
-                    <div id="cada_comentario"> 
-                    	<table id="table_cada_comentario">
-                        	<tr>
-                            	<td>
-		                    		<div class="foto_cada_comentario">
-                                    	<img src="images/usuario_postou/5.jpg" style="width:150px; height:150px">
-                                    </div>
-                                </td>
-                                <td style="width:100%;">
-                                <h1> Gabriel Chiconi </h1>
-                                <h2> 10 de Maio de 2014 - 12h58 </h2>
-                                	<div class="texto_cada_comentario">
-                                    	<p> 
-                                        	Donec porta magna vitae feugiat interdum. Proin at egestas lacus. Fusce tempor nibh tortor, pulvinar vehicula nulla tincidunt in. Sed non pharetra ipsum, a ornare eros. Phasellus elementum sapien augue, nec aliquet quam volutpat quis. Ut felis mauris, hendrerit eget tincidunt in, blandit sit amet elit.
-                                        </p>
-                                    </div>
-                                </td>
-                        	</tr>
-                        </table>
-                    </div>
-                 
-                 	<div id="cada_comentario"> 
-                    	<table id="table_cada_comentario">
-                        	<tr>
-                            	<td>
-		                    		<div class="foto_cada_comentario">
-                                    	<img src="images/usuario_postou/10.jpg" style="width:150px; height:150px">
-                                    </div>
-                                </td>
-                                <td style="width:100%;">
-                                 <h1> Giulia Giusti </h1>
-                                 <h2> 8 de Maio de 2014 - 10h27 </h2>
-                                	<div class="texto_cada_comentario">
-                                    	<p> 
-                                        	Aenean a lorem magna. Suspendisse venenatis dolor a purus venenatis tincidunt. Donec sed urna porta, sagittis dui sit amet, posuere nunc. Fusce congue non neque eu lobortis. Fusce consequat eros vitae scelerisque vulputate. Nullam lobortis leo metus, ut placerat nisl facilisis vel. Sed viverra iaculis eros, vitae iaculis nibh dictum id. Quisque nec metus hendrerit, vehicula nisl id, aliquam nisi. 
-                                        </p>
-                                    </div>
-                                </td>
-                        	</tr>
-                        </table>
-                    </div>
-                    
-                    <div id="cada_comentario"> 
-                    	<table id="table_cada_comentario">
-                        	<tr>
-                            	<td>
-		                    		<div class="foto_cada_comentario">
-                                    	<img src="images/usuario_postou/11.jpg" style="width:150px; height:150px">
-                                    </div>
-                                </td>
-                                <td style="width:100%;">
-                                 <h1> Cynthia Nunes </h1>
-                                 <h2> 2 de Maio de 2014 - 2h22 </h2>
-                                	<div class="texto_cada_comentario">
-                                    	<p> 
-                                        	Donec porta magna vitae feugiat interdum. Proin at egestas lacus. Fusce tempor nibh tortor, pulvinar vehicula nulla tincidunt in. Sed non pharetra ipsum, a ornare eros. Phasellus elementum sapien augue, nec aliquet quam volutpat quis. Ut felis mauris, hendrerit eget tincidunt in, blandit sit amet elit.
-                                        </p>
-                                    </div>
-                                </td>
-                        	</tr>
-                        </table>
-                    </div>
+                 <?php } ?>
                     
                 </div>
                 
         </div>
         
-        <div id="direita">
+        <div id="direita" style="height:auto">
                         
             <div id="bloco2_palavra_chave">
             	<header class="UltimosTrabalhos">
@@ -236,11 +236,7 @@
                                   </table>
                           </div>
                     </header>
-            	<p> 
-                	troca - 
-					mercadorias -
-                    consumo consciente
-               </p>
+            	<p><?php echo $trabalho[0]["tx_pchave"]; ?></p>
             </div>
             
             <div id="bloco3_autores">
@@ -255,99 +251,58 @@
                           </div>
                     </header>
             	
-                	<table id="table_autores">
-                    	<tr>
-                        	<td style="width:80px;">
-                            	<div id="foto_usuario_monografia">
-                                	<img src="images/usuario_postou/6.jpg" class="imagem_usuario"> 
-                                </div> 
-                            </td>
-                            <td style="padding-left:10px"> <p> Isabelle Lima </p> </td>
-                        </tr>	
-                    </table>
-                    
-                    <a href="../usuario/User.html" style="color:black;">
-                    <table id="table_autores">
-                    	<tr>
-                        	<td style="width:80px;">
-                            	<div id="foto_usuario_monografia">
-                                	<img src="images/usuario_postou/8.jpg" class="imagem_usuario"> 
-                                </div> 
-                            </td>
-                            <td style="padding-left:10px"> <p> Thiago Limeres </p> </td>
-                        </tr>	
-                    </table>
-                    </a>
-                    
-                    
-                    <table id="table_autores">
-                    	<tr>
-                        	<td style="width:80px;">
-                            	<div id="foto_usuario_monografia">
-                                	<img src="images/usuario_postou/9.jpg" class="imagem_usuario"> 
-                                </div> 
-                            </td>
-                            <td style="padding-left:10px"> <p> Guilherme Ferreira </p> </td>
-                        </tr>	
-                    </table>
-                    
-                    <table id="table_autores">
-                    	<tr>
-                        	<td style="width:80px;">
-                            	<div id="foto_usuario_monografia">
-                                	<img src="images/usuario_postou/7.jpg" class="imagem_usuario"> 
-                                </div> 
-                            </td>
-                            <td style="padding-left:10px"> <p> Pedro Medeiros </p> </td>
-                        </tr>	
-                    </table>
+    <?php foreach ($autores as $autor) { ?>
+        <a href='usuario.php?u=<?php echo $autor['cdUser']; ?>' style="color:black;">
+           <table id="table_autores">
+              <tr>
+              <td style="width:80px">
+                                <div id="foto_usuario_monografia">
+                <?php if($autor['urlAvatar'] <> '') { ?>
+                    <img src="images/upload/<?php echo "{$autor['cdUser']}/{$autor['urlAvatar']}"; ?>" class="imagem_usuario"> 
+                <?php }
+                else { ?>
+                    <img src="images/default/usericon.png" class="imagem_usuario">  
+                <?php } ?>
+                </div>
+                </td>
+                <td style="padding-left:10px"> 
+                <?php
+                    echo "<p>{$autor['nome']}</p>";
+                ?>
+                </td>
+            </tr>
+            </table>
+        </a>
+    <?php } ?>
 			</div>
             
-            
-        <div id="bloco4_monografia_relacionada">
-            	<header class="UltimosTrabalhos">
-                          <div class="latest_posts"> 
-		                          <table>
-                                  	<tr>
-                                    	<td> <img src="images/perfil_usuario/monografias.png" width="30"> </td>
-                                  		<td> <h1> Monografias relacionadas </h1> </td>
-                                    </tr>
-                                  </table>
+             
+           <?php if(sizeof($relacionados) > 0) { ?> 
+            <div id="bloco4_monografia_relacionada">
+                    <header class="UltimosTrabalhos">
+                          <div class="latest_posts" style="margin-left:-2%;"> 
+                              <table>
+                                <tr>
+                                    <td> <img src="images/perfil_usuario/monografias.png" width="30"> </td>
+                                    <td> <h1 style="font-size:.9em"> Monografias relacionadas </h1> </td>
+                                </tr>
+                              </table>
                           </div>
                     </header>
-                    
-				<a href="#">
-                    <div id="cada_monografia_relacionada">
-                    	<div class="imagem_monografia_relacionada"> 
-                        	<img src="images/imagens_monografias/logo5.png" class="imagem_relacionada">
+                    <?php foreach ($relacionados as $trabalhoRelacionado) {
+                    if($trabalhoRelacionado['cd_trabalho'] <> $cd_trabalho){   ?>
+                    <a href="trabalho.php?t=<?php echo $trabalhoRelacionado['cd_trabalho'];?>">
+                        <div id="cada_monografia_relacionada">
+                            <div class="imagem_monografia_relacionada"> 
+                                <img src="images/imagens_monografias/img_vis.jpg" class="imagem_relacionada">
+                            </div>
+                            <footer class="titulo_relacionada"> <h1> <?php echo substr($trabalhoRelacionado['nm_titulo'], 0, 75);?></h1>  </footer>
                         </div>
-                        <footer class="titulo_relacionada"> <h1> Checkpoint Social </h1>  </footer>
-                    </div>
-				</a>
-                
-                <a href="#">
-                    <div id="cada_monografia_relacionada">
-                    	<div class="imagem_monografia_relacionada"> 
-                        	<img src="images/imagens_monografias/logo3.png"  class="imagem_relacionada">
-                        </div>
-                        <footer class="titulo_relacionada"> <h1> Keep Up </h1>  </footer>
-                    </div>
-				</a>
-                
-                <a href="#">                    
-                   <div id="cada_monografia_relacionada">
-                    	<div class="imagem_monografia_relacionada">
-                        	<img src="images/imagens_monografias/1.jpg"  class="imagem_relacionada">
-                        </div>
-                        <footer class="titulo_relacionada"> <h1> Redes sociais  </h1>  </footer>
-                    </div>
-                </a>
-                    
-                    
-            	
-                	
-			</div>
-        </div>	
+                    </a>
+                    <?php }}?>
+                </div>
+            </div>  
+           <?php } ?>
 
     </section>
     

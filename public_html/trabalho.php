@@ -1,8 +1,8 @@
 <?php
 require("../sessao.php");
 require("../conexao.class.php");
-$conexao = new Conexao();	
-ini_set("display_errors", "On");
+$conexao = new Conexao();
+
 $cd_trabalho = $_GET['t'];
 
 $comando = "SELECT * FROM trabalho WHERE cd_trabalho = $cd_trabalho";
@@ -127,7 +127,10 @@ require("php/mediaAvaliacao.php");
                 	<h1><?php echo $trabalho[0]['nm_titulo']; ?></h1> 
                 </div>
                 
-                	<a href="#"> 
+                	<a href="<?php 
+                        if(!$autorDoTrabalho) echo "#";
+                        else echo "editartrabalho.php?{$_SERVER["QUERY_STRING"]}";
+                    ?>"> 
                 <div id="bloco1_esquerda_favorito"
                         style="<?php if($autorDoTrabalho) { ?>background-image:url(images/pencil.png);<?php } if($jaEhFavorito) { ?>background-color: #1f4350;<?php } ?>">
                     <?php if (!$autorDoTrabalho) { ?>
