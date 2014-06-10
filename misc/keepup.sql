@@ -420,7 +420,7 @@ CREATE TABLE `matricula` (
 
 LOCK TABLES `matricula` WRITE;
 /*!40000 ALTER TABLE `matricula` DISABLE KEYS */;
-INSERT INTO `matricula` values (1,1),(1,5),(2,4),(2,3),(3,2),(3,7),(3,6),(4,1),(4,4),(5,5),(5,3),(6,7),(6,5);
+INSERT INTO `matricula` values +INSERT INTO `matricula` VALUES (1,1),(2,1),(3,1),(4,2),(5,2),(6,2),(7,3),(8,3),(9,4),(10,4),(11,5),(12,5),(13,6),(14,6),(15,7),(16,7),(17,8),(18,8),(19,9),(20,9),(21,10),(22,10),(23,11),(24,11),(25,12),(26,12),(27,13),(28,13),(29,14),(30,14),(31,15),(32,15),(33,16),(34,16);
 /*!40000 ALTER TABLE `matricula` ENABLE KEYS */;
 UNLOCK TABLES;
 
