@@ -1,5 +1,6 @@
 <?php
 session_start();
 session_destroy();
-header("location:../");
+$ultimaPag = isset($_GET["de"]) ? "../" : $_GET["de"];
+header("location:$ultimaPag");
 ?>

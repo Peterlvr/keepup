@@ -96,7 +96,7 @@
                             <td class="conf_aberto_classe" style="cursor:pointer" onClick="location.href='editarperfil.php'"> <p> Editar perfil </p> </td>
                         </tr>
                          <tr>             
-                          	<td class="conf_aberto_classe" style="cursor:pointer" onclick="location.href='php/logout.php'"> <p> Sair </p> </td>
+                          	<td class="conf_aberto_classe" style="cursor:pointer" onclick="location.href='php/logout.php?de='+location.href"> <p> Sair </p> </td>
                         </tr>
                     </table>
                 </div>

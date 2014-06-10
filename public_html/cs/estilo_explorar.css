@@ -9,6 +9,7 @@ body {
 		margin-top:-60px;
 		z-index:-1;
 		}
+
 		
 		aside {
 			width:20%;
@@ -235,7 +236,14 @@ body {
 								}
 							
 
-										
+
+
+	#area_logar * {
+		z-index: 201;
+		padding: 0;
+		margin: 0;
+	}
+
 
 
 /*pesquisa - chiconi*/
